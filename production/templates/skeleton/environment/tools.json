@@ -74,15 +74,6 @@
     "writable": [
       "/app/deliverables"
     ],
-    "outputs": [
-      {
-        "step": "01-task",
-        "path": "/app/deliverables/riepilogo.json"
-      },
-      {
-        "step": "02-revision",
-        "path": "/app/deliverables/riepilogo_rivisto.json"
-      }
-    ]
+    "outputs": []
   }
 }

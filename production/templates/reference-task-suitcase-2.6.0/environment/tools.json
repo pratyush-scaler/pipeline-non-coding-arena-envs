@@ -77,11 +77,7 @@
     "outputs": [
       {
         "step": "01-task",
-        "path": "/app/deliverables/riepilogo.json"
-      },
-      {
-        "step": "02-revision",
-        "path": "/app/deliverables/riepilogo_rivisto.json"
+        "path": "/app/deliverables/cover_matrix_check.json"
       }
     ]
   }

@@ -388,6 +388,21 @@ def dockerfile_problems(task: Path) -> list[str]:
     return out
 
 
+def tools_json_problems(task: Path) -> list[str]:
+    """environment/tools.json must declare exactly the deliverables tests/outputs.json grades (Arena 261011 R07/R11:
+    the skeleton's placeholder outputs shipped in 13 tasks and Harbor's reviewer failed them on Typos)."""
+    tj, oj = task / "environment/tools.json", task / "tests/outputs.json"
+    if not tj.is_file() or not oj.is_file():
+        return [f"missing {'environment/tools.json' if not tj.is_file() else 'tests/outputs.json'}"]
+    try:
+        have = json.loads(tj.read_text()).get("workspace", {}).get("outputs")
+        want = [{"step": o["step"], "path": f"/app/deliverables/{o['file']}"}
+                for o in json.loads(oj.read_text())["outputs"]]
+    except (ValueError, KeyError, TypeError) as exc:
+        return [f"tools.json / outputs.json unreadable ({exc.__class__.__name__})"]
+    return [] if have == want else [f"tools.json workspace.outputs {have} != tests/outputs.json {want}"]
+
+
 def author_check(task: Path, timeout: int) -> int:
     """check (design_lint --b8) + validate + tree hygiene, then ONE verdict listing every failing item with its fix."""
     items: list[tuple[str, str, str]] = []
@@ -419,6 +434,7 @@ def author_check(task: Path, timeout: int) -> int:
         items.append(("tree", "verification/ is present", "remove it: receipts are written at packaging time only"))
     items += [("docker", p, "environment/Dockerfile must COPY only files/ (as in production/templates/skeleton)")
               for p in dockerfile_problems(task)]
+    items += [("tools", p, f"run: python3 -I {TOOLS / 'fix_tools_json.py'} {task}") for p in tools_json_problems(task)]
     head = f"AUTHOR-CHECK {base_name(task)} {version(task)}"
     rec = _write_rec("author-check", task, {"verdict": "NOT READY" if items else "READY", "identity": _identity(task),
                                             "items": [{"where": w, "what": x, "fix": f} for w, x, f in items]})
