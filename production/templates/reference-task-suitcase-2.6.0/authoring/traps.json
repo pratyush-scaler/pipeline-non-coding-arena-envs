@@ -1,0 +1,223 @@
+{
+ "schema": "b8/premises/1",
+ "premises": [
+  {
+   "id": "P1",
+   "family": "population_reshaped",
+   "mechanism": "STORE",
+   "step": "01-task",
+   "checks": [
+    "obj_after_by_subcategory"
+   ],
+   "aimed_at": "low-weight free check since 2.2.0 (2.1.1 final: 0/10 both); kept for its interlock with P2",
+   "target_q": 0.4,
+   "resolving_quote": {
+    "file": "category_assortment/pamyatka_razdely_saita.md",
+    "text": "«Финальная распродажа» — раздел собирается автоматически: в него попадают только товары, вывод которых из ассортимента уже вступил в силу в товарной системе, пока на складах остаются запасы."
+   },
+   "anchors": [
+    {
+     "file": "category_assortment/pismo_magazina_12.md",
+     "text": "индийские безмены на сайте сегодня уже в «Финальной распродаже», а у нас на полке висят прежние ценники"
+    },
+    {
+     "file": "category_assortment/README.md",
+     "text": "| Багажные весы | ручные безмены для взвешивания багажа |"
+    },
+    {
+     "file": "category_assortment/README.md",
+     "text": "Дата в имени файла — дата выгрузки. Файлы сохраняются в папку вручную, по мере необходимости, не по расписанию."
+    }
+   ],
+   "default_technique": "reads 'now' as the latest export in the folder (aktivnyy_assortiment_2026-10-09.csv): len(rows) and Counter(row['Подкатегория']), after confirming the 9 October change-log snapshot has nothing later; no script joins a letter that names no article, brand or printed product name",
+   "interlocks_with": [
+    "P2"
+   ],
+   "misreading": "keeps the six Indian-supplier luggage scales the 9 October export lists as active: luggage_scales 46 instead of 40, active_skus_after 270 instead of 264",
+   "salience": "the sale-section rule is one bullet of an e-commerce memo about site sections; the scales are named only as 'индийские безмены' inside a store director's request for price labels, dated the day after the export; knobs: name the subcategory 'багажные весы' in the letter (more), or move the remark into a postscript about shelf layout (less)",
+   "grounded_in": "01a05ff6-41dc-7dd3-a31d-5d0954aa41e5::msg33 '1 слайд про то, что было, когда я пришла и что стало' (the 'стало' figure); the sale section, the memo and the letter are authored",
+   "brief_family": "scope_population",
+   "role": "filler (5 points; 0/10 missed by both models in 2.1.1; counted in the free share)",
+   "decisive": false
+  },
+  {
+   "id": "P2",
+   "family": "house_convention_numeric",
+   "mechanism": "EXEMPLAR",
+   "step": "01-task",
+   "checks": [
+    "obj_ru_share_pct"
+   ],
+   "aimed_at": "astra",
+   "target_q": 0.4,
+   "resolving_quote": {
+    "file": "hr_and_guides/gaid_oformleniya_prezentatsiy.md",
+    "text": "Пример оформления: «Доля новинок в ассортименте — 12 %» (43 SKU из 331, выгрузка на 01.03.2026)."
+   },
+   "anchors": [
+    {
+     "file": "hr_and_guides/gaid_oformleniya_prezentatsiy.md",
+     "text": "Проценты на слайдах указываются целым числом, знак % — через пробел."
+    },
+    {
+     "file": "hr_and_guides/obrazets_zashchity_2025.md",
+     "text": "Доля SKU собственной торговой марки сейчас: 17 % (45 из 262)",
+     "role": "non-discriminating worked figure (17.18 % is 17 under truncation and under rounding); 2.1.1-2.5.0 printed 47 из 262 (17.94 %), a second discriminating figure"
+    }
+   ],
+   "default_technique": "round(100 * ru / after), f'{share:.0f}' or Decimal.quantize(ROUND_HALF_UP): the nearest whole percent; the only worked figure that separates the two (12.99 % shown as 12 %) is the guide's own example; last year's sample share (17.18 % shown as 17 %) fits both",
+   "interlocks_with": [
+    "P1"
+   ],
+   "misreading": "writes the share rounded to the nearest whole percent: 34 of 264 = 12.88 % gives 13 (34 of 270 = 12.59 % also gives 13); the convention gives 12 on either population",
+   "salience": "T2: the rule says only 'целым числом'; exactly one worked figure discriminates (the guide's own example, in the governing document); every other worked figure (the sample's 45 of 262) is non-discriminating; no pointer, no precedent clause, no method name anywhere in the fixture (validate 6 greps the instruction; files carry no 'округл'/'отбрас'). Dial: Astra-side never add a figure; Fable-side, a second discriminating figure in the sample (2.1.1-2.5.0's 47 из 262) is the measured-easier setting",
+   "grounded_in": "01a05ff6-41dc-7dd3-a31d-5d0954aa41e5::msgs 0-45 the user's repeated slide-formatting corrections (house style for her deck); msg53 'тестирование образцов от РФ поставщиков'; the convention and its exemplars are authored",
+   "brief_family": "convention_from_worked_figures",
+   "target_model": "astra",
+   "template": "T2",
+   "template_source": "gst 1.7.0 P2 (one discriminating worked figure in the governing document: the HoD's 4,880 debit); profile 2.4.0 P5",
+   "dial": "hr_and_guides/obrazets_zashchity_2025.md: '17 % (45 из 262)' (2.6.0) vs '17 % (47 из 262)' (2.1.1-2.5.0, two discriminating figures: Astra 0/10, Fable 1-3/10)",
+   "decisive": true,
+   "aimed_at_note": "astra (2.1.1 final: Astra 0/10 missed with TWO discriminating figures; T2 with ONE figure measured Astra 80-100%), Fable incidentally (2.1.1 3/10, 2.3.0 pilot 1/5)"
+  },
+  {
+   "id": "P5",
+   "family": "governing_vs_filing_key",
+   "mechanism": "TWIN",
+   "step": "01-task",
+   "checks": [
+    "obj_designs"
+   ],
+   "aimed_at": "both",
+   "target_q": 0.5,
+   "resolving_quote": {
+    "file": "subcategory_covers/pasport_subkategorii_chekhly.md",
+    "text": "Дизайн — рисунок (принт) на полотне, с которым чехол поступит в продажу."
+   },
+   "anchors": [
+    {
+     "file": "subcategory_covers/pismo_kovertek_2026-10-06.md",
+     "text": "прежний рисунок к запуску ставить нельзя, вы об этом писали"
+    },
+    {
+     "file": "licensing/litsenzii_na_risunki_2026-10-01.md",
+     "text": "| «Почта до востребования» | И. Морозова | старые конверты с почтовыми штемпелями | чехлы для чемоданов | 30.09.2026 | не продлевается: автор не передаёт права на текстиль |"
+    },
+    {
+     "file": "licensing/litsenzii_na_risunki_2026-10-01.md",
+     "text": "| «Огни побережья» | Д. Лис | береговые огни на скалах в сумерках | чехлы для чемоданов | 30.09.2026 | продлён до 30.09.2027 |"
+    },
+    {
+     "file": "licensing/litsenzii_na_risunki_2026-10-01.md",
+     "text": "Категориям, у которых договор на рисунок не продлевается, отдел сообщил об этом 25.09; замену рисунка категория согласует с поставщиком сама.",
+     "dial": "B (2.3.0); A (2.2.0) reads 'Если договор на рисунок не продлевается, отдел сообщает об этом категории, а замену рисунка категория согласует с поставщиком сама.'"
+    },
+    {
+     "file": "defence/zashchita_slaydy_v5.md",
+     "text": "Заметка для себя: жаль конверты — на тестовых образцах их выбирали чаще всего.",
+     "dial": "2.4.0+ (one by-the-way descriptive anchor: Polina regrets losing 'the envelopes', i.e. the postal drawing is out of the launch)"
+    }
+   ],
+   "default_technique": "applies the supplier's swap by the article it prints (a dict keyed on Артикул: design['ЧХ-30148'] = 'Воздушные шары'), then takes the print before ' / ' for every other row: Маяки keeps ЧХ-30147 and 'Ретро-марки' keeps ЧХ-30149, so nothing is left unmatched and the list grows by one; the licensing list is a royalty sheet that names no article and no matrix print, so no join reaches it",
+   "interlocks_with": [],
+   "misreading": "25 designs: the 24 prints plus 'Воздушные шары', with 'Ретро-марки' kept. Truth: the drawing that cannot be used is the postal one (old envelopes with postmarks, licence not renewed), carried only by ЧХ-30149 'Ретро-марки / песок'; the Маяки drawing ('береговые огни на скалах', licence renewed) is usable, so the letter's article is a keying slip and the 24 designs are the prints with 'Ретро-марки' replaced by 'Воздушные шары'",
+   "salience": "the slipped record is item 2 of a routine supplier letter (production dates, labels); the reason clause names no drawing; the licensing list is a royalty-forecast sheet naming drawings by contract title and subject; knobs: name the drawing's subject in the letter (more), or drop the 'Огни побережья' row so only the positive identification remains (less); B6v5 dial: a routine process line under the licensing table says a lapsed drawing is replaced by the category with its supplier (A) / says the notice went out on 25.09, before Ковертэк's letter (B); 2.1.1 Fable misses voiced the lapsed postal licence and then 'followed the supplier letter as written' because 'no file changes that SKU'",
+   "grounded_in": "01a05ff6-41dc-7dd3-a31d-5d0954aa41e5::msg59 'там 28 дизайнов' and msg60 (the assistant repeats the design count without checking it); the letter, the licensing list and the swap are authored",
+   "brief_family": "identity",
+   "target_model": "both",
+   "template": "T1",
+   "template_source": "gst 1.7.0 P1, cnc 2.6.1 P3, pathway 2.3.0 P2: a record keyed under an ID it does not belong to; the owner identifiable only by descriptive details in documents read for other reasons; no binding sentence",
+   "decisive": true,
+   "aimed_at_note": "both, ~40-60%: 2.1.1 final 9/10 / 9/10 (no dial line); 2.3.0 pilot Fable 4/5 (licensing process line B); 2.4.0 / 2.5.0 pilots Fable 4/5 and 2/5 (B line + the deck note); 2.6.0 = B line + the deck note"
+  },
+  {
+   "id": "P6",
+   "family": "precedent_rule",
+   "mechanism": "EXEMPLAR",
+   "step": "01-task",
+   "checks": [
+    "obj_size_bands"
+   ],
+   "aimed_at": "low-weight free check since 2.2.0 (2.1.1 final: 0/10 both)",
+   "target_q": 0.4,
+   "resolving_quote": {
+    "file": "subcategory_covers/pasport_subkategorii_chekhly.md",
+    "text": "Размер чехла в сегментации определяется по высоте чемодана, на который рассчитан чехол, по сетке категории:"
+   },
+   "anchors": [
+    {
+     "file": "subcategory_covers/pasport_subkategorii_chekhly.md",
+     "text": "Например, чехол для жёсткого чемодана высотой 52–57 см на графитовом полотне входит в сегмент «жёсткий корпус + Тёмные базовые + M», а чехол для тканевого чемодана высотой 71–77 см на мятном полотне — в сегмент «мягкий корпус + Яркие + XL»."
+    },
+    {
+     "file": "subcategory_covers/protokol_soglasovaniya_2026-09-21.md",
+     "text": "для сегмента «мягкий корпус + Светлые нейтральные + L» — на образце чехла для чемоданов высотой 62–67 см."
+    }
+   ],
+   "default_technique": "bands each range by its lower end (int(h.split('–')[0])) or counts the supplier's label column; both give S 13 / M 23 / L 19 / XL 5, the deck's own split. A solver whose assert band(lo) == band(hi) trips on the three ranges must pick a reading, and the lower end agrees with the label; the worked figures sit in a segmentation example and in a photo plan",
+   "interlocks_with": [],
+   "misreading": "S 13 / M 23 / L 19 / XL 5 (ЧХ-30150 52–58 in S, ЧХ-30134 62–68 in M, ЧХ-30153 72–78 in L) instead of S 12 / M 23 / L 19 / XL 6: the examples 52–57 -> M, 71–77 -> XL and 62–67 -> L fit only the band of the upper end (lower end and midpoint give S, L and M)",
+   "salience": "the rule says only 'по высоте чемодана, на который рассчитан чехол'; the convention shows only by banding the three worked ranges; knobs: add a fourth example in the grid section (more), or drop the minutes' example (less, leaving the passport's two)",
+   "grounded_in": "01a05ff6-41dc-7dd3-a31d-5d0954aa41e5::msg27 'размерный ряд' and msg55 the segmentation key 'Материал корпуса+кластер цвета+ размер'; the ranges, the examples and the minutes are authored",
+   "brief_family": "convention_from_worked_figures",
+   "role": "filler (5 points; 0/10 missed by both models in 2.1.1; counted in the free share)",
+   "decisive": false
+  },
+  {
+   "id": "P7",
+   "family": "wrong_figure_vs_derivation",
+   "brief_family": "quantity_semantics",
+   "mechanism": "SCALE",
+   "step": "01-task",
+   "checks": [
+    "obj_price_segments"
+   ],
+   "aimed_at": "fable",
+   "target_model": "fable",
+   "target_q": 0.5,
+   "resolving_quote": {
+    "file": "subcategory_covers/pasport_subkategorii_chekhly.md",
+    "text": "Закупочная цена — цена, по которой сеть покупает чехол у поставщика, без НДС."
+   },
+   "anchors": [
+    {
+     "file": "subcategory_covers/pismo_bagazhnyy_shchit_2026-09-10.md",
+     "text": "Цены оставили прошлогодние: НДС с января вырос до 22 %, но на сети мы это не перекладывали.",
+     "role": "the supplier kept last year's prices through January's VAT rise and absorbed it: the VAT is inside its prices (gst: 'at the same prices as last term ... we have not passed that on')"
+    },
+    {
+     "file": "subcategory_covers/protokol_soglasovaniya_2026-09-21.md",
+     "text": "Счёт Р. Галиева за три образца, которые П. Крылова брала на тестирование, оплатить до 25.09: сумма — их цены из матрицы запуска, сложенные, и ни рубля больше.",
+     "role": "the matrix figure of that supplier's covers is the full amount paid (gst: 'the three figures on his bill added up, and not a rupee more'); names the supplier by its contact, tied to it by the letter's sender line"
+    }
+   ],
+   "default_technique": "segment = band(int(row['Цена закупки (руб)'])) against passport section 8 for every row: the column is the passport's purchase price, which section 2 defines without VAT, and nothing in the matrix or near the bounds says one supplier's figures differ",
+   "interlocks_with": [],
+   "misreading": "bands every printed figure: base 4 / mid 32 / top 24. Truth: Багажный щит's 19 figures (710 / 810 / 930 / 1030) carry VAT at 22 %; without it they are 582 / 664 / 762 / 844, so its 710s fall to базовый and its 810s to средний: base 8 / mid 36 / top 16 (the same at 20 %). Other wrong readings: VAT taken out of every row (36 / 17 / 7); Ковертэк grossed up to put all on a VAT-inclusive basis (0 / 21 / 39)",
+   "salience": "T3: no caption next to the bounds (section 8 says only 'по его закупочной цене', bounds in 'руб.'); the net basis is a term definition in section 2; the cue sits on the supplier's own record (its letter about its prices) and on its sample invoice (the minutes' payment item), neither naming the matrix column, VAT-inclusion or 'с НДС'. Dial: drop the minutes item (fewer routes: but solve.py needs it, so not a dial for validity); a third remark in the supplier's letter (more)",
+   "grounded_in": "01a05ff6-41dc-7dd3-a31d-5d0954aa41e5::msg27 the four blocks of her subcategory work (segmentation, brand split, the 60-SKU matrix) and msg53 'тестирование образцов от РФ поставщиков'; the purchase-price term, the price segments, Багажный щит's letter and the minutes' payment item are authored",
+   "template": "T3",
+   "template_source": "gst 1.7.0 P3 (tax-inclusive): one supplier's figures carry the tax, shown only by remarks about that supplier's prices (held through a tax rise and not passed on; paid at exactly the figures, nothing more); the governing rule is silent on the basis of the figures",
+   "decisive": true,
+   "aimed_at_note": "fable (gst P3 measured F 8/10, Astra solved 10/10 in 1.4.1); target Fable 40-60%"
+  }
+ ],
+ "coverage_checks": [
+  "obj_sku_count",
+  "obj_design_count",
+  "obj_body_split",
+  "obj_colour_clusters",
+  "obj_before",
+  "obj_after_total",
+  "obj_ru_count"
+ ],
+ "leak_allow": [
+  {
+   "value": "12",
+   "reason": "the as-of date 'Monday 12 October 2026' the instruction must state; it equals the reference share and the reference S-band count only by coincidence"
+  }
+ ],
+ "note_b6v5": "2.2.0 (A) / 2.3.0 (B): decisive traps P7 (quantity semantics, 24), P5 (identity, 21), P2 (convention from worked figures, 17); P1 and P6 measured 0/10 on both models in 2.1.1 and stay as 5-point checks (counted in the free share).",
+ "note_b6v6": "2.6.0 (B6v6 proven templates, one version): decisive traps P7 (T3 tax-inclusive, quantity semantics, 24, target Fable), P5 (T1 keying slip, identity, 21, both) and P2 (T2 one-figure convention exemplar, 17, target Astra). P1 and P6 stay as 5-point fillers. T4 (in hand), T5 (misfiled note) and T6 (temporal) were not built: see authoring/DIAL.md.",
+ "note_b8": "b8 upgrade of the shipped 2.6.0 traps.json for the authoring template only: explicit decisive flags and aimed_at enums (the measured prose moved to aimed_at_note). Fixture, checks, instruction and grader are byte-identical to the delivered 2.6.0 (final 10x2: Fable 0.0, Astra 0.3, free share 0.38)."
+}

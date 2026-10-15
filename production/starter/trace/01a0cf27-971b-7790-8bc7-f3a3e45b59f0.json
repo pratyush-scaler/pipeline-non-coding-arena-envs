@@ -1,0 +1,45 @@
+{
+ "schema": "trace-traps/1",
+ "session_id": "01a0cf27-971b-7790-8bc7-f3a3e45b59f0",
+ "language": "es",
+ "categories": [
+  "document_creation",
+  "planning_brainstorm"
+ ],
+ "n_turns": 20,
+ "n_user_turns": 10,
+ "undone_text_records_skipped": 0,
+ "pipeline_corrections": 1,
+ "pipeline_corrections_strong": false,
+ "mode": "deterministic",
+ "signals": [
+  {
+   "turn": 6,
+   "user_turn": 4,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.35,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "outcome_only"
+   ],
+   "refs": [],
+   "outcome_label": true,
+   "paraphrase": "Arena outcome label marks a user steer or complaint here; no lexical cue matched."
+  }
+ ],
+ "trap_rich": {
+  "score": 0.0,
+  "strong_signals": 0,
+  "events": 0,
+  "independent_strong": 0,
+  "mid_session_premise_change": false,
+  "event_categories": [],
+  "weak_signals": 0,
+  "knowledge_work_fit": true
+ },
+ "proposed_ids": []
+}

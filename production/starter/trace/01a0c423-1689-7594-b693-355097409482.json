@@ -1,0 +1,63 @@
+{
+ "schema": "trace-traps/1",
+ "session_id": "01a0c423-1689-7594-b693-355097409482",
+ "language": "en",
+ "categories": [
+  "document_creation"
+ ],
+ "n_turns": 24,
+ "n_user_turns": 12,
+ "undone_text_records_skipped": 0,
+ "pipeline_corrections": 2,
+ "pipeline_corrections_strong": true,
+ "mode": "deterministic",
+ "signals": [
+  {
+   "turn": 8,
+   "user_turn": 5,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.55,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "outcome_only"
+   ],
+   "refs": [],
+   "outcome_label": true,
+   "paraphrase": "Arena outcome label marks a user steer or complaint here; no lexical cue matched."
+  },
+  {
+   "turn": 9,
+   "user_turn": 5,
+   "role": "assistant",
+   "category": "assistant_error_caught",
+   "subkind": null,
+   "strength": 0.6,
+   "strong": true,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "concession"
+   ],
+   "refs": [
+    8
+   ],
+   "outcome_label": false,
+   "paraphrase": "Assistant concedes an error right after the user's turn."
+  }
+ ],
+ "trap_rich": {
+  "score": 0.05,
+  "strong_signals": 0,
+  "events": 0,
+  "independent_strong": 0,
+  "mid_session_premise_change": false,
+  "event_categories": [],
+  "weak_signals": 1,
+  "knowledge_work_fit": true
+ },
+ "proposed_ids": []
+}

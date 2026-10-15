@@ -1,0 +1,259 @@
+{
+  "outputs": [
+    {
+      "file": "cover_matrix_check.json",
+      "step": "01-task",
+      "schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "matrix_sku_count",
+          "designs",
+          "design_count",
+          "skus_by_body",
+          "skus_by_colour_cluster",
+          "skus_by_size",
+          "skus_by_price_segment",
+          "slide1"
+        ],
+        "properties": {
+          "matrix_sku_count": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000,
+            "description": "SKUs in the suitcase-cover launch matrix"
+          },
+          "designs": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 200,
+            "uniqueItems": true,
+            "unordered": true,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "description": "the matrix's distinct designs, one name per design"
+          },
+          "design_count": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000,
+            "description": "distinct designs in the matrix (entries in designs)"
+          },
+          "skus_by_body": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "hard",
+              "soft"
+            ],
+            "properties": {
+              "hard": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 10000,
+                "description": "SKUs for hard-body suitcases"
+              },
+              "soft": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 10000,
+                "description": "SKUs for soft-body suitcases"
+              }
+            },
+            "description": "matrix SKUs per suitcase body material"
+          },
+          "skus_by_colour_cluster": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "dark",
+              "neutral",
+              "bright"
+            ],
+            "properties": {
+              "dark": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 10000,
+                "description": "SKUs in Тёмные базовые"
+              },
+              "neutral": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 10000,
+                "description": "SKUs in Светлые нейтральные"
+              },
+              "bright": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 10000,
+                "description": "SKUs in Яркие"
+              }
+            },
+            "description": "matrix SKUs per colour cluster"
+          },
+          "skus_by_size": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "S",
+              "M",
+              "L",
+              "XL"
+            ],
+            "properties": {
+              "S": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 10000,
+                "description": "SKUs in size band S"
+              },
+              "M": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 10000,
+                "description": "SKUs in size band M"
+              },
+              "L": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 10000,
+                "description": "SKUs in size band L"
+              },
+              "XL": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 10000,
+                "description": "SKUs in size band XL"
+              }
+            },
+            "description": "matrix SKUs per size band of the size grid"
+          },
+          "skus_by_price_segment": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "base",
+              "mid",
+              "top"
+            ],
+            "properties": {
+              "base": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 10000,
+                "description": "SKUs in the базовый price segment"
+              },
+              "mid": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 10000,
+                "description": "SKUs in the средний price segment"
+              },
+              "top": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 10000,
+                "description": "SKUs in the верхний price segment"
+              }
+            },
+            "description": "matrix SKUs per price segment of the passport"
+          },
+          "slide1": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "active_skus_before",
+              "active_skus_after_by_subcategory",
+              "active_skus_after",
+              "ru_skus_after",
+              "ru_share_after_pct"
+            ],
+            "properties": {
+              "active_skus_before": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 100000,
+                "description": "active SKUs in the category on the intern's first day"
+              },
+              "active_skus_after_by_subcategory": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "hard_suitcases",
+                  "soft_suitcases",
+                  "travel_bags",
+                  "backpacks",
+                  "luggage_scales",
+                  "accessories"
+                ],
+                "properties": {
+                  "hard_suitcases": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 100000,
+                    "description": "active SKUs now in Чемоданы пластиковые"
+                  },
+                  "soft_suitcases": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 100000,
+                    "description": "active SKUs now in Чемоданы тканевые"
+                  },
+                  "travel_bags": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 100000,
+                    "description": "active SKUs now in Дорожные сумки"
+                  },
+                  "backpacks": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 100000,
+                    "description": "active SKUs now in Рюкзаки дорожные"
+                  },
+                  "luggage_scales": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 100000,
+                    "description": "active SKUs now in Багажные весы"
+                  },
+                  "accessories": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 100000,
+                    "description": "active SKUs now in Аксессуары для путешествий"
+                  }
+                },
+                "description": "active SKUs in the category now, per subcategory"
+              },
+              "active_skus_after": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 100000,
+                "description": "sum of the six subcategory figures"
+              },
+              "ru_skus_after": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 100000,
+                "description": "of the active SKUs now, those with Russia as supplier country"
+              },
+              "ru_share_after_pct": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 100,
+                "description": "ru_skus_after as a percentage of active_skus_after, as slide 1 shows it"
+              }
+            },
+            "description": "figures for slide 1"
+          }
+        },
+        "description": "figures for the defence deck"
+      }
+    }
+  ]
+}

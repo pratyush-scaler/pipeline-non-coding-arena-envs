@@ -1,0 +1,166 @@
+{
+ "schema": "trace-traps/1",
+ "session_id": "01a0d279-650b-7601-8425-359840f7667f",
+ "language": "en",
+ "categories": [
+  "data_analysis",
+  "document_creation"
+ ],
+ "n_turns": 56,
+ "n_user_turns": 26,
+ "undone_text_records_skipped": 0,
+ "pipeline_corrections": 2,
+ "pipeline_corrections_strong": true,
+ "mode": "deterministic",
+ "signals": [
+  {
+   "turn": 3,
+   "user_turn": 2,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.4,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "outcome_only"
+   ],
+   "refs": [],
+   "outcome_label": true,
+   "paraphrase": "Arena outcome label marks a user steer or complaint here; no lexical cue matched."
+  },
+  {
+   "turn": 18,
+   "user_turn": 9,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.6,
+   "strong": true,
+   "mapped_ids": [
+    "T1",
+    "T5",
+    "T10"
+   ],
+   "mapping_source": "library",
+   "cues": [
+    "correction"
+   ],
+   "refs": [],
+   "outcome_label": false,
+   "paraphrase": "User says a figure or record in the previous output was wrong and gives a figure."
+  },
+  {
+   "turn": 18,
+   "user_turn": 9,
+   "role": "user",
+   "category": "convention",
+   "subkind": "rounding",
+   "strength": 0.6,
+   "strong": true,
+   "mapped_ids": [
+    "T2"
+   ],
+   "mapping_source": "library",
+   "cues": [
+    "rounding"
+   ],
+   "refs": [],
+   "outcome_label": false,
+   "paraphrase": "User disputes or sets a rounding or decimal convention."
+  },
+  {
+   "turn": 44,
+   "user_turn": 21,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.4,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "outcome_only"
+   ],
+   "refs": [],
+   "outcome_label": true,
+   "paraphrase": "Arena outcome label marks a user steer or complaint here; no lexical cue matched."
+  },
+  {
+   "turn": 50,
+   "user_turn": 24,
+   "role": "user",
+   "category": "requirement_change",
+   "subkind": null,
+   "strength": 0.4,
+   "strong": false,
+   "mapped_ids": [
+    "T8",
+    "L1",
+    "L8"
+   ],
+   "mapping_source": "library",
+   "cues": [
+    "respecify",
+    "value"
+   ],
+   "refs": [],
+   "outcome_label": false,
+   "paraphrase": "User changes a requirement after work began and gives a figure; earlier output may now be stale."
+  },
+  {
+   "turn": 52,
+   "user_turn": 25,
+   "role": "user",
+   "category": "requirement_change",
+   "subkind": null,
+   "strength": 0.4,
+   "strong": false,
+   "mapped_ids": [
+    "T8",
+    "L1",
+    "L8"
+   ],
+   "mapping_source": "library",
+   "cues": [
+    "respecify",
+    "value"
+   ],
+   "refs": [],
+   "outcome_label": false,
+   "paraphrase": "User changes a requirement after work began and gives a figure; earlier output may now be stale."
+  }
+ ],
+ "trap_rich": {
+  "score": 1.65,
+  "strong_signals": 2,
+  "events": 2,
+  "independent_strong": 1,
+  "mid_session_premise_change": false,
+  "event_categories": [
+   "convention",
+   "user_correction"
+  ],
+  "weak_signals": 4,
+  "knowledge_work_fit": true
+ },
+ "proposed_ids": [
+  {
+   "id": "T1",
+   "weight": 0.6
+  },
+  {
+   "id": "T2",
+   "weight": 0.6
+  },
+  {
+   "id": "T5",
+   "weight": 0.3
+  },
+  {
+   "id": "T10",
+   "weight": 0.2
+  }
+ ]
+}

@@ -1,0 +1,96 @@
+{
+ "schema": "trace-traps/1",
+ "session_id": "01a0cd1c-99d8-7eba-b8b6-a1b84be399a6",
+ "language": "fa",
+ "categories": [
+  "document_creation",
+  "education_tutoring"
+ ],
+ "n_turns": 34,
+ "n_user_turns": 17,
+ "undone_text_records_skipped": 0,
+ "pipeline_corrections": 4,
+ "pipeline_corrections_strong": true,
+ "mode": "deterministic",
+ "signals": [
+  {
+   "turn": 8,
+   "user_turn": 5,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.4,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "outcome_only"
+   ],
+   "refs": [],
+   "outcome_label": true,
+   "paraphrase": "Arena outcome label marks a user steer or complaint here; no lexical cue matched."
+  },
+  {
+   "turn": 10,
+   "user_turn": 6,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.4,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "outcome_only"
+   ],
+   "refs": [],
+   "outcome_label": true,
+   "paraphrase": "Arena outcome label marks a user steer or complaint here; no lexical cue matched."
+  },
+  {
+   "turn": 12,
+   "user_turn": 7,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.4,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "outcome_only"
+   ],
+   "refs": [],
+   "outcome_label": true,
+   "paraphrase": "Arena outcome label marks a user steer or complaint here; no lexical cue matched."
+  },
+  {
+   "turn": 28,
+   "user_turn": 15,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.4,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "outcome_only"
+   ],
+   "refs": [],
+   "outcome_label": true,
+   "paraphrase": "Arena outcome label marks a user steer or complaint here; no lexical cue matched."
+  }
+ ],
+ "trap_rich": {
+  "score": 0.2,
+  "strong_signals": 0,
+  "events": 0,
+  "independent_strong": 0,
+  "mid_session_premise_change": false,
+  "event_categories": [],
+  "weak_signals": 4,
+  "knowledge_work_fit": true
+ },
+ "proposed_ids": []
+}

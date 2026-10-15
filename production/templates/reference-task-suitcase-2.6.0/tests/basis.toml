@@ -1,0 +1,40 @@
+# Public wording each check rests on (instruction field definitions).
+
+[obj_after_by_subcategory]
+basis = "slide1.active_skus_after_by_subcategory: the category's active SKUs as the category stands now, per subcategory"
+
+[obj_ru_share_pct]
+basis = "slide1.ru_share_after_pct: ru_skus_after as a percentage of active_skus_after, as it will appear on slide 1, graded against your own ru_skus_after and active_skus_after"
+
+[obj_designs]
+basis = "designs: the distinct designs in that matrix, one entry per design, each written as the design's name (any order)"
+
+[obj_size_bands]
+basis = "skus_by_size: the matrix's SKUs per size band of the passport's size grid: S, M, L and XL"
+
+[obj_price_segments]
+basis = "skus_by_price_segment: the matrix's SKUs per price segment of the passport: base (базовый), mid (средний) and top (верхний)"
+
+[obj_sku_count]
+basis = "matrix_sku_count: the number of SKUs in Polina's launch matrix for suitcase covers"
+
+[obj_design_count]
+basis = "design_count: the number of distinct designs in that matrix, i.e. the number of entries in designs"
+
+[obj_body_split]
+basis = "skus_by_body: the matrix's SKUs per suitcase body material of the passport: hard (жёсткий корпус) and soft (мягкий корпус)"
+
+[obj_colour_clusters]
+basis = "skus_by_colour_cluster: the matrix's SKUs per colour cluster of the passport: dark (Тёмные базовые), neutral (Светлые нейтральные) and bright (Яркие)"
+
+[obj_before]
+basis = "slide1.active_skus_before: the category's active SKUs as the category stood on Polina's first day of the internship"
+
+[obj_after_total]
+basis = "slide1.active_skus_after: the sum of the six active_skus_after_by_subcategory figures"
+
+[obj_ru_count]
+basis = "slide1.ru_skus_after: of the category's active SKUs now, those with Russia as their supplier country"
+
+[g_fixture_intact]
+basis = "Everything is in /app/environment/files (read-only); please don't change, move or delete anything there."

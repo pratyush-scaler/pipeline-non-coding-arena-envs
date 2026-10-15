@@ -1,0 +1,61 @@
+{
+ "schema": "trace-traps/1",
+ "session_id": "01a0c15d-a028-771f-b80f-37d807d8a09d",
+ "language": "ar",
+ "categories": [
+  "document_creation"
+ ],
+ "n_turns": 10,
+ "n_user_turns": 5,
+ "undone_text_records_skipped": 0,
+ "pipeline_corrections": 2,
+ "pipeline_corrections_strong": true,
+ "mode": "deterministic",
+ "signals": [
+  {
+   "turn": 4,
+   "user_turn": 3,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.4,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "outcome_only"
+   ],
+   "refs": [],
+   "outcome_label": true,
+   "paraphrase": "Arena outcome label marks a user steer or complaint here; no lexical cue matched."
+  },
+  {
+   "turn": 6,
+   "user_turn": 4,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.4,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "outcome_only"
+   ],
+   "refs": [],
+   "outcome_label": true,
+   "paraphrase": "Arena outcome label marks a user steer or complaint here; no lexical cue matched."
+  }
+ ],
+ "trap_rich": {
+  "score": 0.1,
+  "strong_signals": 0,
+  "events": 0,
+  "independent_strong": 0,
+  "mid_session_premise_change": false,
+  "event_categories": [],
+  "weak_signals": 2,
+  "knowledge_work_fit": true
+ },
+ "proposed_ids": []
+}

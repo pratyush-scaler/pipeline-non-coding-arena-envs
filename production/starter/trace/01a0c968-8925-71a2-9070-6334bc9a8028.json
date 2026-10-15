@@ -1,0 +1,66 @@
+{
+ "schema": "trace-traps/1",
+ "session_id": "01a0c968-8925-71a2-9070-6334bc9a8028",
+ "language": "it",
+ "categories": [
+  "data_analysis",
+  "document_creation"
+ ],
+ "n_turns": 19,
+ "n_user_turns": 10,
+ "undone_text_records_skipped": 0,
+ "pipeline_corrections": 0,
+ "pipeline_corrections_strong": false,
+ "mode": "deterministic",
+ "signals": [
+  {
+   "turn": 5,
+   "user_turn": 3,
+   "role": "assistant",
+   "category": "assistant_error_caught",
+   "subkind": null,
+   "strength": 0.5,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "concession"
+   ],
+   "refs": [
+    4
+   ],
+   "outcome_label": false,
+   "paraphrase": "Assistant concedes an error right after the user's turn."
+  },
+  {
+   "turn": 14,
+   "user_turn": 8,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.6,
+   "strong": true,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "correction"
+   ],
+   "refs": [],
+   "outcome_label": false,
+   "paraphrase": "User says the assistant's previous output was wrong."
+  }
+ ],
+ "trap_rich": {
+  "score": 0.6,
+  "strong_signals": 1,
+  "events": 1,
+  "independent_strong": 1,
+  "mid_session_premise_change": false,
+  "event_categories": [
+   "user_correction"
+  ],
+  "weak_signals": 0,
+  "knowledge_work_fit": true
+ },
+ "proposed_ids": []
+}

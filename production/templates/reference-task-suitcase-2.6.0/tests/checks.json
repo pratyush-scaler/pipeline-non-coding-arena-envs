@@ -1,0 +1,6027 @@
+{
+ "checks": [
+  {
+   "id": "obj_after_by_subcategory",
+   "kind": "objective",
+   "step": "01-task",
+   "weight": 5,
+   "band": "stretch",
+   "dimension": "inference",
+   "weight_basis": "P1 STORE (population_reshaped): the 9 October export still lists the Indian supplier's luggage scales; the site's 'Финальная распродажа' admits only SKUs whose delisting is in force (e-commerce memo), and store 12 reports the Indian 'безмены' there on 10 October. They are not active now.",
+   "basis": "slide1.active_skus_after_by_subcategory: the category's active SKUs as the category stands now, per subcategory",
+   "assertion": "equals",
+   "actual": {
+    "op": "record",
+    "fields": {
+     "hard_suitcases": {
+      "op": "field",
+      "file": "cover_matrix_check.json",
+      "path": "slide1.active_skus_after_by_subcategory.hard_suitcases"
+     },
+     "soft_suitcases": {
+      "op": "field",
+      "file": "cover_matrix_check.json",
+      "path": "slide1.active_skus_after_by_subcategory.soft_suitcases"
+     },
+     "travel_bags": {
+      "op": "field",
+      "file": "cover_matrix_check.json",
+      "path": "slide1.active_skus_after_by_subcategory.travel_bags"
+     },
+     "backpacks": {
+      "op": "field",
+      "file": "cover_matrix_check.json",
+      "path": "slide1.active_skus_after_by_subcategory.backpacks"
+     },
+     "luggage_scales": {
+      "op": "field",
+      "file": "cover_matrix_check.json",
+      "path": "slide1.active_skus_after_by_subcategory.luggage_scales"
+     },
+     "accessories": {
+      "op": "field",
+      "file": "cover_matrix_check.json",
+      "path": "slide1.active_skus_after_by_subcategory.accessories"
+     }
+    }
+   },
+   "target": {
+    "op": "record",
+    "fields": {
+     "hard_suitcases": {
+      "op": "count",
+      "of": {
+       "op": "rows",
+       "file": "export_last.jsonl",
+       "where": {
+        "field": "Подкатегория",
+        "eq": "Чемоданы пластиковые"
+       }
+      }
+     },
+     "soft_suitcases": {
+      "op": "count",
+      "of": {
+       "op": "rows",
+       "file": "export_last.jsonl",
+       "where": {
+        "field": "Подкатегория",
+        "eq": "Чемоданы тканевые"
+       }
+      }
+     },
+     "travel_bags": {
+      "op": "count",
+      "of": {
+       "op": "rows",
+       "file": "export_last.jsonl",
+       "where": {
+        "field": "Подкатегория",
+        "eq": "Дорожные сумки"
+       }
+      }
+     },
+     "backpacks": {
+      "op": "count",
+      "of": {
+       "op": "rows",
+       "file": "export_last.jsonl",
+       "where": {
+        "field": "Подкатегория",
+        "eq": "Рюкзаки дорожные"
+       }
+      }
+     },
+     "luggage_scales": {
+      "op": "count",
+      "of": {
+       "op": "rows",
+       "file": "export_last.jsonl",
+       "where": {
+        "all": [
+         {
+          "field": "Подкатегория",
+          "eq": "Багажные весы"
+         },
+         {
+          "field": "Страна поставщика",
+          "ne": "Индия"
+         }
+        ]
+       }
+      }
+     },
+     "accessories": {
+      "op": "count",
+      "of": {
+       "op": "rows",
+       "file": "export_last.jsonl",
+       "where": {
+        "field": "Подкатегория",
+        "eq": "Аксессуары для путешествий"
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "id": "obj_ru_share_pct",
+   "kind": "objective",
+   "step": "01-task",
+   "weight": 17,
+   "band": "stretch",
+   "dimension": "inference",
+   "weight_basis": "P2 EXEMPLAR (house_convention_numeric; B6v6 template T2): the guide's worked example (43 of 331 shown as 12 %) is the one figure that shows whole percentages cut down, not rounded (last year's sample defence, 45 of 262 shown as 17 %, fits both); graded on the solver's own counts (R18/R29) and, since 2.1.1, not gated on them.",
+   "basis": "slide1.ru_share_after_pct: ru_skus_after as a percentage of active_skus_after, as it will appear on slide 1, graded against your own ru_skus_after and active_skus_after",
+   "assertion": "equals",
+   "actual": {
+    "op": "compare",
+    "a": {
+     "op": "field",
+     "file": "cover_matrix_check.json",
+     "path": "slide1.ru_share_after_pct"
+    },
+    "b": {
+     "op": "round",
+     "mode": "half_up",
+     "places": 0,
+     "of": {
+      "op": "subtract",
+      "a": {
+       "op": "divide",
+       "a": {
+        "op": "multiply",
+        "a": {
+         "op": "literal",
+         "value": 100,
+         "why": "a percentage is a hundredfold share"
+        },
+        "b": {
+         "op": "field",
+         "file": "cover_matrix_check.json",
+         "path": "slide1.ru_skus_after"
+        }
+       },
+       "b": {
+        "op": "field",
+        "file": "cover_matrix_check.json",
+        "path": "slide1.active_skus_after"
+       }
+      },
+      "b": {
+       "op": "literal",
+       "value": 0.5,
+       "why": "whole-percent truncation written as half-up rounding of the share minus one half"
+      }
+     }
+    },
+    "value_type": "number",
+    "comparison": "eq"
+   },
+   "target": {
+    "op": "compare",
+    "a": {
+     "op": "round",
+     "mode": "half_up",
+     "places": 0,
+     "of": {
+      "op": "subtract",
+      "a": {
+       "op": "divide",
+       "a": {
+        "op": "multiply",
+        "a": {
+         "op": "literal",
+         "value": 100,
+         "why": "a percentage is a hundredfold share"
+        },
+        "b": {
+         "op": "number",
+         "of": {
+          "op": "extract",
+          "of": {
+           "op": "text",
+           "file": "hr_and_guides/gaid_oformleniya_prezentatsiy.md"
+          },
+          "pattern": "\\((\\d+) SKU из \\d+",
+          "group": 1
+         }
+        }
+       },
+       "b": {
+        "op": "number",
+        "of": {
+         "op": "extract",
+         "of": {
+          "op": "text",
+          "file": "hr_and_guides/gaid_oformleniya_prezentatsiy.md"
+         },
+         "pattern": "SKU из (\\d+),",
+         "group": 1
+        }
+       }
+      },
+      "b": {
+       "op": "literal",
+       "value": 0.5,
+       "why": "whole-percent truncation written as half-up rounding of the share minus one half"
+      }
+     }
+    },
+    "b": {
+     "op": "number",
+     "of": {
+      "op": "extract",
+      "of": {
+       "op": "text",
+       "file": "hr_and_guides/gaid_oformleniya_prezentatsiy.md"
+      },
+      "pattern": "— (\\d+) %» \\(\\d+ SKU из \\d+",
+      "group": 1
+     }
+    },
+    "value_type": "number",
+    "comparison": "eq"
+   }
+  },
+  {
+   "id": "obj_designs",
+   "kind": "objective",
+   "step": "01-task",
+   "weight": 21,
+   "band": "stretch",
+   "dimension": "inference",
+   "weight_basis": "P5 TWIN keying slip (governing_vs_filing_key): Ковертэк's letter swaps the drawing that cannot be used for 'Воздушные шары' but files the swap under ЧХ-30148, a Маяки cover whose licence is renewed; the licensing list's lapsed drawing (old envelopes with postmarks) is the matrix's only 'Ретро-марки' cover, so the designs are the prints with 'Ретро-марки' replaced by 'Воздушные шары' (a design is the print, as last year's sample counts it).",
+   "basis": "designs: the distinct designs in that matrix, one entry per design, each written as the design's name (any order)",
+   "assertion": "set_equals",
+   "actual": {
+    "op": "field",
+    "file": "cover_matrix_check.json",
+    "path": "designs"
+   },
+   "target": {
+    "op": "unique",
+    "of": {
+     "op": "pluck",
+     "field": "design",
+     "of": {
+      "op": "derive_rows",
+      "of": {
+       "op": "derive_rows",
+       "of": {
+        "op": "bind_rows",
+        "of": {
+         "op": "derive_rows",
+         "of": {
+          "op": "bind_rows",
+          "of": {
+           "op": "rows",
+           "file": "matrix.jsonl"
+          },
+          "fields": {
+           "design_is_print": {
+            "op": "compare",
+            "a": {
+             "op": "count",
+             "of": {
+              "op": "unique",
+              "of": {
+               "op": "pluck",
+               "field": "p",
+               "of": {
+                "op": "derive_rows",
+                "of": {
+                 "op": "rows",
+                 "file": "sample_tags.jsonl"
+                },
+                "fields": {
+                 "p": {
+                  "op": "extract",
+                  "of": {
+                   "op": "field",
+                   "path": "Название позиции"
+                  },
+                  "pattern": "^(.+?) / ",
+                  "group": 1
+                 }
+                }
+               }
+              }
+             }
+            },
+            "b": {
+             "op": "number",
+             "of": {
+              "op": "extract",
+              "of": {
+               "op": "text",
+               "file": "hr_and_guides/obrazets_zashchity_2025.md"
+              },
+              "pattern": "14 SKU, (\\d+) дизайнов",
+              "group": 1
+             }
+            },
+            "value_type": "number",
+            "comparison": "eq"
+           },
+           "new_print": {
+            "op": "extract",
+            "of": {
+             "op": "text",
+             "file": "subcategory_covers/pismo_kovertek_2026-10-06.md"
+            },
+            "pattern": "рисунок меняем на «([^»]+)»",
+            "group": 1
+           },
+           "named_article": {
+            "op": "extract",
+            "of": {
+             "op": "text",
+             "file": "subcategory_covers/pismo_kovertek_2026-10-06.md"
+            },
+            "pattern": "По артикулу (ЧХ-\\d+) рисунок меняем",
+            "group": 1
+           },
+           "lapsed_print": {
+            "op": "only",
+            "of": {
+             "op": "pluck",
+             "field": "print",
+             "of": {
+              "op": "filter",
+              "where": {
+               "field": "lapsed",
+               "eq": true
+              },
+              "of": {
+               "op": "derive_rows",
+               "of": {
+                "op": "rows",
+                "file": "licences.jsonl"
+               },
+               "fields": {
+                "print": {
+                 "op": "if",
+                 "where": {
+                  "field": "Что изображено",
+                  "matches": "конверт"
+                 },
+                 "then": {
+                  "op": "literal",
+                  "value": "Ретро-марки",
+                  "why": "frozen reading of the licensing list's subject column: the contract names a drawing by title and subject, the matrix by its working print name"
+                 },
+                 "else": {
+                  "op": "if",
+                  "where": {
+                   "field": "Что изображено",
+                   "matches": "береговые огни"
+                  },
+                  "then": {
+                   "op": "literal",
+                   "value": "Маяки",
+                   "why": "frozen reading of the licensing list's subject column: the contract names a drawing by title and subject, the matrix by its working print name"
+                  },
+                  "else": {
+                   "op": "if",
+                   "where": {
+                    "field": "Что изображено",
+                    "matches": "атлас"
+                   },
+                   "then": {
+                    "op": "literal",
+                    "value": "Карта мира",
+                    "why": "frozen reading of the licensing list's subject column: the contract names a drawing by title and subject, the matrix by its working print name"
+                   },
+                   "else": {
+                    "op": "if",
+                    "where": {
+                     "field": "Что изображено",
+                     "matches": "небоскр"
+                    },
+                    "then": {
+                     "op": "literal",
+                     "value": "Город",
+                     "why": "frozen reading of the licensing list's subject column: the contract names a drawing by title and subject, the matrix by its working print name"
+                    },
+                    "else": {
+                     "op": "literal",
+                     "value": "",
+                     "why": "a listed drawing that no cover of the matrix carries"
+                    }
+                   }
+                  }
+                 }
+                },
+                "lapsed": {
+                 "op": "if",
+                 "where": {
+                  "all": [
+                   {
+                    "field": "Статус",
+                    "matches": "^не продлевается"
+                   },
+                   {
+                    "field": "Где используется",
+                    "matches": "чехлы для чемоданов"
+                   }
+                  ]
+                 },
+                 "then": {
+                  "op": "literal",
+                  "value": true,
+                  "why": "a cover drawing whose licence is not renewed cannot go on sale"
+                 },
+                 "else": {
+                  "op": "literal",
+                  "value": false,
+                  "why": "renewed or running licence"
+                 }
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+         },
+         "fields": {
+          "name": {
+           "op": "field",
+           "path": "Название позиции"
+          },
+          "p": {
+           "op": "extract",
+           "of": {
+            "op": "field",
+            "path": "Название позиции"
+           },
+           "pattern": "^(.+?) / ",
+           "group": 1
+          },
+          "design_is_print": {
+           "op": "field",
+           "path": "design_is_print"
+          },
+          "new_print": {
+           "op": "field",
+           "path": "new_print"
+          },
+          "lapsed_print": {
+           "op": "field",
+           "path": "lapsed_print"
+          },
+          "is_named": {
+           "op": "compare",
+           "a": {
+            "op": "field",
+            "path": "Артикул"
+           },
+           "b": {
+            "op": "field",
+            "path": "named_article"
+           },
+           "value_type": "string",
+           "comparison": "eq"
+          }
+         }
+        },
+        "fields": {
+         "named_print": {
+          "op": "only",
+          "of": {
+           "op": "pluck",
+           "field": "p",
+           "of": {
+            "op": "filter",
+            "where": {
+             "field": "is_named",
+             "eq": true
+            },
+            "of": {
+             "op": "derive_rows",
+             "of": {
+              "op": "bind_rows",
+              "of": {
+               "op": "rows",
+               "file": "matrix.jsonl"
+              },
+              "fields": {
+               "design_is_print": {
+                "op": "compare",
+                "a": {
+                 "op": "count",
+                 "of": {
+                  "op": "unique",
+                  "of": {
+                   "op": "pluck",
+                   "field": "p",
+                   "of": {
+                    "op": "derive_rows",
+                    "of": {
+                     "op": "rows",
+                     "file": "sample_tags.jsonl"
+                    },
+                    "fields": {
+                     "p": {
+                      "op": "extract",
+                      "of": {
+                       "op": "field",
+                       "path": "Название позиции"
+                      },
+                      "pattern": "^(.+?) / ",
+                      "group": 1
+                     }
+                    }
+                   }
+                  }
+                 }
+                },
+                "b": {
+                 "op": "number",
+                 "of": {
+                  "op": "extract",
+                  "of": {
+                   "op": "text",
+                   "file": "hr_and_guides/obrazets_zashchity_2025.md"
+                  },
+                  "pattern": "14 SKU, (\\d+) дизайнов",
+                  "group": 1
+                 }
+                },
+                "value_type": "number",
+                "comparison": "eq"
+               },
+               "new_print": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pismo_kovertek_2026-10-06.md"
+                },
+                "pattern": "рисунок меняем на «([^»]+)»",
+                "group": 1
+               },
+               "named_article": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pismo_kovertek_2026-10-06.md"
+                },
+                "pattern": "По артикулу (ЧХ-\\d+) рисунок меняем",
+                "group": 1
+               },
+               "lapsed_print": {
+                "op": "only",
+                "of": {
+                 "op": "pluck",
+                 "field": "print",
+                 "of": {
+                  "op": "filter",
+                  "where": {
+                   "field": "lapsed",
+                   "eq": true
+                  },
+                  "of": {
+                   "op": "derive_rows",
+                   "of": {
+                    "op": "rows",
+                    "file": "licences.jsonl"
+                   },
+                   "fields": {
+                    "print": {
+                     "op": "if",
+                     "where": {
+                      "field": "Что изображено",
+                      "matches": "конверт"
+                     },
+                     "then": {
+                      "op": "literal",
+                      "value": "Ретро-марки",
+                      "why": "frozen reading of the licensing list's subject column: the contract names a drawing by title and subject, the matrix by its working print name"
+                     },
+                     "else": {
+                      "op": "if",
+                      "where": {
+                       "field": "Что изображено",
+                       "matches": "береговые огни"
+                      },
+                      "then": {
+                       "op": "literal",
+                       "value": "Маяки",
+                       "why": "frozen reading of the licensing list's subject column: the contract names a drawing by title and subject, the matrix by its working print name"
+                      },
+                      "else": {
+                       "op": "if",
+                       "where": {
+                        "field": "Что изображено",
+                        "matches": "атлас"
+                       },
+                       "then": {
+                        "op": "literal",
+                        "value": "Карта мира",
+                        "why": "frozen reading of the licensing list's subject column: the contract names a drawing by title and subject, the matrix by its working print name"
+                       },
+                       "else": {
+                        "op": "if",
+                        "where": {
+                         "field": "Что изображено",
+                         "matches": "небоскр"
+                        },
+                        "then": {
+                         "op": "literal",
+                         "value": "Город",
+                         "why": "frozen reading of the licensing list's subject column: the contract names a drawing by title and subject, the matrix by its working print name"
+                        },
+                        "else": {
+                         "op": "literal",
+                         "value": "",
+                         "why": "a listed drawing that no cover of the matrix carries"
+                        }
+                       }
+                      }
+                     }
+                    },
+                    "lapsed": {
+                     "op": "if",
+                     "where": {
+                      "all": [
+                       {
+                        "field": "Статус",
+                        "matches": "^не продлевается"
+                       },
+                       {
+                        "field": "Где используется",
+                        "matches": "чехлы для чемоданов"
+                       }
+                      ]
+                     },
+                     "then": {
+                      "op": "literal",
+                      "value": true,
+                      "why": "a cover drawing whose licence is not renewed cannot go on sale"
+                     },
+                     "else": {
+                      "op": "literal",
+                      "value": false,
+                      "why": "renewed or running licence"
+                     }
+                    }
+                   }
+                  }
+                 }
+                }
+               }
+              }
+             },
+             "fields": {
+              "name": {
+               "op": "field",
+               "path": "Название позиции"
+              },
+              "p": {
+               "op": "extract",
+               "of": {
+                "op": "field",
+                "path": "Название позиции"
+               },
+               "pattern": "^(.+?) / ",
+               "group": 1
+              },
+              "design_is_print": {
+               "op": "field",
+               "path": "design_is_print"
+              },
+              "new_print": {
+               "op": "field",
+               "path": "new_print"
+              },
+              "lapsed_print": {
+               "op": "field",
+               "path": "lapsed_print"
+              },
+              "is_named": {
+               "op": "compare",
+               "a": {
+                "op": "field",
+                "path": "Артикул"
+               },
+               "b": {
+                "op": "field",
+                "path": "named_article"
+               },
+               "value_type": "string",
+               "comparison": "eq"
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       },
+       "fields": {
+        "name": {
+         "op": "field",
+         "path": "name"
+        },
+        "p": {
+         "op": "field",
+         "path": "p"
+        },
+        "design_is_print": {
+         "op": "field",
+         "path": "design_is_print"
+        },
+        "new_print": {
+         "op": "field",
+         "path": "new_print"
+        },
+        "is_named": {
+         "op": "field",
+         "path": "is_named"
+        },
+        "is_lapsed": {
+         "op": "compare",
+         "a": {
+          "op": "field",
+          "path": "p"
+         },
+         "b": {
+          "op": "field",
+          "path": "lapsed_print"
+         },
+         "value_type": "string",
+         "comparison": "eq"
+        },
+        "named_is_lapsed": {
+         "op": "compare",
+         "a": {
+          "op": "field",
+          "path": "named_print"
+         },
+         "b": {
+          "op": "field",
+          "path": "lapsed_print"
+         },
+         "value_type": "string",
+         "comparison": "eq"
+        }
+       }
+      },
+      "fields": {
+       "design": {
+        "op": "if",
+        "where": {
+         "any": [
+          {
+           "all": [
+            {
+             "field": "is_lapsed",
+             "eq": true
+            },
+            {
+             "field": "named_is_lapsed",
+             "eq": false
+            }
+           ]
+          },
+          {
+           "all": [
+            {
+             "field": "is_named",
+             "eq": true
+            },
+            {
+             "field": "named_is_lapsed",
+             "eq": true
+            }
+           ]
+          }
+         ]
+        },
+        "then": {
+         "op": "field",
+         "path": "new_print"
+        },
+        "else": {
+         "op": "if",
+         "where": {
+          "field": "design_is_print",
+          "eq": true
+         },
+         "then": {
+          "op": "field",
+          "path": "p"
+         },
+         "else": {
+          "op": "field",
+          "path": "name"
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "id": "obj_size_bands",
+   "kind": "objective",
+   "step": "01-task",
+   "weight": 5,
+   "band": "stretch",
+   "dimension": "inference",
+   "weight_basis": "P6 EXEMPLAR (precedent_rule): passport section 4 sizes a cover by the height of the suitcase it is made for; three matrix ranges cross a grid edge, and the passport's segment examples (52–57 cm in M, 71–77 cm in XL) and the approval minutes (62–67 cm in L) fit only the band of the upper end; the supplier's labels and the deck's split follow the lower end.",
+   "basis": "skus_by_size: the matrix's SKUs per size band of the passport's size grid: S, M, L and XL",
+   "assertion": "equals",
+   "actual": {
+    "op": "field",
+    "file": "cover_matrix_check.json",
+    "path": "skus_by_size"
+   },
+   "target": {
+    "op": "record",
+    "fields": {
+     "S": {
+      "op": "count",
+      "of": {
+       "op": "filter",
+       "where": {
+        "field": "band",
+        "eq": "S"
+       },
+       "of": {
+        "op": "derive_rows",
+        "of": {
+         "op": "derive_rows",
+         "of": {
+          "op": "derive_rows",
+          "of": {
+           "op": "derive_rows",
+           "of": {
+            "op": "derive_rows",
+            "of": {
+             "op": "bind_rows",
+             "of": {
+              "op": "rows",
+              "file": "matrix.jsonl"
+             },
+             "fields": {
+              "s_hi": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+                },
+                "pattern": "S \\(ручная кладь\\): высота чемодана до (\\d+) см",
+                "group": 1
+               }
+              },
+              "m_hi": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+                },
+                "pattern": "M \\(средний\\): высота чемодана \\d+–(\\d+) см",
+                "group": 1
+               }
+              },
+              "l_hi": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+                },
+                "pattern": "L \\(большой\\): высота чемодана \\d+–(\\d+) см",
+                "group": 1
+               }
+              },
+              "e1_lo": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+                },
+                "pattern": "высотой (\\d+)–(\\d+) см на графитовом полотне входит в сегмент «[^»]+\\+ (S|M|L|XL)»",
+                "group": 1
+               }
+              },
+              "e1_hi": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+                },
+                "pattern": "высотой (\\d+)–(\\d+) см на графитовом полотне входит в сегмент «[^»]+\\+ (S|M|L|XL)»",
+                "group": 2
+               }
+              },
+              "e1_band": {
+               "op": "extract",
+               "of": {
+                "op": "text",
+                "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+               },
+               "pattern": "высотой (\\d+)–(\\d+) см на графитовом полотне входит в сегмент «[^»]+\\+ (S|M|L|XL)»",
+               "group": 3
+              },
+              "e2_lo": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+                },
+                "pattern": "высотой (\\d+)–(\\d+) см на мятном полотне — в сегмент «[^»]+\\+ (S|M|L|XL)»",
+                "group": 1
+               }
+              },
+              "e2_hi": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+                },
+                "pattern": "высотой (\\d+)–(\\d+) см на мятном полотне — в сегмент «[^»]+\\+ (S|M|L|XL)»",
+                "group": 2
+               }
+              },
+              "e2_band": {
+               "op": "extract",
+               "of": {
+                "op": "text",
+                "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+               },
+               "pattern": "высотой (\\d+)–(\\d+) см на мятном полотне — в сегмент «[^»]+\\+ (S|M|L|XL)»",
+               "group": 3
+              },
+              "e3_lo": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/protokol_soglasovaniya_2026-09-21.md"
+                },
+                "pattern": "для сегмента «[^»]+\\+ (S|M|L|XL)» — на образце чехла для чемоданов высотой (\\d+)–(\\d+) см",
+                "group": 2
+               }
+              },
+              "e3_hi": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/protokol_soglasovaniya_2026-09-21.md"
+                },
+                "pattern": "для сегмента «[^»]+\\+ (S|M|L|XL)» — на образце чехла для чемоданов высотой (\\d+)–(\\d+) см",
+                "group": 3
+               }
+              },
+              "e3_band": {
+               "op": "extract",
+               "of": {
+                "op": "text",
+                "file": "subcategory_covers/protokol_soglasovaniya_2026-09-21.md"
+               },
+               "pattern": "для сегмента «[^»]+\\+ (S|M|L|XL)» — на образце чехла для чемоданов высотой (\\d+)–(\\d+) см",
+               "group": 1
+              }
+             }
+            },
+            "fields": {
+             "s_hi": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "m_hi": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "l_hi": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "e1_lo": {
+              "op": "field",
+              "path": "e1_lo"
+             },
+             "e1_hi": {
+              "op": "field",
+              "path": "e1_hi"
+             },
+             "e1_band": {
+              "op": "field",
+              "path": "e1_band"
+             },
+             "e2_lo": {
+              "op": "field",
+              "path": "e2_lo"
+             },
+             "e2_hi": {
+              "op": "field",
+              "path": "e2_hi"
+             },
+             "e2_band": {
+              "op": "field",
+              "path": "e2_band"
+             },
+             "e3_lo": {
+              "op": "field",
+              "path": "e3_lo"
+             },
+             "e3_hi": {
+              "op": "field",
+              "path": "e3_hi"
+             },
+             "e3_band": {
+              "op": "field",
+              "path": "e3_band"
+             },
+             "lo": {
+              "op": "range_bound",
+              "of": {
+               "op": "field",
+               "path": "Высота чемодана (см)"
+              },
+              "bound": "lower"
+             },
+             "hi": {
+              "op": "range_bound",
+              "of": {
+               "op": "field",
+               "path": "Высота чемодана (см)"
+              },
+              "bound": "upper"
+             }
+            }
+           },
+           "fields": {
+            "e1_band": {
+             "op": "field",
+             "path": "e1_band"
+            },
+            "e2_band": {
+             "op": "field",
+             "path": "e2_band"
+            },
+            "e3_band": {
+             "op": "field",
+             "path": "e3_band"
+            },
+            "lo_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "lo_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "lo_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "hi_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "hi_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "hi_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e1_lo_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e1_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e1_lo_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e1_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e1_lo_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e1_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e1_hi_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e1_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e1_hi_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e1_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e1_hi_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e1_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e2_lo_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e2_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e2_lo_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e2_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e2_lo_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e2_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e2_hi_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e2_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e2_hi_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e2_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e2_hi_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e2_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e3_lo_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e3_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e3_lo_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e3_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e3_lo_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e3_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e3_hi_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e3_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e3_hi_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e3_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e3_hi_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e3_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            }
+           }
+          },
+          "fields": {
+           "e1_band": {
+            "op": "field",
+            "path": "e1_band"
+           },
+           "e2_band": {
+            "op": "field",
+            "path": "e2_band"
+           },
+           "e3_band": {
+            "op": "field",
+            "path": "e3_band"
+           },
+           "b_lo": {
+            "op": "if",
+            "where": {
+             "field": "lo_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "lo_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "lo_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           },
+           "b_hi": {
+            "op": "if",
+            "where": {
+             "field": "hi_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "hi_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "hi_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           },
+           "b_e1_lo": {
+            "op": "if",
+            "where": {
+             "field": "e1_lo_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "e1_lo_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "e1_lo_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           },
+           "b_e1_hi": {
+            "op": "if",
+            "where": {
+             "field": "e1_hi_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "e1_hi_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "e1_hi_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           },
+           "b_e2_lo": {
+            "op": "if",
+            "where": {
+             "field": "e2_lo_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "e2_lo_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "e2_lo_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           },
+           "b_e2_hi": {
+            "op": "if",
+            "where": {
+             "field": "e2_hi_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "e2_hi_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "e2_hi_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           },
+           "b_e3_lo": {
+            "op": "if",
+            "where": {
+             "field": "e3_lo_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "e3_lo_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "e3_lo_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           },
+           "b_e3_hi": {
+            "op": "if",
+            "where": {
+             "field": "e3_hi_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "e3_hi_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "e3_hi_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           }
+          }
+         },
+         "fields": {
+          "b_lo": {
+           "op": "field",
+           "path": "b_lo"
+          },
+          "b_hi": {
+           "op": "field",
+           "path": "b_hi"
+          },
+          "up_e1": {
+           "op": "compare",
+           "a": {
+            "op": "field",
+            "path": "b_e1_hi"
+           },
+           "b": {
+            "op": "field",
+            "path": "e1_band"
+           },
+           "value_type": "string",
+           "comparison": "eq"
+          },
+          "up_e2": {
+           "op": "compare",
+           "a": {
+            "op": "field",
+            "path": "b_e2_hi"
+           },
+           "b": {
+            "op": "field",
+            "path": "e2_band"
+           },
+           "value_type": "string",
+           "comparison": "eq"
+          },
+          "up_e3": {
+           "op": "compare",
+           "a": {
+            "op": "field",
+            "path": "b_e3_hi"
+           },
+           "b": {
+            "op": "field",
+            "path": "e3_band"
+           },
+           "value_type": "string",
+           "comparison": "eq"
+          }
+         }
+        },
+        "fields": {
+         "band": {
+          "op": "if",
+          "where": {
+           "all": [
+            {
+             "field": "up_e1",
+             "eq": true
+            },
+            {
+             "field": "up_e2",
+             "eq": true
+            },
+            {
+             "field": "up_e3",
+             "eq": true
+            }
+           ]
+          },
+          "then": {
+           "op": "field",
+           "path": "b_hi"
+          },
+          "else": {
+           "op": "field",
+           "path": "b_lo"
+          }
+         }
+        }
+       }
+      }
+     },
+     "M": {
+      "op": "count",
+      "of": {
+       "op": "filter",
+       "where": {
+        "field": "band",
+        "eq": "M"
+       },
+       "of": {
+        "op": "derive_rows",
+        "of": {
+         "op": "derive_rows",
+         "of": {
+          "op": "derive_rows",
+          "of": {
+           "op": "derive_rows",
+           "of": {
+            "op": "derive_rows",
+            "of": {
+             "op": "bind_rows",
+             "of": {
+              "op": "rows",
+              "file": "matrix.jsonl"
+             },
+             "fields": {
+              "s_hi": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+                },
+                "pattern": "S \\(ручная кладь\\): высота чемодана до (\\d+) см",
+                "group": 1
+               }
+              },
+              "m_hi": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+                },
+                "pattern": "M \\(средний\\): высота чемодана \\d+–(\\d+) см",
+                "group": 1
+               }
+              },
+              "l_hi": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+                },
+                "pattern": "L \\(большой\\): высота чемодана \\d+–(\\d+) см",
+                "group": 1
+               }
+              },
+              "e1_lo": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+                },
+                "pattern": "высотой (\\d+)–(\\d+) см на графитовом полотне входит в сегмент «[^»]+\\+ (S|M|L|XL)»",
+                "group": 1
+               }
+              },
+              "e1_hi": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+                },
+                "pattern": "высотой (\\d+)–(\\d+) см на графитовом полотне входит в сегмент «[^»]+\\+ (S|M|L|XL)»",
+                "group": 2
+               }
+              },
+              "e1_band": {
+               "op": "extract",
+               "of": {
+                "op": "text",
+                "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+               },
+               "pattern": "высотой (\\d+)–(\\d+) см на графитовом полотне входит в сегмент «[^»]+\\+ (S|M|L|XL)»",
+               "group": 3
+              },
+              "e2_lo": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+                },
+                "pattern": "высотой (\\d+)–(\\d+) см на мятном полотне — в сегмент «[^»]+\\+ (S|M|L|XL)»",
+                "group": 1
+               }
+              },
+              "e2_hi": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+                },
+                "pattern": "высотой (\\d+)–(\\d+) см на мятном полотне — в сегмент «[^»]+\\+ (S|M|L|XL)»",
+                "group": 2
+               }
+              },
+              "e2_band": {
+               "op": "extract",
+               "of": {
+                "op": "text",
+                "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+               },
+               "pattern": "высотой (\\d+)–(\\d+) см на мятном полотне — в сегмент «[^»]+\\+ (S|M|L|XL)»",
+               "group": 3
+              },
+              "e3_lo": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/protokol_soglasovaniya_2026-09-21.md"
+                },
+                "pattern": "для сегмента «[^»]+\\+ (S|M|L|XL)» — на образце чехла для чемоданов высотой (\\d+)–(\\d+) см",
+                "group": 2
+               }
+              },
+              "e3_hi": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/protokol_soglasovaniya_2026-09-21.md"
+                },
+                "pattern": "для сегмента «[^»]+\\+ (S|M|L|XL)» — на образце чехла для чемоданов высотой (\\d+)–(\\d+) см",
+                "group": 3
+               }
+              },
+              "e3_band": {
+               "op": "extract",
+               "of": {
+                "op": "text",
+                "file": "subcategory_covers/protokol_soglasovaniya_2026-09-21.md"
+               },
+               "pattern": "для сегмента «[^»]+\\+ (S|M|L|XL)» — на образце чехла для чемоданов высотой (\\d+)–(\\d+) см",
+               "group": 1
+              }
+             }
+            },
+            "fields": {
+             "s_hi": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "m_hi": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "l_hi": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "e1_lo": {
+              "op": "field",
+              "path": "e1_lo"
+             },
+             "e1_hi": {
+              "op": "field",
+              "path": "e1_hi"
+             },
+             "e1_band": {
+              "op": "field",
+              "path": "e1_band"
+             },
+             "e2_lo": {
+              "op": "field",
+              "path": "e2_lo"
+             },
+             "e2_hi": {
+              "op": "field",
+              "path": "e2_hi"
+             },
+             "e2_band": {
+              "op": "field",
+              "path": "e2_band"
+             },
+             "e3_lo": {
+              "op": "field",
+              "path": "e3_lo"
+             },
+             "e3_hi": {
+              "op": "field",
+              "path": "e3_hi"
+             },
+             "e3_band": {
+              "op": "field",
+              "path": "e3_band"
+             },
+             "lo": {
+              "op": "range_bound",
+              "of": {
+               "op": "field",
+               "path": "Высота чемодана (см)"
+              },
+              "bound": "lower"
+             },
+             "hi": {
+              "op": "range_bound",
+              "of": {
+               "op": "field",
+               "path": "Высота чемодана (см)"
+              },
+              "bound": "upper"
+             }
+            }
+           },
+           "fields": {
+            "e1_band": {
+             "op": "field",
+             "path": "e1_band"
+            },
+            "e2_band": {
+             "op": "field",
+             "path": "e2_band"
+            },
+            "e3_band": {
+             "op": "field",
+             "path": "e3_band"
+            },
+            "lo_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "lo_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "lo_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "hi_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "hi_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "hi_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e1_lo_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e1_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e1_lo_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e1_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e1_lo_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e1_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e1_hi_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e1_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e1_hi_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e1_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e1_hi_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e1_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e2_lo_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e2_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e2_lo_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e2_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e2_lo_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e2_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e2_hi_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e2_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e2_hi_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e2_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e2_hi_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e2_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e3_lo_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e3_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e3_lo_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e3_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e3_lo_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e3_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e3_hi_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e3_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e3_hi_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e3_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e3_hi_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e3_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            }
+           }
+          },
+          "fields": {
+           "e1_band": {
+            "op": "field",
+            "path": "e1_band"
+           },
+           "e2_band": {
+            "op": "field",
+            "path": "e2_band"
+           },
+           "e3_band": {
+            "op": "field",
+            "path": "e3_band"
+           },
+           "b_lo": {
+            "op": "if",
+            "where": {
+             "field": "lo_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "lo_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "lo_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           },
+           "b_hi": {
+            "op": "if",
+            "where": {
+             "field": "hi_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "hi_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "hi_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           },
+           "b_e1_lo": {
+            "op": "if",
+            "where": {
+             "field": "e1_lo_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "e1_lo_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "e1_lo_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           },
+           "b_e1_hi": {
+            "op": "if",
+            "where": {
+             "field": "e1_hi_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "e1_hi_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "e1_hi_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           },
+           "b_e2_lo": {
+            "op": "if",
+            "where": {
+             "field": "e2_lo_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "e2_lo_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "e2_lo_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           },
+           "b_e2_hi": {
+            "op": "if",
+            "where": {
+             "field": "e2_hi_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "e2_hi_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "e2_hi_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           },
+           "b_e3_lo": {
+            "op": "if",
+            "where": {
+             "field": "e3_lo_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "e3_lo_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "e3_lo_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           },
+           "b_e3_hi": {
+            "op": "if",
+            "where": {
+             "field": "e3_hi_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "e3_hi_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "e3_hi_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           }
+          }
+         },
+         "fields": {
+          "b_lo": {
+           "op": "field",
+           "path": "b_lo"
+          },
+          "b_hi": {
+           "op": "field",
+           "path": "b_hi"
+          },
+          "up_e1": {
+           "op": "compare",
+           "a": {
+            "op": "field",
+            "path": "b_e1_hi"
+           },
+           "b": {
+            "op": "field",
+            "path": "e1_band"
+           },
+           "value_type": "string",
+           "comparison": "eq"
+          },
+          "up_e2": {
+           "op": "compare",
+           "a": {
+            "op": "field",
+            "path": "b_e2_hi"
+           },
+           "b": {
+            "op": "field",
+            "path": "e2_band"
+           },
+           "value_type": "string",
+           "comparison": "eq"
+          },
+          "up_e3": {
+           "op": "compare",
+           "a": {
+            "op": "field",
+            "path": "b_e3_hi"
+           },
+           "b": {
+            "op": "field",
+            "path": "e3_band"
+           },
+           "value_type": "string",
+           "comparison": "eq"
+          }
+         }
+        },
+        "fields": {
+         "band": {
+          "op": "if",
+          "where": {
+           "all": [
+            {
+             "field": "up_e1",
+             "eq": true
+            },
+            {
+             "field": "up_e2",
+             "eq": true
+            },
+            {
+             "field": "up_e3",
+             "eq": true
+            }
+           ]
+          },
+          "then": {
+           "op": "field",
+           "path": "b_hi"
+          },
+          "else": {
+           "op": "field",
+           "path": "b_lo"
+          }
+         }
+        }
+       }
+      }
+     },
+     "L": {
+      "op": "count",
+      "of": {
+       "op": "filter",
+       "where": {
+        "field": "band",
+        "eq": "L"
+       },
+       "of": {
+        "op": "derive_rows",
+        "of": {
+         "op": "derive_rows",
+         "of": {
+          "op": "derive_rows",
+          "of": {
+           "op": "derive_rows",
+           "of": {
+            "op": "derive_rows",
+            "of": {
+             "op": "bind_rows",
+             "of": {
+              "op": "rows",
+              "file": "matrix.jsonl"
+             },
+             "fields": {
+              "s_hi": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+                },
+                "pattern": "S \\(ручная кладь\\): высота чемодана до (\\d+) см",
+                "group": 1
+               }
+              },
+              "m_hi": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+                },
+                "pattern": "M \\(средний\\): высота чемодана \\d+–(\\d+) см",
+                "group": 1
+               }
+              },
+              "l_hi": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+                },
+                "pattern": "L \\(большой\\): высота чемодана \\d+–(\\d+) см",
+                "group": 1
+               }
+              },
+              "e1_lo": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+                },
+                "pattern": "высотой (\\d+)–(\\d+) см на графитовом полотне входит в сегмент «[^»]+\\+ (S|M|L|XL)»",
+                "group": 1
+               }
+              },
+              "e1_hi": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+                },
+                "pattern": "высотой (\\d+)–(\\d+) см на графитовом полотне входит в сегмент «[^»]+\\+ (S|M|L|XL)»",
+                "group": 2
+               }
+              },
+              "e1_band": {
+               "op": "extract",
+               "of": {
+                "op": "text",
+                "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+               },
+               "pattern": "высотой (\\d+)–(\\d+) см на графитовом полотне входит в сегмент «[^»]+\\+ (S|M|L|XL)»",
+               "group": 3
+              },
+              "e2_lo": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+                },
+                "pattern": "высотой (\\d+)–(\\d+) см на мятном полотне — в сегмент «[^»]+\\+ (S|M|L|XL)»",
+                "group": 1
+               }
+              },
+              "e2_hi": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+                },
+                "pattern": "высотой (\\d+)–(\\d+) см на мятном полотне — в сегмент «[^»]+\\+ (S|M|L|XL)»",
+                "group": 2
+               }
+              },
+              "e2_band": {
+               "op": "extract",
+               "of": {
+                "op": "text",
+                "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+               },
+               "pattern": "высотой (\\d+)–(\\d+) см на мятном полотне — в сегмент «[^»]+\\+ (S|M|L|XL)»",
+               "group": 3
+              },
+              "e3_lo": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/protokol_soglasovaniya_2026-09-21.md"
+                },
+                "pattern": "для сегмента «[^»]+\\+ (S|M|L|XL)» — на образце чехла для чемоданов высотой (\\d+)–(\\d+) см",
+                "group": 2
+               }
+              },
+              "e3_hi": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/protokol_soglasovaniya_2026-09-21.md"
+                },
+                "pattern": "для сегмента «[^»]+\\+ (S|M|L|XL)» — на образце чехла для чемоданов высотой (\\d+)–(\\d+) см",
+                "group": 3
+               }
+              },
+              "e3_band": {
+               "op": "extract",
+               "of": {
+                "op": "text",
+                "file": "subcategory_covers/protokol_soglasovaniya_2026-09-21.md"
+               },
+               "pattern": "для сегмента «[^»]+\\+ (S|M|L|XL)» — на образце чехла для чемоданов высотой (\\d+)–(\\d+) см",
+               "group": 1
+              }
+             }
+            },
+            "fields": {
+             "s_hi": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "m_hi": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "l_hi": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "e1_lo": {
+              "op": "field",
+              "path": "e1_lo"
+             },
+             "e1_hi": {
+              "op": "field",
+              "path": "e1_hi"
+             },
+             "e1_band": {
+              "op": "field",
+              "path": "e1_band"
+             },
+             "e2_lo": {
+              "op": "field",
+              "path": "e2_lo"
+             },
+             "e2_hi": {
+              "op": "field",
+              "path": "e2_hi"
+             },
+             "e2_band": {
+              "op": "field",
+              "path": "e2_band"
+             },
+             "e3_lo": {
+              "op": "field",
+              "path": "e3_lo"
+             },
+             "e3_hi": {
+              "op": "field",
+              "path": "e3_hi"
+             },
+             "e3_band": {
+              "op": "field",
+              "path": "e3_band"
+             },
+             "lo": {
+              "op": "range_bound",
+              "of": {
+               "op": "field",
+               "path": "Высота чемодана (см)"
+              },
+              "bound": "lower"
+             },
+             "hi": {
+              "op": "range_bound",
+              "of": {
+               "op": "field",
+               "path": "Высота чемодана (см)"
+              },
+              "bound": "upper"
+             }
+            }
+           },
+           "fields": {
+            "e1_band": {
+             "op": "field",
+             "path": "e1_band"
+            },
+            "e2_band": {
+             "op": "field",
+             "path": "e2_band"
+            },
+            "e3_band": {
+             "op": "field",
+             "path": "e3_band"
+            },
+            "lo_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "lo_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "lo_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "hi_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "hi_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "hi_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e1_lo_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e1_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e1_lo_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e1_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e1_lo_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e1_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e1_hi_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e1_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e1_hi_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e1_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e1_hi_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e1_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e2_lo_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e2_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e2_lo_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e2_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e2_lo_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e2_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e2_hi_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e2_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e2_hi_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e2_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e2_hi_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e2_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e3_lo_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e3_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e3_lo_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e3_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e3_lo_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e3_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e3_hi_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e3_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e3_hi_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e3_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e3_hi_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e3_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            }
+           }
+          },
+          "fields": {
+           "e1_band": {
+            "op": "field",
+            "path": "e1_band"
+           },
+           "e2_band": {
+            "op": "field",
+            "path": "e2_band"
+           },
+           "e3_band": {
+            "op": "field",
+            "path": "e3_band"
+           },
+           "b_lo": {
+            "op": "if",
+            "where": {
+             "field": "lo_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "lo_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "lo_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           },
+           "b_hi": {
+            "op": "if",
+            "where": {
+             "field": "hi_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "hi_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "hi_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           },
+           "b_e1_lo": {
+            "op": "if",
+            "where": {
+             "field": "e1_lo_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "e1_lo_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "e1_lo_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           },
+           "b_e1_hi": {
+            "op": "if",
+            "where": {
+             "field": "e1_hi_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "e1_hi_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "e1_hi_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           },
+           "b_e2_lo": {
+            "op": "if",
+            "where": {
+             "field": "e2_lo_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "e2_lo_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "e2_lo_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           },
+           "b_e2_hi": {
+            "op": "if",
+            "where": {
+             "field": "e2_hi_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "e2_hi_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "e2_hi_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           },
+           "b_e3_lo": {
+            "op": "if",
+            "where": {
+             "field": "e3_lo_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "e3_lo_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "e3_lo_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           },
+           "b_e3_hi": {
+            "op": "if",
+            "where": {
+             "field": "e3_hi_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "e3_hi_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "e3_hi_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           }
+          }
+         },
+         "fields": {
+          "b_lo": {
+           "op": "field",
+           "path": "b_lo"
+          },
+          "b_hi": {
+           "op": "field",
+           "path": "b_hi"
+          },
+          "up_e1": {
+           "op": "compare",
+           "a": {
+            "op": "field",
+            "path": "b_e1_hi"
+           },
+           "b": {
+            "op": "field",
+            "path": "e1_band"
+           },
+           "value_type": "string",
+           "comparison": "eq"
+          },
+          "up_e2": {
+           "op": "compare",
+           "a": {
+            "op": "field",
+            "path": "b_e2_hi"
+           },
+           "b": {
+            "op": "field",
+            "path": "e2_band"
+           },
+           "value_type": "string",
+           "comparison": "eq"
+          },
+          "up_e3": {
+           "op": "compare",
+           "a": {
+            "op": "field",
+            "path": "b_e3_hi"
+           },
+           "b": {
+            "op": "field",
+            "path": "e3_band"
+           },
+           "value_type": "string",
+           "comparison": "eq"
+          }
+         }
+        },
+        "fields": {
+         "band": {
+          "op": "if",
+          "where": {
+           "all": [
+            {
+             "field": "up_e1",
+             "eq": true
+            },
+            {
+             "field": "up_e2",
+             "eq": true
+            },
+            {
+             "field": "up_e3",
+             "eq": true
+            }
+           ]
+          },
+          "then": {
+           "op": "field",
+           "path": "b_hi"
+          },
+          "else": {
+           "op": "field",
+           "path": "b_lo"
+          }
+         }
+        }
+       }
+      }
+     },
+     "XL": {
+      "op": "count",
+      "of": {
+       "op": "filter",
+       "where": {
+        "field": "band",
+        "eq": "XL"
+       },
+       "of": {
+        "op": "derive_rows",
+        "of": {
+         "op": "derive_rows",
+         "of": {
+          "op": "derive_rows",
+          "of": {
+           "op": "derive_rows",
+           "of": {
+            "op": "derive_rows",
+            "of": {
+             "op": "bind_rows",
+             "of": {
+              "op": "rows",
+              "file": "matrix.jsonl"
+             },
+             "fields": {
+              "s_hi": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+                },
+                "pattern": "S \\(ручная кладь\\): высота чемодана до (\\d+) см",
+                "group": 1
+               }
+              },
+              "m_hi": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+                },
+                "pattern": "M \\(средний\\): высота чемодана \\d+–(\\d+) см",
+                "group": 1
+               }
+              },
+              "l_hi": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+                },
+                "pattern": "L \\(большой\\): высота чемодана \\d+–(\\d+) см",
+                "group": 1
+               }
+              },
+              "e1_lo": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+                },
+                "pattern": "высотой (\\d+)–(\\d+) см на графитовом полотне входит в сегмент «[^»]+\\+ (S|M|L|XL)»",
+                "group": 1
+               }
+              },
+              "e1_hi": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+                },
+                "pattern": "высотой (\\d+)–(\\d+) см на графитовом полотне входит в сегмент «[^»]+\\+ (S|M|L|XL)»",
+                "group": 2
+               }
+              },
+              "e1_band": {
+               "op": "extract",
+               "of": {
+                "op": "text",
+                "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+               },
+               "pattern": "высотой (\\d+)–(\\d+) см на графитовом полотне входит в сегмент «[^»]+\\+ (S|M|L|XL)»",
+               "group": 3
+              },
+              "e2_lo": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+                },
+                "pattern": "высотой (\\d+)–(\\d+) см на мятном полотне — в сегмент «[^»]+\\+ (S|M|L|XL)»",
+                "group": 1
+               }
+              },
+              "e2_hi": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+                },
+                "pattern": "высотой (\\d+)–(\\d+) см на мятном полотне — в сегмент «[^»]+\\+ (S|M|L|XL)»",
+                "group": 2
+               }
+              },
+              "e2_band": {
+               "op": "extract",
+               "of": {
+                "op": "text",
+                "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+               },
+               "pattern": "высотой (\\d+)–(\\d+) см на мятном полотне — в сегмент «[^»]+\\+ (S|M|L|XL)»",
+               "group": 3
+              },
+              "e3_lo": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/protokol_soglasovaniya_2026-09-21.md"
+                },
+                "pattern": "для сегмента «[^»]+\\+ (S|M|L|XL)» — на образце чехла для чемоданов высотой (\\d+)–(\\d+) см",
+                "group": 2
+               }
+              },
+              "e3_hi": {
+               "op": "number",
+               "of": {
+                "op": "extract",
+                "of": {
+                 "op": "text",
+                 "file": "subcategory_covers/protokol_soglasovaniya_2026-09-21.md"
+                },
+                "pattern": "для сегмента «[^»]+\\+ (S|M|L|XL)» — на образце чехла для чемоданов высотой (\\d+)–(\\d+) см",
+                "group": 3
+               }
+              },
+              "e3_band": {
+               "op": "extract",
+               "of": {
+                "op": "text",
+                "file": "subcategory_covers/protokol_soglasovaniya_2026-09-21.md"
+               },
+               "pattern": "для сегмента «[^»]+\\+ (S|M|L|XL)» — на образце чехла для чемоданов высотой (\\d+)–(\\d+) см",
+               "group": 1
+              }
+             }
+            },
+            "fields": {
+             "s_hi": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "m_hi": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "l_hi": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "e1_lo": {
+              "op": "field",
+              "path": "e1_lo"
+             },
+             "e1_hi": {
+              "op": "field",
+              "path": "e1_hi"
+             },
+             "e1_band": {
+              "op": "field",
+              "path": "e1_band"
+             },
+             "e2_lo": {
+              "op": "field",
+              "path": "e2_lo"
+             },
+             "e2_hi": {
+              "op": "field",
+              "path": "e2_hi"
+             },
+             "e2_band": {
+              "op": "field",
+              "path": "e2_band"
+             },
+             "e3_lo": {
+              "op": "field",
+              "path": "e3_lo"
+             },
+             "e3_hi": {
+              "op": "field",
+              "path": "e3_hi"
+             },
+             "e3_band": {
+              "op": "field",
+              "path": "e3_band"
+             },
+             "lo": {
+              "op": "range_bound",
+              "of": {
+               "op": "field",
+               "path": "Высота чемодана (см)"
+              },
+              "bound": "lower"
+             },
+             "hi": {
+              "op": "range_bound",
+              "of": {
+               "op": "field",
+               "path": "Высота чемодана (см)"
+              },
+              "bound": "upper"
+             }
+            }
+           },
+           "fields": {
+            "e1_band": {
+             "op": "field",
+             "path": "e1_band"
+            },
+            "e2_band": {
+             "op": "field",
+             "path": "e2_band"
+            },
+            "e3_band": {
+             "op": "field",
+             "path": "e3_band"
+            },
+            "lo_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "lo_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "lo_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "hi_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "hi_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "hi_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e1_lo_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e1_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e1_lo_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e1_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e1_lo_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e1_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e1_hi_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e1_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e1_hi_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e1_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e1_hi_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e1_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e2_lo_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e2_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e2_lo_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e2_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e2_lo_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e2_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e2_hi_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e2_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e2_hi_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e2_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e2_hi_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e2_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e3_lo_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e3_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e3_lo_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e3_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e3_lo_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e3_lo"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e3_hi_s": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e3_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "s_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e3_hi_m": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e3_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "m_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            },
+            "e3_hi_l": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "e3_hi"
+             },
+             "b": {
+              "op": "field",
+              "path": "l_hi"
+             },
+             "value_type": "number",
+             "comparison": "lte"
+            }
+           }
+          },
+          "fields": {
+           "e1_band": {
+            "op": "field",
+            "path": "e1_band"
+           },
+           "e2_band": {
+            "op": "field",
+            "path": "e2_band"
+           },
+           "e3_band": {
+            "op": "field",
+            "path": "e3_band"
+           },
+           "b_lo": {
+            "op": "if",
+            "where": {
+             "field": "lo_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "lo_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "lo_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           },
+           "b_hi": {
+            "op": "if",
+            "where": {
+             "field": "hi_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "hi_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "hi_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           },
+           "b_e1_lo": {
+            "op": "if",
+            "where": {
+             "field": "e1_lo_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "e1_lo_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "e1_lo_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           },
+           "b_e1_hi": {
+            "op": "if",
+            "where": {
+             "field": "e1_hi_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "e1_hi_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "e1_hi_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           },
+           "b_e2_lo": {
+            "op": "if",
+            "where": {
+             "field": "e2_lo_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "e2_lo_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "e2_lo_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           },
+           "b_e2_hi": {
+            "op": "if",
+            "where": {
+             "field": "e2_hi_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "e2_hi_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "e2_hi_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           },
+           "b_e3_lo": {
+            "op": "if",
+            "where": {
+             "field": "e3_lo_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "e3_lo_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "e3_lo_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           },
+           "b_e3_hi": {
+            "op": "if",
+            "where": {
+             "field": "e3_hi_s",
+             "eq": true
+            },
+            "then": {
+             "op": "literal",
+             "value": "S",
+             "why": "grid band S: up to the S edge"
+            },
+            "else": {
+             "op": "if",
+             "where": {
+              "field": "e3_hi_m",
+              "eq": true
+             },
+             "then": {
+              "op": "literal",
+              "value": "M",
+              "why": "grid band M"
+             },
+             "else": {
+              "op": "if",
+              "where": {
+               "field": "e3_hi_l",
+               "eq": true
+              },
+              "then": {
+               "op": "literal",
+               "value": "L",
+               "why": "grid band L"
+              },
+              "else": {
+               "op": "literal",
+               "value": "XL",
+               "why": "grid band XL: above the L edge"
+              }
+             }
+            }
+           }
+          }
+         },
+         "fields": {
+          "b_lo": {
+           "op": "field",
+           "path": "b_lo"
+          },
+          "b_hi": {
+           "op": "field",
+           "path": "b_hi"
+          },
+          "up_e1": {
+           "op": "compare",
+           "a": {
+            "op": "field",
+            "path": "b_e1_hi"
+           },
+           "b": {
+            "op": "field",
+            "path": "e1_band"
+           },
+           "value_type": "string",
+           "comparison": "eq"
+          },
+          "up_e2": {
+           "op": "compare",
+           "a": {
+            "op": "field",
+            "path": "b_e2_hi"
+           },
+           "b": {
+            "op": "field",
+            "path": "e2_band"
+           },
+           "value_type": "string",
+           "comparison": "eq"
+          },
+          "up_e3": {
+           "op": "compare",
+           "a": {
+            "op": "field",
+            "path": "b_e3_hi"
+           },
+           "b": {
+            "op": "field",
+            "path": "e3_band"
+           },
+           "value_type": "string",
+           "comparison": "eq"
+          }
+         }
+        },
+        "fields": {
+         "band": {
+          "op": "if",
+          "where": {
+           "all": [
+            {
+             "field": "up_e1",
+             "eq": true
+            },
+            {
+             "field": "up_e2",
+             "eq": true
+            },
+            {
+             "field": "up_e3",
+             "eq": true
+            }
+           ]
+          },
+          "then": {
+           "op": "field",
+           "path": "b_hi"
+          },
+          "else": {
+           "op": "field",
+           "path": "b_lo"
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "id": "obj_price_segments",
+   "kind": "objective",
+   "step": "01-task",
+   "weight": 24,
+   "band": "stretch",
+   "dimension": "inference",
+   "weight_basis": "P7 SCALE (wrong_figure_vs_derivation; quantity semantics; B6v6 template T3): passport section 2 defines the purchase price without VAT and section 8 bands a cover by it; Багажный щит's matrix figures carry VAT (its letter: last year's prices held through January's rise to 22 %, not passed on; the minutes: its sample invoice is paid at exactly the matrix prices, nothing more), so its rows are banded with the 22 % taken out, Ковертэк's as printed. Banding every printed figure gives base 4 / mid 32 / top 24.",
+   "basis": "skus_by_price_segment: the matrix's SKUs per price segment of the passport: base (базовый), mid (средний) and top (верхний)",
+   "assertion": "equals",
+   "actual": {
+    "op": "field",
+    "file": "cover_matrix_check.json",
+    "path": "skus_by_price_segment"
+   },
+   "target": {
+    "op": "record",
+    "fields": {
+     "base": {
+      "op": "count",
+      "of": {
+       "op": "filter",
+       "where": {
+        "field": "seg",
+        "eq": "base"
+       },
+       "of": {
+        "op": "derive_rows",
+        "of": {
+         "op": "derive_rows",
+         "of": {
+          "op": "derive_rows",
+          "of": {
+           "op": "derive_rows",
+           "of": {
+            "op": "bind_rows",
+            "of": {
+             "op": "rows",
+             "file": "matrix.jsonl"
+            },
+            "fields": {
+             "rate": {
+              "op": "number",
+              "of": {
+               "op": "extract",
+               "of": {
+                "op": "text",
+                "file": "subcategory_covers/pismo_bagazhnyy_shchit_2026-09-10.md"
+               },
+               "pattern": "НДС с января вырос до (\\d+) %",
+               "group": 1
+              }
+             },
+             "incl_sup": {
+              "op": "extract",
+              "of": {
+               "op": "text",
+               "file": "subcategory_covers/pismo_bagazhnyy_shchit_2026-09-10.md"
+              },
+              "pattern": "Письмо поставщика «([^»]+)»",
+              "group": 1
+             },
+             "base_hi": {
+              "op": "number",
+              "of": {
+               "op": "extract",
+               "of": {
+                "op": "text",
+                "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+               },
+               "pattern": "- базовый: до (\\d+)",
+               "group": 1
+              }
+             },
+             "mid_hi": {
+              "op": "number",
+              "of": {
+               "op": "extract",
+               "of": {
+                "op": "text",
+                "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+               },
+               "pattern": "- средний: \\d+–(\\d+)",
+               "group": 1
+              }
+             }
+            }
+           },
+           "fields": {
+            "base_hi": {
+             "op": "field",
+             "path": "base_hi"
+            },
+            "mid_hi": {
+             "op": "field",
+             "path": "mid_hi"
+            },
+            "rate": {
+             "op": "field",
+             "path": "rate"
+            },
+            "price": {
+             "op": "number",
+             "of": {
+              "op": "field",
+              "path": "Цена закупки (руб)"
+             }
+            },
+            "incl": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "Поставщик"
+             },
+             "b": {
+              "op": "field",
+              "path": "incl_sup"
+             },
+             "value_type": "string",
+             "comparison": "eq"
+            }
+           }
+          },
+          "fields": {
+           "base_hi": {
+            "op": "field",
+            "path": "base_hi"
+           },
+           "mid_hi": {
+            "op": "field",
+            "path": "mid_hi"
+           },
+           "net": {
+            "op": "if",
+            "where": {
+             "field": "incl",
+             "eq": true
+            },
+            "then": {
+             "op": "divide",
+             "a": {
+              "op": "multiply",
+              "a": {
+               "op": "field",
+               "path": "price"
+              },
+              "b": {
+               "op": "literal",
+               "value": 100,
+               "why": "a percentage is a hundredfold share"
+              }
+             },
+             "b": {
+              "op": "add",
+              "a": {
+               "op": "literal",
+               "value": 100,
+               "why": "a percentage is a hundredfold share"
+              },
+              "b": {
+               "op": "field",
+               "path": "rate"
+              }
+             }
+            },
+            "else": {
+             "op": "field",
+             "path": "price"
+            }
+           }
+          }
+         },
+         "fields": {
+          "in_base": {
+           "op": "compare",
+           "a": {
+            "op": "field",
+            "path": "net"
+           },
+           "b": {
+            "op": "field",
+            "path": "base_hi"
+           },
+           "value_type": "number",
+           "comparison": "lte"
+          },
+          "in_mid": {
+           "op": "compare",
+           "a": {
+            "op": "field",
+            "path": "net"
+           },
+           "b": {
+            "op": "field",
+            "path": "mid_hi"
+           },
+           "value_type": "number",
+           "comparison": "lte"
+          }
+         }
+        },
+        "fields": {
+         "seg": {
+          "op": "if",
+          "where": {
+           "field": "in_base",
+           "eq": true
+          },
+          "then": {
+           "op": "literal",
+           "value": "base",
+           "why": "passport 8: базовый, up to its bound"
+          },
+          "else": {
+           "op": "if",
+           "where": {
+            "field": "in_mid",
+            "eq": true
+           },
+           "then": {
+            "op": "literal",
+            "value": "mid",
+            "why": "passport 8: средний"
+           },
+           "else": {
+            "op": "literal",
+            "value": "top",
+            "why": "passport 8: верхний, above the средний bound"
+           }
+          }
+         }
+        }
+       }
+      }
+     },
+     "mid": {
+      "op": "count",
+      "of": {
+       "op": "filter",
+       "where": {
+        "field": "seg",
+        "eq": "mid"
+       },
+       "of": {
+        "op": "derive_rows",
+        "of": {
+         "op": "derive_rows",
+         "of": {
+          "op": "derive_rows",
+          "of": {
+           "op": "derive_rows",
+           "of": {
+            "op": "bind_rows",
+            "of": {
+             "op": "rows",
+             "file": "matrix.jsonl"
+            },
+            "fields": {
+             "rate": {
+              "op": "number",
+              "of": {
+               "op": "extract",
+               "of": {
+                "op": "text",
+                "file": "subcategory_covers/pismo_bagazhnyy_shchit_2026-09-10.md"
+               },
+               "pattern": "НДС с января вырос до (\\d+) %",
+               "group": 1
+              }
+             },
+             "incl_sup": {
+              "op": "extract",
+              "of": {
+               "op": "text",
+               "file": "subcategory_covers/pismo_bagazhnyy_shchit_2026-09-10.md"
+              },
+              "pattern": "Письмо поставщика «([^»]+)»",
+              "group": 1
+             },
+             "base_hi": {
+              "op": "number",
+              "of": {
+               "op": "extract",
+               "of": {
+                "op": "text",
+                "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+               },
+               "pattern": "- базовый: до (\\d+)",
+               "group": 1
+              }
+             },
+             "mid_hi": {
+              "op": "number",
+              "of": {
+               "op": "extract",
+               "of": {
+                "op": "text",
+                "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+               },
+               "pattern": "- средний: \\d+–(\\d+)",
+               "group": 1
+              }
+             }
+            }
+           },
+           "fields": {
+            "base_hi": {
+             "op": "field",
+             "path": "base_hi"
+            },
+            "mid_hi": {
+             "op": "field",
+             "path": "mid_hi"
+            },
+            "rate": {
+             "op": "field",
+             "path": "rate"
+            },
+            "price": {
+             "op": "number",
+             "of": {
+              "op": "field",
+              "path": "Цена закупки (руб)"
+             }
+            },
+            "incl": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "Поставщик"
+             },
+             "b": {
+              "op": "field",
+              "path": "incl_sup"
+             },
+             "value_type": "string",
+             "comparison": "eq"
+            }
+           }
+          },
+          "fields": {
+           "base_hi": {
+            "op": "field",
+            "path": "base_hi"
+           },
+           "mid_hi": {
+            "op": "field",
+            "path": "mid_hi"
+           },
+           "net": {
+            "op": "if",
+            "where": {
+             "field": "incl",
+             "eq": true
+            },
+            "then": {
+             "op": "divide",
+             "a": {
+              "op": "multiply",
+              "a": {
+               "op": "field",
+               "path": "price"
+              },
+              "b": {
+               "op": "literal",
+               "value": 100,
+               "why": "a percentage is a hundredfold share"
+              }
+             },
+             "b": {
+              "op": "add",
+              "a": {
+               "op": "literal",
+               "value": 100,
+               "why": "a percentage is a hundredfold share"
+              },
+              "b": {
+               "op": "field",
+               "path": "rate"
+              }
+             }
+            },
+            "else": {
+             "op": "field",
+             "path": "price"
+            }
+           }
+          }
+         },
+         "fields": {
+          "in_base": {
+           "op": "compare",
+           "a": {
+            "op": "field",
+            "path": "net"
+           },
+           "b": {
+            "op": "field",
+            "path": "base_hi"
+           },
+           "value_type": "number",
+           "comparison": "lte"
+          },
+          "in_mid": {
+           "op": "compare",
+           "a": {
+            "op": "field",
+            "path": "net"
+           },
+           "b": {
+            "op": "field",
+            "path": "mid_hi"
+           },
+           "value_type": "number",
+           "comparison": "lte"
+          }
+         }
+        },
+        "fields": {
+         "seg": {
+          "op": "if",
+          "where": {
+           "field": "in_base",
+           "eq": true
+          },
+          "then": {
+           "op": "literal",
+           "value": "base",
+           "why": "passport 8: базовый, up to its bound"
+          },
+          "else": {
+           "op": "if",
+           "where": {
+            "field": "in_mid",
+            "eq": true
+           },
+           "then": {
+            "op": "literal",
+            "value": "mid",
+            "why": "passport 8: средний"
+           },
+           "else": {
+            "op": "literal",
+            "value": "top",
+            "why": "passport 8: верхний, above the средний bound"
+           }
+          }
+         }
+        }
+       }
+      }
+     },
+     "top": {
+      "op": "count",
+      "of": {
+       "op": "filter",
+       "where": {
+        "field": "seg",
+        "eq": "top"
+       },
+       "of": {
+        "op": "derive_rows",
+        "of": {
+         "op": "derive_rows",
+         "of": {
+          "op": "derive_rows",
+          "of": {
+           "op": "derive_rows",
+           "of": {
+            "op": "bind_rows",
+            "of": {
+             "op": "rows",
+             "file": "matrix.jsonl"
+            },
+            "fields": {
+             "rate": {
+              "op": "number",
+              "of": {
+               "op": "extract",
+               "of": {
+                "op": "text",
+                "file": "subcategory_covers/pismo_bagazhnyy_shchit_2026-09-10.md"
+               },
+               "pattern": "НДС с января вырос до (\\d+) %",
+               "group": 1
+              }
+             },
+             "incl_sup": {
+              "op": "extract",
+              "of": {
+               "op": "text",
+               "file": "subcategory_covers/pismo_bagazhnyy_shchit_2026-09-10.md"
+              },
+              "pattern": "Письмо поставщика «([^»]+)»",
+              "group": 1
+             },
+             "base_hi": {
+              "op": "number",
+              "of": {
+               "op": "extract",
+               "of": {
+                "op": "text",
+                "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+               },
+               "pattern": "- базовый: до (\\d+)",
+               "group": 1
+              }
+             },
+             "mid_hi": {
+              "op": "number",
+              "of": {
+               "op": "extract",
+               "of": {
+                "op": "text",
+                "file": "subcategory_covers/pasport_subkategorii_chekhly.md"
+               },
+               "pattern": "- средний: \\d+–(\\d+)",
+               "group": 1
+              }
+             }
+            }
+           },
+           "fields": {
+            "base_hi": {
+             "op": "field",
+             "path": "base_hi"
+            },
+            "mid_hi": {
+             "op": "field",
+             "path": "mid_hi"
+            },
+            "rate": {
+             "op": "field",
+             "path": "rate"
+            },
+            "price": {
+             "op": "number",
+             "of": {
+              "op": "field",
+              "path": "Цена закупки (руб)"
+             }
+            },
+            "incl": {
+             "op": "compare",
+             "a": {
+              "op": "field",
+              "path": "Поставщик"
+             },
+             "b": {
+              "op": "field",
+              "path": "incl_sup"
+             },
+             "value_type": "string",
+             "comparison": "eq"
+            }
+           }
+          },
+          "fields": {
+           "base_hi": {
+            "op": "field",
+            "path": "base_hi"
+           },
+           "mid_hi": {
+            "op": "field",
+            "path": "mid_hi"
+           },
+           "net": {
+            "op": "if",
+            "where": {
+             "field": "incl",
+             "eq": true
+            },
+            "then": {
+             "op": "divide",
+             "a": {
+              "op": "multiply",
+              "a": {
+               "op": "field",
+               "path": "price"
+              },
+              "b": {
+               "op": "literal",
+               "value": 100,
+               "why": "a percentage is a hundredfold share"
+              }
+             },
+             "b": {
+              "op": "add",
+              "a": {
+               "op": "literal",
+               "value": 100,
+               "why": "a percentage is a hundredfold share"
+              },
+              "b": {
+               "op": "field",
+               "path": "rate"
+              }
+             }
+            },
+            "else": {
+             "op": "field",
+             "path": "price"
+            }
+           }
+          }
+         },
+         "fields": {
+          "in_base": {
+           "op": "compare",
+           "a": {
+            "op": "field",
+            "path": "net"
+           },
+           "b": {
+            "op": "field",
+            "path": "base_hi"
+           },
+           "value_type": "number",
+           "comparison": "lte"
+          },
+          "in_mid": {
+           "op": "compare",
+           "a": {
+            "op": "field",
+            "path": "net"
+           },
+           "b": {
+            "op": "field",
+            "path": "mid_hi"
+           },
+           "value_type": "number",
+           "comparison": "lte"
+          }
+         }
+        },
+        "fields": {
+         "seg": {
+          "op": "if",
+          "where": {
+           "field": "in_base",
+           "eq": true
+          },
+          "then": {
+           "op": "literal",
+           "value": "base",
+           "why": "passport 8: базовый, up to its bound"
+          },
+          "else": {
+           "op": "if",
+           "where": {
+            "field": "in_mid",
+            "eq": true
+           },
+           "then": {
+            "op": "literal",
+            "value": "mid",
+            "why": "passport 8: средний"
+           },
+           "else": {
+            "op": "literal",
+            "value": "top",
+            "why": "passport 8: верхний, above the средний bound"
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "id": "obj_sku_count",
+   "kind": "objective",
+   "step": "01-task",
+   "weight": 3,
+   "band": "floor",
+   "dimension": "execution",
+   "weight_basis": "Coverage: one row of the matrix file is one SKU (passport section 2).",
+   "basis": "matrix_sku_count: the number of SKUs in Polina's launch matrix for suitcase covers",
+   "assertion": "equals",
+   "actual": {
+    "op": "field",
+    "file": "cover_matrix_check.json",
+    "path": "matrix_sku_count"
+   },
+   "target": {
+    "op": "count",
+    "of": {
+     "op": "rows",
+     "file": "matrix.jsonl"
+    }
+   }
+  },
+  {
+   "id": "obj_design_count",
+   "kind": "objective",
+   "step": "01-task",
+   "weight": 3,
+   "band": "floor",
+   "dimension": "execution",
+   "weight_basis": "Coverage: design_count equals the number of entries in the solver's own designs list.",
+   "basis": "design_count: the number of distinct designs in that matrix, i.e. the number of entries in designs",
+   "assertion": "equals",
+   "actual": {
+    "op": "compare",
+    "a": {
+     "op": "field",
+     "file": "cover_matrix_check.json",
+     "path": "design_count"
+    },
+    "b": {
+     "op": "count",
+     "of": {
+      "op": "field",
+      "file": "cover_matrix_check.json",
+      "path": "designs"
+     }
+    },
+    "value_type": "number",
+    "comparison": "eq"
+   },
+   "target": {
+    "op": "literal",
+    "value": true,
+    "why": "design_count is the length of the solver's own designs list"
+   }
+  },
+  {
+   "id": "obj_body_split",
+   "kind": "objective",
+   "step": "01-task",
+   "weight": 4,
+   "band": "floor",
+   "dimension": "execution",
+   "weight_basis": "Coverage: the matrix's body column, hard and soft.",
+   "basis": "skus_by_body: the matrix's SKUs per suitcase body material of the passport: hard (жёсткий корпус) and soft (мягкий корпус)",
+   "assertion": "equals",
+   "actual": {
+    "op": "field",
+    "file": "cover_matrix_check.json",
+    "path": "skus_by_body"
+   },
+   "target": {
+    "op": "record",
+    "fields": {
+     "hard": {
+      "op": "count",
+      "of": {
+       "op": "rows",
+       "file": "matrix.jsonl",
+       "where": {
+        "field": "Корпус чемодана",
+        "eq": "жёсткий"
+       }
+      }
+     },
+     "soft": {
+      "op": "count",
+      "of": {
+       "op": "rows",
+       "file": "matrix.jsonl",
+       "where": {
+        "field": "Корпус чемодана",
+        "eq": "мягкий"
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "id": "obj_colour_clusters",
+   "kind": "objective",
+   "step": "01-task",
+   "weight": 4,
+   "band": "floor",
+   "dimension": "execution",
+   "weight_basis": "Coverage: passport table 5.1 maps each background colour to its cluster.",
+   "basis": "skus_by_colour_cluster: the matrix's SKUs per colour cluster of the passport: dark (Тёмные базовые), neutral (Светлые нейтральные) and bright (Яркие)",
+   "assertion": "equals",
+   "actual": {
+    "op": "field",
+    "file": "cover_matrix_check.json",
+    "path": "skus_by_colour_cluster"
+   },
+   "target": {
+    "op": "record",
+    "fields": {
+     "dark": {
+      "op": "count",
+      "of": {
+       "op": "rows",
+       "file": "matrix_cluster.jsonl",
+       "where": {
+        "field": "cluster",
+        "eq": "Тёмные базовые"
+       }
+      }
+     },
+     "neutral": {
+      "op": "count",
+      "of": {
+       "op": "rows",
+       "file": "matrix_cluster.jsonl",
+       "where": {
+        "field": "cluster",
+        "eq": "Светлые нейтральные"
+       }
+      }
+     },
+     "bright": {
+      "op": "count",
+      "of": {
+       "op": "rows",
+       "file": "matrix_cluster.jsonl",
+       "where": {
+        "field": "cluster",
+        "eq": "Яркие"
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "id": "obj_before",
+   "kind": "objective",
+   "step": "01-task",
+   "weight": 6,
+   "band": "floor",
+   "dimension": "execution",
+   "weight_basis": "Coverage: the 15 July export reversed through the change log back to the first day (6 July, HR card).",
+   "basis": "slide1.active_skus_before: the category's active SKUs as the category stood on Polina's first day of the internship",
+   "assertion": "equals",
+   "actual": {
+    "op": "field",
+    "file": "cover_matrix_check.json",
+    "path": "slide1.active_skus_before"
+   },
+   "target": {
+    "op": "subtract",
+    "a": {
+     "op": "add",
+     "a": {
+      "op": "count",
+      "of": {
+       "op": "rows",
+       "file": "export_first.jsonl"
+      }
+     },
+     "b": {
+      "op": "count",
+      "of": {
+       "op": "filter",
+       "where": {
+        "all": [
+         {
+          "field": "ge",
+          "eq": true
+         },
+         {
+          "field": "lt",
+          "eq": true
+         },
+         {
+          "field": "act",
+          "eq": "вывод"
+         }
+        ]
+       },
+       "of": {
+        "op": "derive_rows",
+        "of": {
+         "op": "bind_rows",
+         "of": {
+          "op": "rows",
+          "file": "log.jsonl"
+         },
+         "fields": {
+          "start": {
+           "op": "only",
+           "of": {
+            "op": "pluck",
+            "field": "value",
+            "of": {
+             "op": "rows",
+             "file": "hr.jsonl",
+             "where": {
+              "field": "label",
+              "eq": "Дата начала стажировки"
+             }
+            }
+           }
+          },
+          "cut": {
+           "op": "only",
+           "of": {
+            "op": "unique",
+            "of": {
+             "op": "pluck",
+             "field": "Дата выгрузки",
+             "of": {
+              "op": "rows",
+              "file": "export_first.jsonl"
+             }
+            }
+           }
+          }
+         }
+        },
+        "fields": {
+         "act": {
+          "op": "field",
+          "path": "Действие"
+         },
+         "ge": {
+          "op": "compare",
+          "a": {
+           "op": "field",
+           "path": "Дата"
+          },
+          "b": {
+           "op": "field",
+           "path": "start"
+          },
+          "value_type": "date",
+          "comparison": "gte"
+         },
+         "lt": {
+          "op": "compare",
+          "a": {
+           "op": "field",
+           "path": "Дата"
+          },
+          "b": {
+           "op": "field",
+           "path": "cut"
+          },
+          "value_type": "date",
+          "comparison": "lt"
+         }
+        }
+       }
+      }
+     }
+    },
+    "b": {
+     "op": "count",
+     "of": {
+      "op": "filter",
+      "where": {
+       "all": [
+        {
+         "field": "ge",
+         "eq": true
+        },
+        {
+         "field": "lt",
+         "eq": true
+        },
+        {
+         "field": "act",
+         "eq": "ввод"
+        }
+       ]
+      },
+      "of": {
+       "op": "derive_rows",
+       "of": {
+        "op": "bind_rows",
+        "of": {
+         "op": "rows",
+         "file": "log.jsonl"
+        },
+        "fields": {
+         "start": {
+          "op": "only",
+          "of": {
+           "op": "pluck",
+           "field": "value",
+           "of": {
+            "op": "rows",
+            "file": "hr.jsonl",
+            "where": {
+             "field": "label",
+             "eq": "Дата начала стажировки"
+            }
+           }
+          }
+         },
+         "cut": {
+          "op": "only",
+          "of": {
+           "op": "unique",
+           "of": {
+            "op": "pluck",
+            "field": "Дата выгрузки",
+            "of": {
+             "op": "rows",
+             "file": "export_first.jsonl"
+            }
+           }
+          }
+         }
+        }
+       },
+       "fields": {
+        "act": {
+         "op": "field",
+         "path": "Действие"
+        },
+        "ge": {
+         "op": "compare",
+         "a": {
+          "op": "field",
+          "path": "Дата"
+         },
+         "b": {
+          "op": "field",
+          "path": "start"
+         },
+         "value_type": "date",
+         "comparison": "gte"
+        },
+        "lt": {
+         "op": "compare",
+         "a": {
+          "op": "field",
+          "path": "Дата"
+         },
+         "b": {
+          "op": "field",
+          "path": "cut"
+         },
+         "value_type": "date",
+         "comparison": "lt"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "id": "obj_after_total",
+   "kind": "objective",
+   "step": "01-task",
+   "weight": 4,
+   "band": "floor",
+   "dimension": "execution",
+   "weight_basis": "Coverage: the total is the solver's own six figures, and the five subcategories P1 does not touch match the 9 October export.",
+   "basis": "slide1.active_skus_after: the sum of the six active_skus_after_by_subcategory figures",
+   "assertion": "equals",
+   "actual": {
+    "op": "record",
+    "fields": {
+     "total_is_own_sum": {
+      "op": "compare",
+      "a": {
+       "op": "field",
+       "file": "cover_matrix_check.json",
+       "path": "slide1.active_skus_after"
+      },
+      "b": {
+       "op": "add",
+       "a": {
+        "op": "add",
+        "a": {
+         "op": "add",
+         "a": {
+          "op": "add",
+          "a": {
+           "op": "add",
+           "a": {
+            "op": "field",
+            "file": "cover_matrix_check.json",
+            "path": "slide1.active_skus_after_by_subcategory.hard_suitcases"
+           },
+           "b": {
+            "op": "field",
+            "file": "cover_matrix_check.json",
+            "path": "slide1.active_skus_after_by_subcategory.soft_suitcases"
+           }
+          },
+          "b": {
+           "op": "field",
+           "file": "cover_matrix_check.json",
+           "path": "slide1.active_skus_after_by_subcategory.travel_bags"
+          }
+         },
+         "b": {
+          "op": "field",
+          "file": "cover_matrix_check.json",
+          "path": "slide1.active_skus_after_by_subcategory.backpacks"
+         }
+        },
+        "b": {
+         "op": "field",
+         "file": "cover_matrix_check.json",
+         "path": "slide1.active_skus_after_by_subcategory.luggage_scales"
+        }
+       },
+       "b": {
+        "op": "field",
+        "file": "cover_matrix_check.json",
+        "path": "slide1.active_skus_after_by_subcategory.accessories"
+       }
+      },
+      "value_type": "number",
+      "comparison": "eq"
+     },
+     "hard_suitcases": {
+      "op": "field",
+      "file": "cover_matrix_check.json",
+      "path": "slide1.active_skus_after_by_subcategory.hard_suitcases"
+     },
+     "soft_suitcases": {
+      "op": "field",
+      "file": "cover_matrix_check.json",
+      "path": "slide1.active_skus_after_by_subcategory.soft_suitcases"
+     },
+     "travel_bags": {
+      "op": "field",
+      "file": "cover_matrix_check.json",
+      "path": "slide1.active_skus_after_by_subcategory.travel_bags"
+     },
+     "backpacks": {
+      "op": "field",
+      "file": "cover_matrix_check.json",
+      "path": "slide1.active_skus_after_by_subcategory.backpacks"
+     },
+     "accessories": {
+      "op": "field",
+      "file": "cover_matrix_check.json",
+      "path": "slide1.active_skus_after_by_subcategory.accessories"
+     }
+    }
+   },
+   "target": {
+    "op": "record",
+    "fields": {
+     "total_is_own_sum": {
+      "op": "literal",
+      "value": true,
+      "why": "active_skus_after is the sum of the solver's own six figures"
+     },
+     "hard_suitcases": {
+      "op": "count",
+      "of": {
+       "op": "rows",
+       "file": "export_last.jsonl",
+       "where": {
+        "field": "Подкатегория",
+        "eq": "Чемоданы пластиковые"
+       }
+      }
+     },
+     "soft_suitcases": {
+      "op": "count",
+      "of": {
+       "op": "rows",
+       "file": "export_last.jsonl",
+       "where": {
+        "field": "Подкатегория",
+        "eq": "Чемоданы тканевые"
+       }
+      }
+     },
+     "travel_bags": {
+      "op": "count",
+      "of": {
+       "op": "rows",
+       "file": "export_last.jsonl",
+       "where": {
+        "field": "Подкатегория",
+        "eq": "Дорожные сумки"
+       }
+      }
+     },
+     "backpacks": {
+      "op": "count",
+      "of": {
+       "op": "rows",
+       "file": "export_last.jsonl",
+       "where": {
+        "field": "Подкатегория",
+        "eq": "Рюкзаки дорожные"
+       }
+      }
+     },
+     "accessories": {
+      "op": "count",
+      "of": {
+       "op": "rows",
+       "file": "export_last.jsonl",
+       "where": {
+        "field": "Подкатегория",
+        "eq": "Аксессуары для путешествий"
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "id": "obj_ru_count",
+   "kind": "objective",
+   "step": "01-task",
+   "weight": 4,
+   "band": "floor",
+   "dimension": "execution",
+   "weight_basis": "Coverage: Russian-supplier SKUs now (none of them is in the sale section).",
+   "basis": "slide1.ru_skus_after: of the category's active SKUs now, those with Russia as their supplier country",
+   "assertion": "equals",
+   "actual": {
+    "op": "field",
+    "file": "cover_matrix_check.json",
+    "path": "slide1.ru_skus_after"
+   },
+   "target": {
+    "op": "count",
+    "of": {
+     "op": "rows",
+     "file": "export_last.jsonl",
+     "where": {
+      "field": "Страна поставщика",
+      "eq": "Россия"
+     }
+    }
+   }
+  },
+  {
+   "id": "g_fixture_intact",
+   "kind": "guardrail",
+   "step": "01-task",
+   "weight": 0,
+   "band": "floor",
+   "dimension": "restraint",
+   "basis": "Everything is in /app/environment/files (read-only); please don't change, move or delete anything there.",
+   "assertion": "fixture_intact",
+   "actual": {
+    "op": "literal",
+    "value": true,
+    "why": "fixture integrity is checked by the harness, not read from a deliverable"
+   },
+   "target": {
+    "op": "literal",
+    "value": true,
+    "why": "fixture integrity guard"
+   }
+  }
+ ]
+}

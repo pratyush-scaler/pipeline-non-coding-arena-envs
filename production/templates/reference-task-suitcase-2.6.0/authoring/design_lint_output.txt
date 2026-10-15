@@ -1,0 +1,8 @@
+ok    map: 5 premises, 5 premise checks, 7 coverage checks
+ok    01-task: premises 72%, coverage 28%
+ok    v2: mechanisms ['STORE', 'EXEMPLAR', 'TWIN', 'EXEMPLAR', 'SCALE']; interlocks [('P1', ['P2']), ('P2', ['P1'])]
+ok    additivity: 32 misreading subsets each failed exactly their premises' checks with the exact partial reward
+ok    leaks: none of 45 reference values appear in the instructions (enum options and justified values excepted)
+WARN  01-task: premise P1 carries only 5%; a premise that bites should weigh 12-20%
+WARN  01-task: premise P6 carries only 5%; a premise that bites should weigh 12-20%
+DESIGN GATE: PASS

@@ -1,0 +1,1192 @@
+{
+ "schema": "b8/plan/1",
+ "rng_seed": 0,
+ "library": {
+  "path": "production/traps/library.json",
+  "generated": "2026-10-15T20:11+05:30",
+  "modes": 44
+ },
+ "quotas": {
+  "lead_share": 0.25,
+  "cap": 4,
+  "lead_family": {
+   "quantity_basis": 3,
+   "record_reversal": 4,
+   "authority_selection": 2,
+   "rule_scope": 2,
+   "revision_supersession": 1,
+   "convention_inference": 2,
+   "aggregation_basis": 1,
+   "possession_state": 1
+  },
+  "lead_mode": {
+   "T3": 3,
+   "T1": 1,
+   "T12": 1,
+   "T6": 2,
+   "T9": 2,
+   "T8": 1,
+   "T7": 1,
+   "T14": 1,
+   "T5": 1,
+   "T4": 1,
+   "T2": 1,
+   "T10": 1
+  },
+  "family_presence": {
+   "quantity_basis": 6,
+   "record_reversal": 11,
+   "rule_scope": 5,
+   "authority_selection": 5,
+   "convention_inference": 7,
+   "revision_supersession": 5,
+   "possession_state": 5,
+   "aggregation_basis": 4
+  },
+  "violations": []
+ },
+ "seeds": [
+  {
+   "seed": "01a0c808-bd7f-79dc-82ae-4b2401941eb1",
+   "domain": "edtech sales: school market sizing",
+   "trace_traps": "trace/01a0c808-bd7f-79dc-82ae-4b2401941eb1.json",
+   "signals": {},
+   "status": "planned",
+   "relaxed": false,
+   "lead": "T3",
+   "modes": [
+    {
+     "id": "T3",
+     "name": "Quantity basis cued only on or about the record (tax-inclusive, per pack)",
+     "family": "quantity_basis",
+     "status": "proven",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "lead",
+     "weight": 24,
+     "why": [
+      "proven",
+      "pooled miss 65%"
+     ]
+    },
+    {
+     "id": "T12",
+     "name": "Line transposition settled by first-hand descriptions",
+     "family": "record_reversal",
+     "status": "proven",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "decisive",
+     "weight": 20,
+     "why": [
+      "proven",
+      "pooled miss 62%",
+      "domain match (school)"
+     ]
+    },
+    {
+     "id": "T5",
+     "name": "Misfiled note or record: filed under one item, content only fits another",
+     "family": "record_reversal",
+     "status": "proven",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "decisive",
+     "weight": 17,
+     "why": [
+      "proven",
+      "pooled miss 48%",
+      "domain match (school)"
+     ]
+    },
+    {
+     "id": "T9",
+     "name": "Rule-scope shield: a real rule on a neighbouring value over-applied",
+     "family": "rule_scope",
+     "status": "promising",
+     "aimed_at": "fable",
+     "clock": false,
+     "role": "decisive",
+     "weight": 12,
+     "why": [
+      "promising",
+      "pooled miss 46%",
+      "domain match (school)"
+     ]
+    }
+   ],
+   "families": [
+    "quantity_basis",
+    "record_reversal",
+    "rule_scope"
+   ],
+   "projected_free_share": 0.27,
+   "notes": []
+  },
+  {
+   "seed": "01a0c94c-3524-702a-a174-ee51a276769f",
+   "domain": "small-business bookkeeping: ERP posting setup",
+   "trace_traps": "trace/01a0c94c-3524-702a-a174-ee51a276769f.json",
+   "signals": {},
+   "status": "planned",
+   "relaxed": false,
+   "lead": "T1",
+   "modes": [
+    {
+     "id": "T1",
+     "name": "Keying slip: a record filed under an ID it does not belong to",
+     "family": "record_reversal",
+     "status": "proven",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "lead",
+     "weight": 25,
+     "why": [
+      "proven",
+      "pooled miss 40%",
+      "domain match (bookkeeping, business, small)"
+     ]
+    },
+    {
+     "id": "T3",
+     "name": "Quantity basis cued only on or about the record (tax-inclusive, per pack)",
+     "family": "quantity_basis",
+     "status": "proven",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "decisive",
+     "weight": 21,
+     "why": [
+      "proven",
+      "pooled miss 65%",
+      "domain match (small)",
+      "already planned 1x"
+     ]
+    },
+    {
+     "id": "T6",
+     "name": "Which edition or rate applies, by the real date (sources of similar authority)",
+     "family": "authority_selection",
+     "status": "promising",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "decisive",
+     "weight": 17,
+     "why": [
+      "promising",
+      "pooled miss 81%"
+     ]
+    }
+   ],
+   "families": [
+    "authority_selection",
+    "quantity_basis",
+    "record_reversal"
+   ],
+   "projected_free_share": 0.37,
+   "notes": []
+  },
+  {
+   "seed": "01a0d1c3-496d-734c-a664-36d86244f501",
+   "domain": "school administration: quality-assurance evidence checklist",
+   "trace_traps": "trace/01a0d1c3-496d-734c-a664-36d86244f501.json",
+   "signals": {},
+   "status": "planned",
+   "relaxed": false,
+   "lead": "T12",
+   "modes": [
+    {
+     "id": "T12",
+     "name": "Line transposition settled by first-hand descriptions",
+     "family": "record_reversal",
+     "status": "proven",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "lead",
+     "weight": 25,
+     "why": [
+      "proven",
+      "pooled miss 62%",
+      "domain match (school)",
+      "already planned 1x"
+     ]
+    },
+    {
+     "id": "T7",
+     "name": "Convention from two worked figures supplied by different parties",
+     "family": "convention_inference",
+     "status": "promising",
+     "aimed_at": "fable",
+     "clock": false,
+     "role": "decisive",
+     "weight": 21,
+     "why": [
+      "promising",
+      "pooled miss 29%"
+     ]
+    },
+    {
+     "id": "T8",
+     "name": "Changed premise received before issue (filler only)",
+     "family": "revision_supersession",
+     "status": "promising",
+     "aimed_at": "fable",
+     "clock": false,
+     "role": "decisive",
+     "weight": 17,
+     "why": [
+      "promising",
+      "pooled miss 22%"
+     ]
+    }
+   ],
+   "families": [
+    "convention_inference",
+    "record_reversal",
+    "revision_supersession"
+   ],
+   "projected_free_share": 0.37,
+   "notes": []
+  },
+  {
+   "seed": "01a0cd1c-99d8-7eba-b8b6-a1b84be399a6",
+   "domain": "oil and gas drilling HSE: rig operations rules",
+   "trace_traps": "trace/01a0cd1c-99d8-7eba-b8b6-a1b84be399a6.json",
+   "signals": {},
+   "status": "planned",
+   "relaxed": false,
+   "lead": "T6",
+   "modes": [
+    {
+     "id": "T6",
+     "name": "Which edition or rate applies, by the real date (sources of similar authority)",
+     "family": "authority_selection",
+     "status": "promising",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "lead",
+     "weight": 25,
+     "why": [
+      "promising",
+      "pooled miss 81%",
+      "already planned 1x"
+     ]
+    },
+    {
+     "id": "T4",
+     "name": "Already in hand: a 'still needed' item already held, shown by a technical bridge",
+     "family": "possession_state",
+     "status": "promising",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "decisive",
+     "weight": 21,
+     "why": [
+      "promising",
+      "pooled miss 15%"
+     ]
+    },
+    {
+     "id": "T11",
+     "name": "Filed key column copied as the destination without deliberation",
+     "family": "record_reversal",
+     "status": "promising",
+     "aimed_at": "astra",
+     "clock": false,
+     "role": "decisive",
+     "weight": 17,
+     "why": [
+      "promising",
+      "pooled miss 91%"
+     ]
+    }
+   ],
+   "families": [
+    "authority_selection",
+    "possession_state",
+    "record_reversal"
+   ],
+   "projected_free_share": 0.37,
+   "notes": []
+  },
+  {
+   "seed": "01a0d2ff-2718-711e-89a5-3d8b84664ee7",
+   "domain": "fitness coaching: home measurement diary",
+   "trace_traps": "trace/01a0d2ff-2718-711e-89a5-3d8b84664ee7.json",
+   "signals": {
+    "T1": 1.0,
+    "T5": 0.526,
+    "T10": 0.526,
+    "T6": 0.526,
+    "L9": 0.526,
+    "T3": 0.526
+   },
+   "status": "planned",
+   "relaxed": false,
+   "lead": "T3",
+   "modes": [
+    {
+     "id": "T3",
+     "name": "Quantity basis cued only on or about the record (tax-inclusive, per pack)",
+     "family": "quantity_basis",
+     "status": "proven",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "lead",
+     "weight": 23,
+     "why": [
+      "proven",
+      "pooled miss 65%",
+      "trace-signalled (0.53)",
+      "already planned 2x"
+     ]
+    },
+    {
+     "id": "T1",
+     "name": "Keying slip: a record filed under an ID it does not belong to",
+     "family": "record_reversal",
+     "status": "proven",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "decisive",
+     "weight": 19,
+     "why": [
+      "proven",
+      "pooled miss 40%",
+      "trace-signalled (1.00)",
+      "already planned 1x"
+     ]
+    },
+    {
+     "id": "T10",
+     "name": "Structural misfile: a one-row-per file with a second row for the same key",
+     "family": "record_reversal",
+     "status": "promising",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "decisive",
+     "weight": 16,
+     "why": [
+      "promising",
+      "pooled miss 75%",
+      "trace-signalled (0.53)"
+     ]
+    },
+    {
+     "id": "T5",
+     "name": "Misfiled note or record: filed under one item, content only fits another",
+     "family": "record_reversal",
+     "status": "proven",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "decisive",
+     "weight": 12,
+     "why": [
+      "proven",
+      "pooled miss 48%",
+      "trace-signalled (0.53)",
+      "already planned 1x"
+     ]
+    },
+    {
+     "id": "T14",
+     "name": "Cumulative (year-to-date) figure titled as the period's change",
+     "family": "aggregation_basis",
+     "status": "promising",
+     "aimed_at": "fable",
+     "clock": false,
+     "role": "decisive",
+     "weight": 10,
+     "why": [
+      "promising",
+      "pooled miss 5%"
+     ]
+    }
+   ],
+   "families": [
+    "aggregation_basis",
+    "quantity_basis",
+    "record_reversal"
+   ],
+   "projected_free_share": 0.2,
+   "notes": []
+  },
+  {
+   "seed": "01a0c3a8-4cb4-7da4-8a17-f48e62f328ac",
+   "domain": "payroll and HR: labour code entitlements",
+   "trace_traps": "trace/01a0c3a8-4cb4-7da4-8a17-f48e62f328ac.json",
+   "signals": {},
+   "status": "planned",
+   "relaxed": false,
+   "lead": "T9",
+   "modes": [
+    {
+     "id": "T9",
+     "name": "Rule-scope shield: a real rule on a neighbouring value over-applied",
+     "family": "rule_scope",
+     "status": "promising",
+     "aimed_at": "fable",
+     "clock": false,
+     "role": "lead",
+     "weight": 25,
+     "why": [
+      "promising",
+      "pooled miss 46%",
+      "already planned 1x"
+     ]
+    },
+    {
+     "id": "T2",
+     "name": "Convention fixed only by worked figures in the governing document",
+     "family": "convention_inference",
+     "status": "promising",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "decisive",
+     "weight": 21,
+     "why": [
+      "promising",
+      "pooled miss 16%"
+     ]
+    },
+    {
+     "id": "T6",
+     "name": "Which edition or rate applies, by the real date (sources of similar authority)",
+     "family": "authority_selection",
+     "status": "promising",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "decisive",
+     "weight": 17,
+     "why": [
+      "promising",
+      "pooled miss 81%",
+      "domain match (payroll)",
+      "already planned 2x"
+     ]
+    }
+   ],
+   "families": [
+    "authority_selection",
+    "convention_inference",
+    "rule_scope"
+   ],
+   "projected_free_share": 0.37,
+   "notes": []
+  },
+  {
+   "seed": "01a0cd09-b46a-7e5b-8cfd-8d1f616d3a9a",
+   "domain": "university lab procurement and budget",
+   "trace_traps": "trace/01a0cd09-b46a-7e5b-8cfd-8d1f616d3a9a.json",
+   "signals": {},
+   "status": "planned",
+   "relaxed": false,
+   "lead": "T8",
+   "modes": [
+    {
+     "id": "T8",
+     "name": "Changed premise received before issue (filler only)",
+     "family": "revision_supersession",
+     "status": "promising",
+     "aimed_at": "fable",
+     "clock": false,
+     "role": "lead",
+     "weight": 25,
+     "why": [
+      "promising",
+      "pooled miss 22%",
+      "already planned 1x"
+     ]
+    },
+    {
+     "id": "T4",
+     "name": "Already in hand: a 'still needed' item already held, shown by a technical bridge",
+     "family": "possession_state",
+     "status": "promising",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "decisive",
+     "weight": 21,
+     "why": [
+      "promising",
+      "pooled miss 15%",
+      "domain match (budget)",
+      "already planned 1x"
+     ]
+    },
+    {
+     "id": "T11",
+     "name": "Filed key column copied as the destination without deliberation",
+     "family": "record_reversal",
+     "status": "promising",
+     "aimed_at": "astra",
+     "clock": false,
+     "role": "decisive",
+     "weight": 17,
+     "why": [
+      "promising",
+      "pooled miss 91%",
+      "domain match (budget)",
+      "already planned 1x"
+     ]
+    }
+   ],
+   "families": [
+    "possession_state",
+    "record_reversal",
+    "revision_supersession"
+   ],
+   "projected_free_share": 0.37,
+   "notes": []
+  },
+  {
+   "seed": "01a0cf27-971b-7790-8bc7-f3a3e45b59f0",
+   "domain": "event logistics: delegate travel and workshop agenda",
+   "trace_traps": "trace/01a0cf27-971b-7790-8bc7-f3a3e45b59f0.json",
+   "signals": {},
+   "status": "planned",
+   "relaxed": false,
+   "lead": "T7",
+   "modes": [
+    {
+     "id": "T7",
+     "name": "Convention from two worked figures supplied by different parties",
+     "family": "convention_inference",
+     "status": "promising",
+     "aimed_at": "fable",
+     "clock": false,
+     "role": "lead",
+     "weight": 25,
+     "why": [
+      "promising",
+      "pooled miss 29%",
+      "already planned 1x"
+     ]
+    },
+    {
+     "id": "T3",
+     "name": "Quantity basis cued only on or about the record (tax-inclusive, per pack)",
+     "family": "quantity_basis",
+     "status": "proven",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "decisive",
+     "weight": 21,
+     "why": [
+      "proven",
+      "pooled miss 65%",
+      "domain match (workshop)",
+      "already planned 3x"
+     ]
+    },
+    {
+     "id": "T14",
+     "name": "Cumulative (year-to-date) figure titled as the period's change",
+     "family": "aggregation_basis",
+     "status": "promising",
+     "aimed_at": "fable",
+     "clock": false,
+     "role": "decisive",
+     "weight": 17,
+     "why": [
+      "promising",
+      "pooled miss 5%",
+      "already planned 1x"
+     ]
+    }
+   ],
+   "families": [
+    "aggregation_basis",
+    "convention_inference",
+    "quantity_basis"
+   ],
+   "projected_free_share": 0.37,
+   "notes": []
+  },
+  {
+   "seed": "01a0c15d-a028-771f-b80f-37d807d8a09d",
+   "domain": "finance coursework: financial statement analysis answer key",
+   "trace_traps": "trace/01a0c15d-a028-771f-b80f-37d807d8a09d.json",
+   "signals": {},
+   "status": "planned",
+   "relaxed": false,
+   "lead": "T14",
+   "modes": [
+    {
+     "id": "T14",
+     "name": "Cumulative (year-to-date) figure titled as the period's change",
+     "family": "aggregation_basis",
+     "status": "promising",
+     "aimed_at": "fable",
+     "clock": false,
+     "role": "lead",
+     "weight": 25,
+     "why": [
+      "promising",
+      "pooled miss 5%",
+      "domain match (finance)",
+      "already planned 2x"
+     ]
+    },
+    {
+     "id": "T2",
+     "name": "Convention fixed only by worked figures in the governing document",
+     "family": "convention_inference",
+     "status": "promising",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "decisive",
+     "weight": 21,
+     "why": [
+      "promising",
+      "pooled miss 16%",
+      "domain match (financial)",
+      "already planned 1x"
+     ]
+    },
+    {
+     "id": "T9",
+     "name": "Rule-scope shield: a real rule on a neighbouring value over-applied",
+     "family": "rule_scope",
+     "status": "promising",
+     "aimed_at": "fable",
+     "clock": false,
+     "role": "decisive",
+     "weight": 17,
+     "why": [
+      "promising",
+      "pooled miss 46%",
+      "already planned 2x"
+     ]
+    }
+   ],
+   "families": [
+    "aggregation_basis",
+    "convention_inference",
+    "rule_scope"
+   ],
+   "projected_free_share": 0.37,
+   "notes": []
+  },
+  {
+   "seed": "01a0c423-1689-7594-b693-355097409482",
+   "domain": "professional exam planning: credit tracker",
+   "trace_traps": "trace/01a0c423-1689-7594-b693-355097409482.json",
+   "signals": {},
+   "status": "planned",
+   "relaxed": false,
+   "lead": "T5",
+   "modes": [
+    {
+     "id": "T5",
+     "name": "Misfiled note or record: filed under one item, content only fits another",
+     "family": "record_reversal",
+     "status": "proven",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "lead",
+     "weight": 25,
+     "why": [
+      "proven",
+      "pooled miss 48%",
+      "already planned 2x"
+     ]
+    },
+    {
+     "id": "T8",
+     "name": "Changed premise received before issue (filler only)",
+     "family": "revision_supersession",
+     "status": "promising",
+     "aimed_at": "fable",
+     "clock": false,
+     "role": "decisive",
+     "weight": 21,
+     "why": [
+      "promising",
+      "pooled miss 22%",
+      "already planned 2x"
+     ]
+    },
+    {
+     "id": "T4",
+     "name": "Already in hand: a 'still needed' item already held, shown by a technical bridge",
+     "family": "possession_state",
+     "status": "promising",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "decisive",
+     "weight": 17,
+     "why": [
+      "promising",
+      "pooled miss 15%",
+      "already planned 2x"
+     ]
+    }
+   ],
+   "families": [
+    "possession_state",
+    "record_reversal",
+    "revision_supersession"
+   ],
+   "projected_free_share": 0.37,
+   "notes": []
+  },
+  {
+   "seed": "01a0cfc7-2099-74b7-a5d6-099de4889385",
+   "domain": "public procurement: purchasing file review",
+   "trace_traps": "trace/01a0cfc7-2099-74b7-a5d6-099de4889385.json",
+   "signals": {},
+   "status": "planned",
+   "relaxed": false,
+   "lead": "T4",
+   "modes": [
+    {
+     "id": "T4",
+     "name": "Already in hand: a 'still needed' item already held, shown by a technical bridge",
+     "family": "possession_state",
+     "status": "promising",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "lead",
+     "weight": 25,
+     "why": [
+      "promising",
+      "pooled miss 15%",
+      "already planned 3x"
+     ]
+    },
+    {
+     "id": "T1",
+     "name": "Keying slip: a record filed under an ID it does not belong to",
+     "family": "record_reversal",
+     "status": "proven",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "decisive",
+     "weight": 21,
+     "why": [
+      "proven",
+      "pooled miss 40%",
+      "domain match (procurement)",
+      "already planned 2x"
+     ]
+    },
+    {
+     "id": "T6",
+     "name": "Which edition or rate applies, by the real date (sources of similar authority)",
+     "family": "authority_selection",
+     "status": "promising",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "decisive",
+     "weight": 17,
+     "why": [
+      "promising",
+      "pooled miss 81%",
+      "already planned 3x"
+     ]
+    }
+   ],
+   "families": [
+    "authority_selection",
+    "possession_state",
+    "record_reversal"
+   ],
+   "projected_free_share": 0.37,
+   "notes": []
+  },
+  {
+   "seed": "01a0c2bc-7cde-7b47-85ca-e1eddb2ad76d",
+   "domain": "manufacturing returns and repair logistics",
+   "trace_traps": "trace/01a0c2bc-7cde-7b47-85ca-e1eddb2ad76d.json",
+   "signals": {},
+   "status": "planned",
+   "relaxed": false,
+   "lead": "T2",
+   "modes": [
+    {
+     "id": "T2",
+     "name": "Convention fixed only by worked figures in the governing document",
+     "family": "convention_inference",
+     "status": "promising",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "lead",
+     "weight": 25,
+     "why": [
+      "promising",
+      "pooled miss 16%",
+      "already planned 2x"
+     ]
+    },
+    {
+     "id": "T3",
+     "name": "Quantity basis cued only on or about the record (tax-inclusive, per pack)",
+     "family": "quantity_basis",
+     "status": "proven",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "decisive",
+     "weight": 21,
+     "why": [
+      "proven",
+      "pooled miss 65%",
+      "already planned 4x"
+     ]
+    },
+    {
+     "id": "T12",
+     "name": "Line transposition settled by first-hand descriptions",
+     "family": "record_reversal",
+     "status": "proven",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "decisive",
+     "weight": 17,
+     "why": [
+      "proven",
+      "pooled miss 62%",
+      "already planned 2x"
+     ]
+    }
+   ],
+   "families": [
+    "convention_inference",
+    "quantity_basis",
+    "record_reversal"
+   ],
+   "projected_free_share": 0.37,
+   "notes": []
+  },
+  {
+   "seed": "01a0d279-650b-7601-8425-359840f7667f",
+   "domain": "production logs: aggregate crushing plant daily report",
+   "trace_traps": "trace/01a0d279-650b-7601-8425-359840f7667f.json",
+   "signals": {
+    "T1": 1.0,
+    "T2": 1.0,
+    "T5": 1.0,
+    "T10": 1.0
+   },
+   "status": "planned",
+   "relaxed": false,
+   "lead": "T10",
+   "modes": [
+    {
+     "id": "T10",
+     "name": "Structural misfile: a one-row-per file with a second row for the same key",
+     "family": "record_reversal",
+     "status": "promising",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "lead",
+     "weight": 23,
+     "why": [
+      "promising",
+      "pooled miss 75%",
+      "trace-signalled (1.00)",
+      "already planned 1x"
+     ]
+    },
+    {
+     "id": "T1",
+     "name": "Keying slip: a record filed under an ID it does not belong to",
+     "family": "record_reversal",
+     "status": "proven",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "decisive",
+     "weight": 19,
+     "why": [
+      "proven",
+      "pooled miss 40%",
+      "trace-signalled (1.00)",
+      "domain match (logs, production)",
+      "already planned 3x"
+     ]
+    },
+    {
+     "id": "T2",
+     "name": "Convention fixed only by worked figures in the governing document",
+     "family": "convention_inference",
+     "status": "promising",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "decisive",
+     "weight": 16,
+     "why": [
+      "promising",
+      "pooled miss 16%",
+      "trace-signalled (1.00)",
+      "already planned 3x"
+     ]
+    },
+    {
+     "id": "T5",
+     "name": "Misfiled note or record: filed under one item, content only fits another",
+     "family": "record_reversal",
+     "status": "proven",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "decisive",
+     "weight": 12,
+     "why": [
+      "proven",
+      "pooled miss 48%",
+      "trace-signalled (1.00)",
+      "already planned 3x"
+     ]
+    },
+    {
+     "id": "T9",
+     "name": "Rule-scope shield: a real rule on a neighbouring value over-applied",
+     "family": "rule_scope",
+     "status": "promising",
+     "aimed_at": "fable",
+     "clock": false,
+     "role": "decisive",
+     "weight": 10,
+     "why": [
+      "promising",
+      "pooled miss 46%",
+      "already planned 3x"
+     ]
+    }
+   ],
+   "families": [
+    "convention_inference",
+    "record_reversal",
+    "rule_scope"
+   ],
+   "projected_free_share": 0.2,
+   "notes": []
+  },
+  {
+   "seed": "01a0d2c8-4e09-7d80-b3c3-35debe66c8ee",
+   "domain": "tourism pricing: marine excursions and port fees",
+   "trace_traps": "trace/01a0d2c8-4e09-7d80-b3c3-35debe66c8ee.json",
+   "signals": {
+    "T1": 1.0,
+    "T5": 1.0,
+    "T10": 1.0
+   },
+   "status": "planned",
+   "relaxed": false,
+   "lead": "T6",
+   "modes": [
+    {
+     "id": "T6",
+     "name": "Which edition or rate applies, by the real date (sources of similar authority)",
+     "family": "authority_selection",
+     "status": "promising",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "lead",
+     "weight": 23,
+     "why": [
+      "promising",
+      "pooled miss 81%",
+      "already planned 4x"
+     ]
+    },
+    {
+     "id": "T10",
+     "name": "Structural misfile: a one-row-per file with a second row for the same key",
+     "family": "record_reversal",
+     "status": "promising",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "decisive",
+     "weight": 19,
+     "why": [
+      "promising",
+      "pooled miss 75%",
+      "trace-signalled (1.00)",
+      "already planned 2x"
+     ]
+    },
+    {
+     "id": "T8",
+     "name": "Changed premise received before issue (filler only)",
+     "family": "revision_supersession",
+     "status": "promising",
+     "aimed_at": "fable",
+     "clock": false,
+     "role": "decisive",
+     "weight": 16,
+     "why": [
+      "promising",
+      "pooled miss 22%",
+      "already planned 3x"
+     ]
+    },
+    {
+     "id": "T5",
+     "name": "Misfiled note or record: filed under one item, content only fits another",
+     "family": "record_reversal",
+     "status": "proven",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "decisive",
+     "weight": 12,
+     "why": [
+      "proven",
+      "pooled miss 48%",
+      "trace-signalled (1.00)",
+      "already planned 4x"
+     ]
+    },
+    {
+     "id": "T1",
+     "name": "Keying slip: a record filed under an ID it does not belong to",
+     "family": "record_reversal",
+     "status": "proven",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "decisive",
+     "weight": 10,
+     "why": [
+      "proven",
+      "pooled miss 40%",
+      "trace-signalled (1.00)",
+      "already planned 4x"
+     ]
+    }
+   ],
+   "families": [
+    "authority_selection",
+    "record_reversal",
+    "revision_supersession"
+   ],
+   "projected_free_share": 0.2,
+   "notes": []
+  },
+  {
+   "seed": "01a0cf42-ef20-7042-a0f5-7b1d4339fb7e",
+   "domain": "agriculture: farm input purchasing",
+   "trace_traps": "trace/01a0cf42-ef20-7042-a0f5-7b1d4339fb7e.json",
+   "signals": {},
+   "status": "planned",
+   "relaxed": false,
+   "lead": "T3",
+   "modes": [
+    {
+     "id": "T3",
+     "name": "Quantity basis cued only on or about the record (tax-inclusive, per pack)",
+     "family": "quantity_basis",
+     "status": "proven",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "lead",
+     "weight": 25,
+     "why": [
+      "proven",
+      "pooled miss 65%",
+      "already planned 5x"
+     ]
+    },
+    {
+     "id": "T14",
+     "name": "Cumulative (year-to-date) figure titled as the period's change",
+     "family": "aggregation_basis",
+     "status": "promising",
+     "aimed_at": "fable",
+     "clock": false,
+     "role": "decisive",
+     "weight": 21,
+     "why": [
+      "promising",
+      "pooled miss 5%",
+      "already planned 3x"
+     ]
+    },
+    {
+     "id": "T7",
+     "name": "Convention from two worked figures supplied by different parties",
+     "family": "convention_inference",
+     "status": "promising",
+     "aimed_at": "fable",
+     "clock": false,
+     "role": "decisive",
+     "weight": 17,
+     "why": [
+      "promising",
+      "pooled miss 29%",
+      "already planned 2x"
+     ]
+    }
+   ],
+   "families": [
+    "aggregation_basis",
+    "convention_inference",
+    "quantity_basis"
+   ],
+   "projected_free_share": 0.37,
+   "notes": []
+  },
+  {
+   "seed": "01a0c968-8925-71a2-9070-6334bc9a8028",
+   "domain": "media archive data cleaning: film catalogue register",
+   "trace_traps": "trace/01a0c968-8925-71a2-9070-6334bc9a8028.json",
+   "signals": {},
+   "status": "planned",
+   "relaxed": false,
+   "lead": "T9",
+   "modes": [
+    {
+     "id": "T9",
+     "name": "Rule-scope shield: a real rule on a neighbouring value over-applied",
+     "family": "rule_scope",
+     "status": "promising",
+     "aimed_at": "fable",
+     "clock": false,
+     "role": "lead",
+     "weight": 25,
+     "why": [
+      "promising",
+      "pooled miss 46%",
+      "already planned 4x"
+     ]
+    },
+    {
+     "id": "T4",
+     "name": "Already in hand: a 'still needed' item already held, shown by a technical bridge",
+     "family": "possession_state",
+     "status": "promising",
+     "aimed_at": "both",
+     "clock": false,
+     "role": "decisive",
+     "weight": 21,
+     "why": [
+      "promising",
+      "pooled miss 15%",
+      "domain match (data)",
+      "already planned 4x"
+     ]
+    },
+    {
+     "id": "T8",
+     "name": "Changed premise received before issue (filler only)",
+     "family": "revision_supersession",
+     "status": "promising",
+     "aimed_at": "fable",
+     "clock": false,
+     "role": "decisive",
+     "weight": 17,
+     "why": [
+      "promising",
+      "pooled miss 22%",
+      "already planned 4x"
+     ]
+    }
+   ],
+   "families": [
+    "possession_state",
+    "revision_supersession",
+    "rule_scope"
+   ],
+   "projected_free_share": 0.37,
+   "notes": []
+  }
+ ]
+}

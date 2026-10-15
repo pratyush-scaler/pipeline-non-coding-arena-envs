@@ -1,0 +1,46 @@
+schema_version = "1.4"
+artifacts = ["/app/deliverables", "/app/environment/files"]
+multi_step_reward_strategy = "mean"
+
+[task]
+name = "arena/a_f<LEVEL>_<task-slug>"
+version = "1.0.0"
+description = "<one paragraph: who the professional is, what deliverable they need, and what decides it>"
+authors = [{ name = "Arena Environments Team", email = "noreply@example.invalid" }]
+keywords = ["<5-8 domain keywords>"]
+
+[metadata]
+tool_schema = "environment/tools.json"
+faithfulness = "F<LEVEL>"
+category = "<domain, lower case>"
+source_trace = "<full session uuid of the seed trace>"
+source_seeds = ["<session uuid>::<seed index>"]
+source_intent = "<what of the original request this task preserves>"
+trace_correction = "<the trace's own correction, quoted, if any; else omit this line>"
+difficulty_explanation = """<the professional decisions the task turns on, each failure mode by name, which checks it routes into, and the measured or hypothesised status>"""
+
+[environment]
+build_timeout_sec = 600.0
+os = "linux"
+network_mode = "no-network"
+cpus = 2
+memory_mb = 8192
+storage_mb = 10240
+
+[agent]
+timeout_sec = 10800.0
+network_mode = "no-network"
+user = "agent"
+
+[verifier]
+timeout_sec = 900.0
+network_mode = "no-network"
+environment_mode = "separate"
+
+[verifier.environment]
+network_mode = "no-network"
+
+[[steps]]
+name = "01-task"
+[steps.verifier]
+env = { ARENA_STEP = "01-task" }

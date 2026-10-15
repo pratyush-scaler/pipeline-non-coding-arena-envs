@@ -1,0 +1,67 @@
+{
+ "schema": "trace-traps/1",
+ "session_id": "01a0cd09-b46a-7e5b-8cfd-8d1f616d3a9a",
+ "language": "zh",
+ "categories": [
+  "document_creation"
+ ],
+ "n_turns": 16,
+ "n_user_turns": 8,
+ "undone_text_records_skipped": 0,
+ "pipeline_corrections": 1,
+ "pipeline_corrections_strong": false,
+ "mode": "deterministic",
+ "signals": [
+  {
+   "turn": 0,
+   "user_turn": 1,
+   "role": "user",
+   "category": "unit_or_basis",
+   "subkind": null,
+   "strength": 0.4,
+   "strong": false,
+   "mapped_ids": [
+    "T13",
+    "T3",
+    "L7"
+   ],
+   "mapping_source": "library",
+   "cues": [
+    "basis"
+   ],
+   "refs": [],
+   "outcome_label": false,
+   "paraphrase": "User names a unit, tax or quantity basis for the figures."
+  },
+  {
+   "turn": 5,
+   "user_turn": 3,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.65,
+   "strong": true,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "correction"
+   ],
+   "refs": [],
+   "outcome_label": false,
+   "paraphrase": "User says the assistant's previous output was wrong and gives a figure."
+  }
+ ],
+ "trap_rich": {
+  "score": 0.7,
+  "strong_signals": 1,
+  "events": 1,
+  "independent_strong": 1,
+  "mid_session_premise_change": false,
+  "event_categories": [
+   "user_correction"
+  ],
+  "weak_signals": 1,
+  "knowledge_work_fit": true
+ },
+ "proposed_ids": []
+}

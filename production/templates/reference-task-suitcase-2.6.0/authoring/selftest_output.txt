@@ -1,0 +1,11 @@
+ok  01-task      reference      reward 1.0 contract_errors []
+ok  01-task      deep_json      reward 0.0 contract_errors ['cover_matrix_check.json: invalid JSON: nested deeper than 64 levels']
+ok  01-task      deep_bounded   reward 0.0 contract_errors ['cover_matrix_check.json: invalid JSON: nested deeper than 64 levels']
+ok  01-task      fifo_extra     reward 0.0 contract_errors ['extra.pipe: undeclared deliverable or symlink (special file)']
+ok  01-task      fifo_declared  reward 0.0 contract_errors ['cover_matrix_check.json: a deliverable must be a regular file', 'cover_matrix_check.json: undeclared deliverable or symlink (special file)']
+ok  01-task      dup_case       reward 0.0 contract_errors ['cover_matrix_check.json.designs: repeated array entries (compared the way answers are compared)']
+--  01-task      trailing_nl    no patterned text value in the reference
+ok  01-task      huge_digits    reward 0.0 contract_errors ['cover_matrix_check.json.designs[24]: length outside the published bounds']
+ok  01-task      long_spaces    reward 0.0 contract_errors ['cover_matrix_check.json.designs[24]: length outside the published bounds']
+ok  01-task      long_digit_run reward 0.0 contract_errors ['cover_matrix_check.json.designs[24]: length outside the published bounds']
+--  01-task      dup_number     no nonempty unique number list in the reference

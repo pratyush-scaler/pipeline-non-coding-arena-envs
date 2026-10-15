@@ -1,0 +1,17 @@
+{
+  "01-task": [
+    "obj_after_by_subcategory",
+    "obj_ru_share_pct",
+    "obj_designs",
+    "obj_size_bands",
+    "obj_price_segments",
+    "obj_sku_count",
+    "obj_design_count",
+    "obj_body_split",
+    "obj_colour_clusters",
+    "obj_before",
+    "obj_after_total",
+    "obj_ru_count",
+    "g_fixture_intact"
+  ]
+}

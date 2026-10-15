@@ -1,0 +1,55 @@
+schema_version = "1.4"
+artifacts = ["/app/deliverables", "/app/environment/files"]
+multi_step_reward_strategy = "mean"
+
+[task]
+name = "arena/a_f1_suitcase-cover-matrix-check"
+version = "2.6.0"
+description = "The category analyst of a Russian retail chain's suitcases category checks the figures in a summer intern's internship-defence deck before the defence: for the new suitcase-cover launch matrix, the SKU count, the list and number of designs and the SKUs per suitcase body material, colour cluster, size band and price segment of the subcategory passport; for slide 1 ('what it was when I arrived and what it became'), the category's active SKUs on the intern's first day, the active SKUs now per subcategory and in total, the Russian-supplier SKUs now and their share as the slide shows it. From the deck, the matrix, the passport and its approval minutes, two cover suppliers' letters, the licensing department's list, the presentation guide, last year's sample defence, the HR card, two assortment exports, the change-log snapshot, the e-commerce memo and a store's letter, the analyst sends the figures in one JSON file."
+authors = [{ name = "Arena Environments Team", email = "noreply@example.invalid" }]
+keywords = ["category management", "assortment matrix", "segmentation", "retail", "presentation review", "before/after", "Russian"]
+
+[metadata]
+tool_schema = "environment/tools.json"
+faithfulness = "F1"
+category = "retail category management"
+source_trace = "01a05ff6-41dc-7dd3-a31d-5d0954aa41e5"
+source_seeds = ["01a05ff6-41dc-7dd3-a31d-5d0954aa41e5::29", "01a05ff6-41dc-7dd3-a31d-5d0954aa41e5::33", "01a05ff6-41dc-7dd3-a31d-5d0954aa41e5::55", "01a05ff6-41dc-7dd3-a31d-5d0954aa41e5::59"]
+source_intent = "The session's user is an intern leaving a three-month internship in a retailer's suitcase category and preparing her defence deck with the assistant. She frames slide 1 (msg 33: '1 слайд про то, что было, когда я пришла и что стало'), lists the four blocks of her subcategory work (msg 27: '... размерный ряд, кластеры дизайна; 2. сегментация; 3. брендовый сплит; 4. матрица на 60 ску'), corrects the assistant's segmentation wording (msg 29: '\"группы покупателей\" замени на \"группы товара\"'), states the segmentation key (msg 55: 'Сегментация категории строится на основе следующих характеристик: Материал корпуса+кластер цвета+ размер') and asks why the matrix is right (msg 59: 'почему матрица на 60 ску для чехлов для чемоданов это оптимльный вариант. там 28 дизайнов'); the assistant repeats '60 SKU' and '28 дизайнов' into the speech without checking them (msg 60). The task keeps her deck wording, her key, her 60-SKU / 28-design claim and her before/after framing, and asks for the professional non-coding deliverable a reviewer of that deck owes her: the figures, checked against the working files. The matrix, the subcategory passport, the presentation guide, the HR card, the exports and the change log are authored; the retailer and every person are fictionalised."
+trace_correction = "во 2 квадрате \"сегментация\" ... в этом же квадрате \"группы покупателей\" замени на \"группы товара\" (msg 29)"
+trap_families = ["population_reshaped", "house_convention_numeric", "governing_vs_filing_key", "precedent_rule", "wrong_figure_vs_derivation"]
+difficulty_explanation = """
+Five premises, each failing on its own check (authoring/traps.json); the step is 72% premise points and 28% coverage. Three are decisive, built from three measured templates (B6v6), from three different families, in different documents, with no shared check and no cascade: P7 (T3, quantity semantics, 24, aimed at Fable), P5 (T1 keying slip, identity, 21, both models) and P2 (T2 one-figure convention, 17, aimed at Astra). P1 and P6 were missed by no run of either model in 2.1.1 and carry 5 points each. No field asks for errors or discrepancies: every premise changes an outcome figure through a step a solver performs without deliberating.
+P7 (SCALE, wrong_figure_vs_derivation, obj_price_segments, 24 points; template T3, rebuilt in 2.6.0). Passport section 2 defines the purchase price as the price the chain pays a supplier, without VAT; section 8 bands a cover by its purchase price (bounds in 'руб.', no caption). The matrix's 'Цена закупки (руб)' holds Ковертэк's figures without VAT and Багажный щит's price-list figures as they stand. Two remarks by two parties show that Багажный щит's figures carry VAT: its own letter says its prices are last year's although VAT rose to 22 % in January and it has not passed that on (so the VAT is inside its prices), and the approval minutes pay its contact's sample invoice at exactly the matrix prices, nothing more (so the matrix figure is the full amount paid). Without VAT its 710 / 810 / 930 / 1030 are 582 / 664 / 762 / 844: base 8 / mid 36 / top 16 (the same at 20 %). Banding every printed figure gives base 4 / mid 32 / top 24, a complete and consistent split.
+P5 (TWIN keying slip, governing_vs_filing_key, obj_designs, 21 points; template T1). Ковертэк's letter swaps a drawing that 'cannot be used for the launch' for its catalogue print 'Воздушные шары' and files the swap under ЧХ-30148, a Маяки cover. The licensing department's royalty sheet names drawings only by contract title and subject: the postal drawing (old envelopes with postmarks) is not renewed, the coastal-lights drawing is renewed, and a dated process line says the category replaces a lapsed drawing with its supplier; Polina's own deck note regrets losing 'the envelopes'. The postal drawing is the matrix's only 'Ретро-марки' cover (ЧХ-30149), so the designs are the 24 prints with 'Ретро-марки' replaced by 'Воздушные шары'. The default join on the printed article leaves 'Ретро-марки' in and lists 25.
+P2 (EXEMPLAR, house_convention_numeric, obj_ru_share_pct, 17 points; template T2; interlocked with P1, whose population it is computed on). The guide only says percentages are whole numbers. Its one worked example (43 of 331 shown as 12 %) cuts the share down to the whole percent; last year's sample defence (45 of 262 shown as 17 %) fits both conventions. The default rounds to the nearest whole percent, which is wrong on either population (34 of 264 or 34 of 270). It is graded against the solver's own counts.
+P1 (STORE, population_reshaped, obj_after_by_subcategory, 5 points): the six Indian luggage scales are in the site's 'Финальная распродажа' (store 12's letter; the memo admits only SKUs whose delisting is in force), so they are not active now. P6 (EXEMPLAR, precedent_rule, obj_size_bands, 5 points): three height ranges cross a grid edge; the passport's segment examples and the approval minutes' photo plan fit only the band of the upper end.
+Coverage: matrix SKU count (3), design count as the length of the solver's own list (3), body split (4), colour clusters (4), active SKUs on the first day (6), the after total as the solver's own sum plus the five subcategories P1 does not touch (4), Russian-supplier SKUs now (4).
+Calibration of record: the delivered package's `calibration/` folder (one row per valid run in `calibration/runs.csv`, trajectories under `calibration/trajectories/`): a fresh 10x2 on Fable 5.1 in Claude Code and GPT-6 Astra in Codex, run after a 5x2 pilot of the same version. The Harbor `tasks-check` receipt for this version ships as `verification/harbor-tasks-check.json`.
+"""
+
+[environment]
+build_timeout_sec = 600.0
+os = "linux"
+network_mode = "no-network"
+cpus = 2
+memory_mb = 8192
+storage_mb = 10240
+
+[agent]
+timeout_sec = 10800.0
+network_mode = "no-network"
+user = "agent"
+
+[verifier]
+timeout_sec = 900.0
+network_mode = "no-network"
+environment_mode = "separate"
+
+[verifier.environment]
+network_mode = "no-network"
+
+[[steps]]
+name = "01-task"
+[steps.verifier]
+env = { ARENA_STEP = "01-task" }

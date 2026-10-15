@@ -1,0 +1,1444 @@
+{
+ "schema": "traplib/1",
+ "source": "external",
+ "generated": "2026-10-15T19:47+05:30",
+ "modes": [
+  {
+   "id": "L1",
+   "aliases": [
+    "REVISED",
+    "restated_figure_record_reversal",
+    "LIT-B#1"
+   ],
+   "name": "Later restatement replaces the first-reported figure (record reversal)",
+   "family": "revision_supersession",
+   "status": "literature",
+   "aimed_at": "both",
+   "clock": false,
+   "summary": "Default: the agent takes the first numerically plausible instance of a figure, usually the official-looking table it reads first, and never applies a later revision of the same cell. The files make that wrong because a later dated source of similar authority carries a different value for the same cell and a second party witnesses why it changed; nothing labels it 'restated'. The labelled form is dead here (T.revised 0/125 Fable, 0/65 Astra), so the revision must be inferred. aimed_at both: OfficeQA Pro V2 reports the out-of-the-box Claude Code (Fable 5) and Codex (GPT-5.6 Sol) agents still failing on 'latest revised' figures.",
+   "loopholes": [
+    "L-record",
+    "L-absorb",
+    "L-union"
+   ],
+   "recipe": {
+    "record": "The first issue of a periodic pack or bulletin (a structured table, e.g. pack_2026-03.csv) holds the cell the deliverable aggregates.",
+    "anchors": "(1) A later issue of similar authority shows a different value for the same cell in its comparative column, with no flag. (2) A by-the-way line from a different party witnesses the cause (AP's email about a hotel invoice that arrived after the March close). (3) Optional: a year-to-date or ledger total that ties only with the revised value.",
+    "withheld": "No 'r'/'restated'/'corrected' marker, no policy sentence saying later issues supersede, and no sentence giving the first issue priority. The mechanism (late invoice posted after close) is not stated.",
+    "dials": [
+     "each additional by-the-way witness of the late adjustment is one notch toward solvable",
+     "a YTD or control total that ties only with the revised value is a strong notch; add it last",
+     "for Astra change the kind of evidence (a ledger line posted after the close date) rather than adding a third narrative remark"
+    ],
+    "conservation": "Grade the per-period figure and a total that must tie (YTD or ledger), so keeping both values or mixing issues breaks the tie.",
+    "shields": "A real 'packs are issued on working day 5 and are not re-issued' rule, scoped to re-issue, not to the values; Fable will cite it as finality and the audit can show the misreading."
+   },
+   "proof_obligations": [
+    "census: enumerate every cell that has two values across files; only the designed cells differ",
+    "uniqueness: exactly one later value per affected cell; no third value anywhere",
+    "ablation: dropping the later issue reverts the answer; dropping one anchor still leaves it determinate",
+    "executed counterexample: the default reading produces a different deliverable on every check routed through the premise",
+    "blind reader reaches the intended answer with no sentence that ranks the competing sources (TRAP-CATALOG-B7 §1.5)"
+   ],
+   "hazards": [
+    "Labelled restatement ('r' flag with a 'supersedes' footer, or 'corrected to') is dead: T.revised 0/125 Fable, 0/65 Astra",
+    "If the first issue carries a sign-off stating its figures are final, a printed governing statement says the opposite: unfair, blind readers miss too",
+    "Two different later values for one cell make it ambiguous",
+    "OfficeQA's rates include PDF-parsing errors that text fixtures remove; treat the external rate as an upper bound",
+    "Do not route an L1 figure and an L8 (as-of vintage) figure through the same figure family in one task"
+   ],
+   "kills": [
+    "a restated flag or 'corrected' wording on the later value",
+    "a policy line saying later issues supersede earlier ones",
+    "a commentary sentence naming the corrected cell and its new value (the LIT-B#1 instantiation as written)"
+   ],
+   "trace_signals": [
+    "the user sends an updated or corrected report after the assistant has used the first one",
+    "a monthly pack series whose prior-month comparative differs from the original issue",
+    "the user mentions a late invoice, accrual or adjustment after month-end"
+   ],
+   "domains": [
+    "management accounts and FP&A",
+    "statistical bulletins",
+    "budget monitoring",
+    "grant reporting",
+    "KPI dashboards"
+   ],
+   "example": "Six monthly cost-centre packs. The April pack's prior-month column shows a higher March travel figure for one cost centre than the March pack, unflagged; AP's email mentions a hotel invoice received after the March close; the June YTD ties only with the higher value. Deliverable: an H1 variance register with over/under status per cost centre.",
+   "evidence": {
+    "internal": [],
+    "pooled": {
+     "fable": [
+      0,
+      0
+     ],
+     "astra": [
+      0,
+      0
+     ]
+    },
+    "external": [
+     {
+      "source": "OfficeQA Pro (arXiv 2603.08655; Databricks authors, preprint)",
+      "url": "https://arxiv.org/abs/2603.08655",
+      "year": 2026,
+      "finding": "Agents fail to retrieve revised values, 'often prematurely converging on the first numerically plausible instance retrieved' (Sec. 5.1). A majority of remaining errors are final-answer precision, e.g. rounding too early (Sec. 3.2). Frontier agents given the corpus average 34.1% (abstract).",
+      "models": "Agent setups on Claude Opus 4.6, GPT-5.4, Gemini 3.1 Pro Preview",
+      "metric": "Exact accuracy at 0% error (Table 1): Opus 4.6 48.12% full PDF / 54.14% parsed / 66.92% oracle parsed; GPT-5.4 36.09% / 56.39% / 65.41%; Gemini 3.1 Pro 18.05% / 29.32% / 46.62%"
+     },
+     {
+      "source": "OfficeQA Pro V2 (Databricks blog, 2026-08-06; company-reported)",
+      "url": "https://www.databricks.com/blog/introducing-officeqa-pro-v2-new-benchmark-enterprise-grounded-reasoning",
+      "year": 2026,
+      "finding": "The medium example requires reading each year from 'the latest revised prior-year column'; the hard example requires 'only the latest reported figures for each year'. Remaining failures named: parsing fidelity, 'incorrect temporal reconciliation as accounting conventions change over time' and 'misinterpretation of entity scope or category granularity'. Concepts change in 'name, location, table schema, unit, time basis, and level of aggregation'; reporting moved from calendar to fiscal years.",
+      "models": "Claude Code (Claude Opus 4.8, Claude Fable 5, Sonnet 5); Codex (GPT-5.5, GPT-5.6 Sol); Databricks Genie",
+      "metric": "Out-of-the-box agents: 37.5% average in the intro vs 26.0% across five models in Section 1 (inconsistent in the post); GPT-5.6 Sol on Codex 33.3%; Sonnet 5 on Claude Code 15.6%"
+     },
+     {
+      "source": "OfficeQA (Databricks blog, 2025-12-09; company-reported)",
+      "url": "https://www.databricks.com/blog/introducing-officeqa-benchmark-end-to-end-grounded-reasoning",
+      "year": 2025,
+      "finding": "Error examples: an agent took fiscal-year values instead of calendar-year values for 8 years, making a regression forecast off by $286,831 million (31.6%); an agent used the June 2010 bulletin where the September 2010 publication held the correct values ($21 million off). The post does not say which agent made which error.",
+      "models": "GPT-5.1 agent (OpenAI File Search) and Claude Opus 4.5 agent (Claude Agent SDK)",
+      "metric": "Error size of single worked failures; no per-error-type rates"
+     },
+     {
+      "source": "Diagnosing Retrieval Bias Under Multiple In-Context Knowledge Updates (arXiv 2603.12271, preprint)",
+      "url": "https://arxiv.org/abs/2603.12271",
+      "year": 2026,
+      "finding": "When one fact is updated several times in context, 'earliest-state accuracy stays high while latest-state accuracy drops substantially', and the bias grows with the number of updates.",
+      "models": "Diverse LLMs (not named in the abstract)",
+      "metric": "Earliest- vs latest-state accuracy (qualitative in the abstract)"
+     }
+    ],
+    "traces": []
+   }
+  },
+  {
+   "id": "L2",
+   "aliases": [
+    "older_edition_by_event_date",
+    "LIT-A#2",
+    "LIT-B#2"
+   ],
+   "name": "Older edition governs by the event's own date",
+   "family": "authority_selection",
+   "status": "literature",
+   "aimed_at": "both",
+   "clock": false,
+   "summary": "Default: the agent applies the newest edition of a price list, tariff or rule to every record, especially when the record's own date (invoice or posting date) falls after the change. The files make that wrong because the governing event (order acceptance, receipt) happened before the effective date, shown by first-hand records from two parties, and the older edition is complete in the folder. aimed_at both: Claude Opus 4.6 at max effort scores 0.014 on old-version cases (GPT-5.4 0.237) in 2608.14610, and our T6 analogue bites Fable ~50% and Astra 90-100%.",
+   "loopholes": [
+    "L-default",
+    "L-record",
+    "L-shield"
+   ],
+   "recipe": {
+    "record": "The current edition is the salient file ('price_list_current.csv') and each invoice row carries a date after the effective date.",
+    "anchors": "(1) The supplier's order acknowledgement or EDI ack dated before the effective date (party A). (2) The buyer's goods-received note or the carrier's collection record placing the event before the change (party B). The contract clause naming the governing date may be stated; the event date itself must be inferred.",
+    "withheld": "The event date is not on the record row; no sentence maps orders to editions; the old edition sits in an archive folder, complete for the affected items.",
+    "dials": [
+     "each extra first-hand witness of the event date is one notch",
+     "moving the old edition out of an archive subfolder is one notch",
+     "for Astra use an EDI or receipt line (a different evidence kind) rather than another email"
+    ],
+    "conservation": "Grade the per-line overcharge and the claim total; a model that prices some affected lines on both editions breaks the total.",
+    "shields": "A real 'spare parts are invoiced at the list current at invoicing' term, scoped to spare parts only; Fable will cite it for the main goods."
+   },
+   "proof_obligations": [
+    "uniqueness: exactly one governing date per record under the clause; no event falls on the effective date",
+    "completeness: the old edition prices every affected item (no gap forcing a fallback)",
+    "executed counterexample: the default reading produces a different deliverable on every check routed through the premise",
+    "blind reader reaches the intended answer with no sentence that ranks the competing sources (TRAP-CATALOG-B7 §1.5)"
+   ],
+   "hazards": [
+    "A printed current form or an informal remark set against an official form made home-bp P5 unfair (blind reader missed too)",
+    "A stated mapping rule killed the timesheet variant (stated rules 0/810 Fable, 0/720 Astra)",
+    "Three plausible governing dates (PO, acceptance, dispatch) make it ambiguous unless the clause names exactly one",
+    "Legacy stale_authority traps measured 0/220 Fable, 0/225 Astra: a label marking the old edition 'superseded' gives the answer away",
+    "2608.14610 is mainly a parametric default (statute texts apparently not supplied); in-folder transfer is TIDE's 25-36% miss range"
+   ],
+   "kills": [
+    "a sentence mapping orders to editions",
+    "a caption on the invoice naming the list version",
+    "an index stating which edition applies to which period"
+   ],
+   "trace_signals": [
+    "a price list, tariff, rate card or policy changes mid-period and the records straddle the effective date",
+    "the user says 'that order was placed before the increase'",
+    "invoice dates and order or receipt dates fall on opposite sides of a change"
+   ],
+   "domains": [
+    "procurement and supplier invoicing",
+    "customs and duty",
+    "payroll and allowance rates",
+    "insurance premiums",
+    "regulated tariffs"
+   ],
+   "example": "List v7 is effective 1 May and v8 from 1 June. Four June invoices cover goods whose supplier acknowledgements and goods-received notes are dated late May. Deliverable: an overcharge claim per invoice line; correct basis v7 for those lines.",
+   "evidence": {
+    "internal": [],
+    "pooled": {
+     "fable": [
+      0,
+      0
+     ],
+     "astra": [
+      0,
+      0
+     ]
+    },
+    "external": [
+     {
+      "source": "When Do LLMs Apply the Wrong Law? (arXiv 2608.14610, preprint)",
+      "url": "https://arxiv.org/abs/2608.14610",
+      "year": 2026,
+      "finding": "A 'strong bias toward applying the most recently enacted law' regardless of when the facts occurred. Old->new errors are 0.69-0.94 of each model's fault mass. A strong non-retroactivity hint lifts GPT-5.4 only to 0.457. In more than half of the LLMs, reasoning-oriented configurations do worse. The paper does not say whether statute texts are supplied, so this is mainly a parametric default.",
+      "models": "All at highest effort: Claude Opus 4.6 (max), GPT-5.4 (high), Gemini 3.1 Pro (high), DeepSeek-V3.2, GLM-4.7, Qwen3",
+      "metric": "Accuracy old-version vs new-version cases (Table 1): Opus 4.6 0.014 vs 0.820; GPT-5.4 0.237 vs 0.701; Gemini 3.1 Pro 0.135 vs 0.843"
+     },
+     {
+      "source": "TIDE, 'Time Present and Time Past' (arXiv 2608.08512, preprint)",
+      "url": "https://arxiv.org/abs/2608.08512",
+      "year": 2026,
+      "finding": "Over 644 dated customs instruments, resolving the version in force from an implicit date reaches 59.7% and detecting that a supplied version does not govern only 26.7%; 'Models are more likely to find correct versions than to reject incorrect ones'.",
+      "models": "Nine models incl. GPT-5.2, Claude-Sonnet-4.5, Gemini-3.5-Flash; thinking enabled",
+      "metric": "Temporal Scenario short answer, gold context (ICL): GPT-5.2 75.29, Claude-Sonnet-4.5 64.06; best macro 68.5%"
+     },
+     {
+      "source": "Asking For An Old Friend (arXiv 2605.23497; ICAIL 2026 full paper)",
+      "url": "https://arxiv.org/abs/2605.23497",
+      "year": 2026,
+      "finding": "Names two temporal failures in statutory QA: applying superseded rules, and preferring newer provisions when an older version governs; web search shows 'a marked recency bias on historically anchored tasks'.",
+      "models": "Five LLMs from OpenAI, Anthropic and DeepSeek (not named on the abstract page)",
+      "metric": "Qualitative on the abstract page; no numbers read"
+     },
+     {
+      "source": "Do LLMs Favor Recent Content? (arXiv 2509.11353, preprint)",
+      "url": "https://arxiv.org/abs/2509.11353",
+      "year": 2025,
+      "finding": "Injecting publication dates promotes 'fresh' passages: top-10 mean year shifts forward by up to 4.78 years and pairwise preferences between equally relevant passages reverse by up to 25%; 'Although larger models attenuate the effect, none eliminate it.'",
+      "models": "Seven LLM rerankers (incl. GPT-4o-class and open models)",
+      "metric": "Pairwise preference reversal rate after date injection"
+     },
+     {
+      "source": "TaxCalcBench (arXiv 2507.16126; Column Tax, company-authored preprint)",
+      "url": "https://arxiv.org/abs/2507.16126",
+      "year": 2025,
+      "finding": "Models used bracket-percentage arithmetic where the IRS Tax Table lookup is mandatory in roughly 15-20% of cases; a Gemini 2.5 Flash run used $15,060 as the one-person Federal Poverty Level where $14,580 was correct (reading these as the 2024 vs 2023 guideline years is LIT-B's inference, not the paper's).",
+      "models": "Gemini 2.5 Pro, Gemini 2.5 Flash, Claude Opus 4 at several thinking levels",
+      "metric": "Correct returns strict vs lenient (+-$5): Gemini 2.5 Pro 32.35% vs 51.96%; Claude Opus 4 (high) 27.45% vs 42.65%"
+     }
+    ],
+    "traces": []
+   }
+  },
+  {
+   "id": "L3",
+   "aliases": [
+    "trigger_event",
+    "event_key_mismatch",
+    "LIT-B#4"
+   ],
+   "name": "Wrong anchor event starts a period or deadline",
+   "family": "temporal_anchor",
+   "status": "literature",
+   "aimed_at": "astra",
+   "clock": false,
+   "summary": "Default: the agent counts a period from the most salient date on the record (a letter, a forwarding email, a delivery note) instead of the event the governing clause names. The files make that wrong because two parties' records show when the defined event actually happened. The arithmetic is never the failure. aimed_at astra: the frontier evidence is gpt-5.4 (3 of 6 deadlines exact, MAE 50.5 days), and our internal trigger_event history is contested on Fable (9 of 11 blind readers took the other reading without a defining sentence).",
+   "loopholes": [
+    "L-record",
+    "L-default"
+   ],
+   "recipe": {
+    "record": "A deadline register or notice log keyed on the date of the most salient document (cover letter or delivery note).",
+    "anchors": "(1) A definitions clause names the start event (e.g. countersignature of the Acceptance Certificate); this definition is stated, because blind readers need it. (2) The customer's email 'signed and returned today' (party A) and (3) the supplier's acknowledgement of the countersigned certificate (party B) fix the event date, which appears in no register column.",
+    "withheld": "The start-event date is not a field anywhere; no sentence says which document's date to count from; any suspension window's start and end are recorded only in first-hand logs.",
+    "dials": [
+     "each additional witness of the start event is one notch",
+     "a stop-the-clock suspension recorded in an inspection log is a second, interlocking lever (2608.15270: no sub-frontier model applied the s.207B pause)",
+     "salience of the decoy date (cover letter in the main folder vs correspondence subfolder)"
+    ],
+    "conservation": "Grade the last valid day and the timely/late flag separately, so a verdict that contradicts the model's own computed date also loses (6 of 21 GPT verdicts did this).",
+    "shields": "A real 'notices are dated on dispatch' rule about how the supplier dates its own letters, scoped away from the start event."
+   },
+   "proof_obligations": [
+    "the defining sentence exists and names exactly one event; the inferred date is unique under the anchors",
+    "counterfactual: counting from the salient date flips at least one timely/late verdict",
+    "calendar engine (python dateutil or equivalent) recomputes every deadline from the anchors; the grader reads the same computation",
+    "executed counterexample: the default reading produces a different deliverable on every check routed through the premise",
+    "blind reader reaches the intended answer with no sentence that ranks the competing sources (TRAP-CATALOG-B7 §1.5)"
+   ],
+   "hazards": [
+    "Internal: trigger_event measured 'contested', 9 of 11 blind readers took the other reading without a defining sentence; the start event must be defined",
+    "Not a clock trap: no 'now' may be inferred; one-anchor inferred clocks failed review (a-088)",
+    "Event-date keying (T.event 3/405, 2/185) is dead when it is only 'the real date vs the logged date'; the lever is which of two events the clause names",
+    "Date arithmetic itself is dead (scripts compute it); only the anchor choice can bite"
+   ],
+   "kills": [
+    "a register column holding the start-event date",
+    "a worked memo that computes this very deadline",
+    "a sentence 'count from the countersignature, not the letter'"
+   ],
+   "trace_signals": [
+    "notice periods, defect windows, appeal or claim deadlines ('within N days of')",
+    "forwarded letters whose forwarding date differs from the letter date",
+    "the user corrects which date the period runs from"
+   ],
+   "domains": [
+    "contract management",
+    "employment and tribunal deadlines",
+    "warranty and defect claims",
+    "regulatory filing windows",
+    "insurance claims"
+   ],
+   "example": "Clause 9.2 allows defect notices within 21 days of the Acceptance Date, defined as the customer's countersignature. The register keys on delivery-note dates; the countersignature appears only in the customer's email and the supplier's acknowledgement. Deliverable: last valid day and timely flag for twelve notices.",
+   "evidence": {
+    "internal": [],
+    "pooled": {
+     "fable": [
+      0,
+      0
+     ],
+     "astra": [
+      0,
+      0
+     ]
+    },
+    "external": [
+     {
+      "source": "Time as Structure: deadline computation over legal documents (arXiv 2608.15270; AACL-IJCNLP 2026 SRW)",
+      "url": "https://arxiv.org/abs/2608.15270",
+      "year": 2026,
+      "finding": "On contracts 'the errors are almost never in the arithmetic, but in choosing which event the period starts from'; one extraction counted 21 days from a letter instead of the entry into force the clause names, and both extractors made the same anchoring error on one document. Across three GPT models, 6 of 21 verdicts contradicted their own working, each calling a late claim timely.",
+      "models": "gpt-5.4, gpt-5.4-mini, gpt-5.4-nano, gemma4:e4b (direct answering)",
+      "metric": "gpt-5.4: 3/6 computable deadlines exact, mean absolute error 50.5 days, 3/7 verdicts correct"
+     },
+     {
+      "source": "TIDE relative-time QA (arXiv 2608.08512, preprint)",
+      "url": "https://arxiv.org/abs/2608.08512",
+      "year": 2026,
+      "finding": "Compute a target date from an anchor date plus an offset, then return the value in force on that date; even with gold context roughly a third of answers are wrong.",
+      "models": "GPT-5.2, Claude-Sonnet-4.5 and seven other models",
+      "metric": "Strict accuracy ICL: GPT-5.2 59.66, Claude-Sonnet-4.5 68.03"
+     }
+    ],
+    "traces": []
+   }
+  },
+  {
+   "id": "L4",
+   "aliases": [
+    "LIT-B#8",
+    "fiscal_calendar_mapping"
+   ],
+   "name": "Fiscal vs calendar period mapping",
+   "family": "temporal_anchor",
+   "status": "literature",
+   "aimed_at": "unknown",
+   "clock": false,
+   "summary": "Default: the agent reads a period label ('FY2026 Q1', '2025') on the calendar basis, or pulls the fiscal series where the deliverable is calendar-based. The files make that wrong because the reporting entity's year starts elsewhere, shown only by worked figures and a by-the-way remark from another party, never by a mapping table. aimed_at unknown: the external failures (OfficeQA, OfficeQA Pro V2) are not attributed to a model, and our closest internal shape (timesheet payroll period) died on Fable 0/25, so pilot before aiming.",
+   "loopholes": [
+    "L-default",
+    "L-record"
+   ],
+   "recipe": {
+    "record": "A subsidiary or counterparty export labelled only with fiscal periods ('FY2026 Q1'), feeding a calendar-quarter deliverable.",
+    "anchors": "(1) Last year's reconciled consolidation sheet (party A: group finance) carries a figure that matches the subsidiary's April-June total, not January-March. (2) A by-the-way line from the subsidiary's controller (party B) that 'our year closed 31 March'.",
+    "withheld": "No fiscal-year-start statement in any header or manual, no mapping table; the label itself is neutral.",
+    "dials": [
+     "a second worked figure in another quarter is one notch",
+     "a non-English header for the period field is texture, not a lever (Fable and Astra read major languages)"
+    ],
+    "conservation": "Grade the quarter and the half-year or year total, so a shifted mapping fails both the quarter and the annual tie.",
+    "shields": "A real group manual line 'report in calendar quarters', which governs the output, not the reading of the input labels; Fable may cite it to justify reading the label as calendar."
+   },
+   "proof_obligations": [
+    "enumerate the plausible fiscal starts (January, April, July, October) and show exactly one reproduces every worked figure",
+    "executed counterexample: the default reading produces a different deliverable on every check routed through the premise",
+    "blind reader reaches the intended answer with no sentence that ranks the competing sources (TRAP-CATALOG-B7 §1.5)"
+   ],
+   "hazards": [
+    "A labelled fiscal-year start (header note or manual) is a stated rule: dead",
+    "Internal v5 rounds: 'a payroll cycle' and the timesheet 26th-25th payroll period died on Fable (0/25)",
+    "Figures in thousands with a cross-reference were dead (0/30 both): do not stack a scale label on the same file"
+   ],
+   "kills": [
+    "a 'fiscal year begins 1 April' line",
+    "a mapping table",
+    "period labels written as month ranges"
+   ],
+   "trace_signals": [
+    "a subsidiary, client or public body with a non-calendar year end (April, July, October)",
+    "consolidating quarterly results from several entities",
+    "the user corrects 'their Q1 is our Q2'"
+   ],
+   "domains": [
+    "group consolidation",
+    "public-sector budgets",
+    "university and school finance",
+    "retail calendars",
+    "tax-year reporting"
+   ],
+   "example": "A Japanese subsidiary's results file is labelled FY2026 Q1-Q4. Group needs calendar Q2 2025. Last year's consolidation sheet ties a known figure to the subsidiary's April-June total, and the controller's email mentions the March year-end.",
+   "evidence": {
+    "internal": [],
+    "pooled": {
+     "fable": [
+      0,
+      0
+     ],
+     "astra": [
+      0,
+      0
+     ]
+    },
+    "external": [
+     {
+      "source": "OfficeQA (Databricks blog, 2025-12-09; company-reported)",
+      "url": "https://www.databricks.com/blog/introducing-officeqa-benchmark-end-to-end-grounded-reasoning",
+      "year": 2025,
+      "finding": "Error examples: an agent took fiscal-year values instead of calendar-year values for 8 years, making a regression forecast off by $286,831 million (31.6%); an agent used the June 2010 bulletin where the September 2010 publication held the correct values ($21 million off). The post does not say which agent made which error.",
+      "models": "GPT-5.1 agent (OpenAI File Search) and Claude Opus 4.5 agent (Claude Agent SDK)",
+      "metric": "Error size of single worked failures; no per-error-type rates"
+     },
+     {
+      "source": "OfficeQA Pro V2 (Databricks blog, 2026-08-06; company-reported)",
+      "url": "https://www.databricks.com/blog/introducing-officeqa-pro-v2-new-benchmark-enterprise-grounded-reasoning",
+      "year": 2026,
+      "finding": "The medium example requires reading each year from 'the latest revised prior-year column'; the hard example requires 'only the latest reported figures for each year'. Remaining failures named: parsing fidelity, 'incorrect temporal reconciliation as accounting conventions change over time' and 'misinterpretation of entity scope or category granularity'. Concepts change in 'name, location, table schema, unit, time basis, and level of aggregation'; reporting moved from calendar to fiscal years.",
+      "models": "Claude Code (Claude Opus 4.8, Claude Fable 5, Sonnet 5); Codex (GPT-5.5, GPT-5.6 Sol); Databricks Genie",
+      "metric": "Out-of-the-box agents: 37.5% average in the intro vs 26.0% across five models in Section 1 (inconsistent in the post); GPT-5.6 Sol on Codex 33.3%; Sonnet 5 on Claude Code 15.6%"
+     }
+    ],
+    "traces": []
+   }
+  },
+  {
+   "id": "L5",
+   "aliases": [
+    "LIT-A#5",
+    "period_caliber"
+   ],
+   "name": "Cumulative (year-to-date) vs period figures",
+   "family": "aggregation_basis",
+   "status": "literature",
+   "aimed_at": "both",
+   "clock": false,
+   "summary": "Default: the agent treats a cumulative (year-to-date) series as discrete period values, or uses a YTD figure as a single-period base, when no label flags the caliber. The files make that wrong because only arithmetic reveals it: the first row equals the first month exactly, later rows equal running sums, and a credit makes the series dip by exactly that credit. aimed_at both: FinIndices' caliber axis without hints scores Claude-4.5 12.79 and GPT-5.4 15.12; TRAP-CATALOG-B7 lists deck 2.8.0 P6 as under test, with no measured row yet.",
+   "loopholes": [
+    "L-default",
+    "L-record"
+   ],
+   "recipe": {
+    "record": "An export whose column header says only 'Period' but holds cumulative values from 1 January.",
+    "anchors": "(1) Supplier invoices (party A) whose January total equals the first row to the cent and whose running sum equals later rows. (2) A credit note (party B) that makes the series dip by exactly its amount, impossible for positive monthly receipts.",
+    "withheld": "No 'YTD' or 'cumulative' word, no unit or caliber caption, no cross-reference to a definition.",
+    "dials": [
+     "the credit-note dip is the strongest notch; add it only after a pilot",
+     "route the caliber into a downstream figure (a KPI or accrual) rather than making it the object of the reconciliation, where the agent's variance analysis discovers it",
+     "stock vs flow variant: an average-balance denominator fixed only by a worked ratio (FinIndices ROA case)"
+    ],
+    "conservation": "Grade per-month values and the annual total; the period reading leaves growing unexplained variances that equal the running sums.",
+    "shields": "A real reporting-manual line that 'exports are by posting period', which governs which entries are included, not whether values accumulate."
+   },
+   "proof_obligations": [
+    "the cumulative reading reconciles exactly; the period reading leaves variances equal to running sums",
+    "no file contains a caliber label for the trapped column",
+    "executed counterexample: the default reading produces a different deliverable on every check routed through the premise",
+    "blind reader reaches the intended answer with no sentence that ranks the competing sources (TRAP-CATALOG-B7 §1.5)"
+   ],
+   "hazards": [
+    "A labelled caliber is very likely dead (the 'in thousands' cross-reference shape was 0/30 on both models)",
+    "If the export could plausibly be wrong, 'real variances' become defensible; make the cumulative reading tie exactly",
+    "A reconciliation deliverable invites the agent to explain the variance pattern and discover the caliber"
+   ],
+   "kills": [
+    "a 'YTD'/'cumulative' header or caption",
+    "a worked month-from-YTD subtraction in a governing note",
+    "a formula hint (FinIndices: hints roughly double accuracy)"
+   ],
+   "trace_signals": [
+    "the user asks for monthly figures from a report that 'keeps growing'",
+    "exports from ERP or warehouse systems labelled 'period' or 'to date'",
+    "quarterly growth computed from interim reports (Q3 YTD vs Q3)"
+   ],
+   "domains": [
+    "financial statements and interim reports",
+    "warehouse and procurement exports",
+    "sales dashboards",
+    "grant drawdown reports"
+   ],
+   "example": "A warehouse 'Receipts value by period' export is cumulative from 1 January; monthly supplier invoices reconcile to its first row and to its running sums; a June credit note makes June dip. Deliverable: monthly receipts-to-invoice variance and a KPI built on monthly receipts.",
+   "evidence": {
+    "internal": [],
+    "pooled": {
+     "fable": [
+      0,
+      0
+     ],
+     "astra": [
+      0,
+      0
+     ]
+    },
+    "external": [
+     {
+      "source": "FinIndices (arXiv 2607.28661, preprint)",
+      "url": "https://arxiv.org/abs/2607.28661",
+      "year": 2026,
+      "finding": "Over uncropped statements up to 32K tokens with adversarial traps, removing formula hints roughly halves Table-Index accuracy. Logged failures: a 2021Q3 YTD profit used as the base of a single-quarter YoY (202.25% vs 58.49%); ROA on ending instead of average assets (1.208% vs 1.217%); a beginning-balance column substituted inside a table (Gemini).",
+      "models": "Claude-Opus-4.8 / Claude-4.5, GPT-5.5, GPT-5.4, Gemini-3.1-Pro (thinking) and open models",
+      "metric": "Table-Index with -> without hints: Claude-Opus-4.8 65.61 -> 38.85; GPT-5.5 66.88 -> 34.18; GPT-5.4 65.61 -> 31.21. Caliber-alignment axis without hints: Claude-4.5 12.79, GPT-5.4 15.12, Gemini-3.1 23.26"
+     }
+    ],
+    "traces": []
+   }
+  },
+  {
+   "id": "L6",
+   "aliases": [
+    "operative_instrument_status",
+    "draft_vs_executed"
+   ],
+   "name": "A document about a change applied as if it were the change in force",
+   "family": "authority_selection",
+   "status": "literature",
+   "aimed_at": "fable",
+   "clock": false,
+   "summary": "Default: the agent applies the newest, most specific document that states new terms (a redlined schedule, a revised-terms proposal, an internal report describing a counterparty's consent) as the operative instrument. The files make that wrong because the later conduct of two different parties shows the change never took effect: the counterparty keeps applying the old terms, and a second party mentions the change is still pending. aimed_at fable: APEX-Accounting's worked failure is Claude Fable 5 treating a programme director's report as donor authorization, and Claude-family models show the most extreme newest-version default (Opus 4.6 0.014).",
+   "loopholes": [
+    "L-record",
+    "L-shield",
+    "L-absorb"
+   ],
+   "recipe": {
+    "record": "The newest document with explicit terms (rates_v3.xlsx, a 'revised terms' letter, a programme report) sits where the deliverable would source its terms; the operative instrument (signed v2, the original grant letter) is older and less salient.",
+    "anchors": "(1) The counterparty's own later conduct applies the old terms (its invoices after the proposal bill v2 rates; the donor's later letter still refers to the restriction) - party A. (2) A by-the-way remark from a second party that adoption did not happen ('their legal still has v3') - party B. (3) Optional: the instrument's amendment clause requires a form of adoption that no file records; the clause may be stated because the trigger, whether adoption happened, stays inferred.",
+    "withheld": "No DRAFT/PROPOSAL watermark, no 'not signed' line, no index naming a current version, no sentence ranking the documents. The model must supply the mechanism (a proposal that was never accepted).",
+    "dials": [
+     "each extra conduct anchor (another old-rate invoice paid without dispute) is one notch toward solvable",
+     "file naming is a strong notch: 'rates_current.xlsx' for the proposal pulls hard; change it at most once per round",
+     "for Astra change the kind of evidence: a remittance advice paying exactly the old-rate amount"
+    ],
+    "conservation": "Grade the lines that move and the lines that stay against a conserved total (the counterparty's statement balance), so mixing terms or crediting both fails.",
+    "shields": "If the contract says 'the latest schedule issued governs', scope it to schedules 'issued under clause 9' (a formal notice the proposal never was); Fable will cite the clause and the audit can show the scope misreading."
+   },
+   "proof_obligations": [
+    "uniqueness: on every graded date exactly one instrument is operative under the anchors",
+    "ablation: removing any one conduct anchor leaves the answer determinate; removing all of them leaves the blind reader undecided (the anchors carry it)",
+    "grep census: no file says draft, proposal, pending, not signed, superseded or equivalent about the newer document",
+    "executed counterexample: the default reading produces a different deliverable on every check routed through the premise",
+    "blind reader reaches the intended answer with no sentence that ranks the competing sources (TRAP-CATALOG-B7 §1.5)"
+   ],
+   "hazards": [
+    "Internal: authority_delegation is discouraged as a decider (Arena called such traps ambiguous; Astra solved every batch-4 instance) and unauthorized-request authority measured Fable 1/90; build on the document's operative status shown by conduct, never on whether a person had authority",
+    "Legacy stale_authority traps measured 0/220 Fable, 0/225 Astra: any label of status kills it",
+    "An index or cover note naming the newer document as current is a printed governing statement of the opposite: unfair",
+    "Oral acceptance can be argued; later conduct must contradict adoption, not merely fail to record it",
+    "External support is indirect: no benchmark isolates execution status; the evidence is one APEX-Accounting trajectory plus the version-recency literature"
+   ],
+   "kills": [
+    "a DRAFT/PROPOSAL watermark or 'for discussion' header",
+    "a sentence that the change was rejected or is pending",
+    "an index or cover note naming the newer document as current (unfair, not only dead)"
+   ],
+   "trace_signals": [
+    "the user shares a redlined or 'revised' version, and later an invoice or letter that still uses the old terms",
+    "a change 'agreed in principle' or 'they said they would sign'",
+    "the assistant computes on a proposal and the user later says it never went through",
+    "approvals described in reports or minutes rather than in the instrument itself"
+   ],
+   "domains": [
+    "supplier rate schedules",
+    "grant and restricted-fund accounting",
+    "leases and rent reviews",
+    "HR offers vs signed contracts",
+    "board or committee approvals"
+   ],
+   "example": "A signed cleaning schedule v2 sets hourly rates; the supplier emailed v3 with higher rates in May. Its June and July invoices still bill v2 rates and the facilities manager's chat export says their legal 'still has v3'. Deliverable: a Q3 rate-variance register; correct basis v2, while the default basis v3 flags every compliant line as an undercharge.",
+   "evidence": {
+    "internal": [],
+    "pooled": {
+     "fable": [
+      0,
+      0
+     ],
+     "astra": [
+      0,
+      0
+     ]
+    },
+    "external": [
+     {
+      "source": "APEX-Accounting worked failure: restricted donor balance (arXiv 2607.27189)",
+      "url": "https://arxiv.org/abs/2607.27189",
+      "year": 2026,
+      "finding": "Claude-Fable-5 'treats a program director's report as written donor authorization' and released a restricted $15,000 balance; the paper does not name the document that should have authorized it.",
+      "models": "Claude-Fable-5",
+      "metric": "Single annotated trajectory (one of 24 annotated Fable 5 failures)"
+     },
+     {
+      "source": "APEX-Accounting (arXiv 2607.27189; Mercor with Ramp, company-authored preprint)",
+      "url": "https://arxiv.org/abs/2607.27189",
+      "year": 2026,
+      "finding": "160 month-end close tasks (reconciliation, data entry, variance analysis, schedules and accruals). 'Top models reliably find the right inputs; they make mistakes when applying accounting judgment and multi-step logic to them': the right documents and intermediates, then the wrong basis, source or authorization downstream. Reasoning failures are 79% of Fable 5's and 75% of GPT-5.6 Sol's annotated failures; tool-use failures 0%.",
+      "models": "Claude-Fable-5 (adaptive, max), GPT-5.6-Sol (pro, max), Claude-Opus-4.8, Gemini-3.1-Pro and five others",
+      "metric": "Mean Criteria@3: Claude-Fable-5 56.4%, GPT-5.6-Sol 51.5%, Claude-Opus-4.8 48.0%; Pass^8 best 2.6% (GPT-5.6-Sol)"
+     },
+     {
+      "source": "TIDE, 'Time Present and Time Past' (arXiv 2608.08512, preprint)",
+      "url": "https://arxiv.org/abs/2608.08512",
+      "year": 2026,
+      "finding": "Over 644 dated customs instruments, resolving the version in force from an implicit date reaches 59.7% and detecting that a supplied version does not govern only 26.7%; 'Models are more likely to find correct versions than to reject incorrect ones'.",
+      "models": "Nine models incl. GPT-5.2, Claude-Sonnet-4.5, Gemini-3.5-Flash; thinking enabled",
+      "metric": "Temporal Scenario short answer, gold context (ICL): GPT-5.2 75.29, Claude-Sonnet-4.5 64.06; best macro 68.5%"
+     },
+     {
+      "source": "When Do LLMs Apply the Wrong Law? (arXiv 2608.14610, preprint)",
+      "url": "https://arxiv.org/abs/2608.14610",
+      "year": 2026,
+      "finding": "A 'strong bias toward applying the most recently enacted law' regardless of when the facts occurred. Old->new errors are 0.69-0.94 of each model's fault mass. A strong non-retroactivity hint lifts GPT-5.4 only to 0.457. In more than half of the LLMs, reasoning-oriented configurations do worse. The paper does not say whether statute texts are supplied, so this is mainly a parametric default.",
+      "models": "All at highest effort: Claude Opus 4.6 (max), GPT-5.4 (high), Gemini 3.1 Pro (high), DeepSeek-V3.2, GLM-4.7, Qwen3",
+      "metric": "Accuracy old-version vs new-version cases (Table 1): Opus 4.6 0.014 vs 0.820; GPT-5.4 0.237 vs 0.701; Gemini 3.1 Pro 0.135 vs 0.843"
+     },
+     {
+      "source": "When Text and Numbers Disagree: Evidence Arbitration in LLMs (arXiv 2608.20116, preprint)",
+      "url": "https://arxiv.org/abs/2608.20116",
+      "year": 2026,
+      "finding": "In controlled conflicts where exactly one source matches the truth, models follow temporal recency more consistently than explicit reliability cues; arbitration is heuristic and systematic.",
+      "models": "Open-weight instruction-tuned models (not named on the abstract page)",
+      "metric": "Qualitative on the abstract page"
+     }
+    ],
+    "traces": []
+   }
+  },
+  {
+   "id": "L7",
+   "aliases": [
+    "entity_scope",
+    "figure_perimeter",
+    "LIT-B#9-scope"
+   ],
+   "name": "Figure scope: a component figure taken for the whole (or the reverse)",
+   "family": "aggregation_basis",
+   "status": "literature",
+   "aimed_at": "both",
+   "clock": false,
+   "summary": "Default: the agent lifts a figure whose label fits the deliverable field ('floor area', 'equity', 'headcount') from the newest or most explicit document without checking which perimeter it covers. The files make that wrong because the figure covers one lease, site, segment or the parent's share (or the whole group), shown only by arithmetic and descriptive anchors from other parties. aimed_at both: APEX-Accounting reports Claude Fable 5 and GPT-5.6 Sol both reporting a new lease's area as the entity-wide total, and OfficeQA Pro V2 names entity-scope misreading as a remaining failure of Claude Code and Codex agents.",
+   "loopholes": [
+    "L-record",
+    "L-default",
+    "L-absorb"
+   ],
+   "recipe": {
+    "record": "One structured document gives a figure under a label matching the deliverable field, e.g. a new lease abstract 'Floor area 1,850 m2' feeding 'total occupied area', or a subsidiary's 'Equity' line feeding a covenant defined on equity attributable to the parent.",
+    "anchors": "(1) Arithmetic from another party that works only on the other perimeter: the landlord's service-charge letter apportions 1,850 of 6,200 m2, and the insurer's schedule lists three sites summing to 6,200. (2) A by-the-way line that other components exist ('the Leeds and Hull floors stay on the old lease'). Each anchor sits in a document read for another purpose.",
+    "withheld": "No 'this site only' or 'group total' label on the figure; the deliverable field is defined on the perimeter neutrally; the mechanism (a component figure filed under a whole-entity label) is not stated.",
+    "dials": [
+     "one more apportionment figure from a third party is one notch",
+     "for Astra change kind: a rates or utility bill whose per-m2 charge reconciles only on the full perimeter",
+     "a perimeter word next to the figure is effectively a stated rule; never use it"
+    ],
+    "conservation": "Grade the total and at least one component against a conserved perimeter total (the insurer's or rates schedule), so reporting the component as the total, or adding it on top of a total that already contains it, fails both sides.",
+    "shields": "A real 'use the latest lease abstract for area figures' instruction, scoped to per-unit fields (rent per m2), not to entity totals; Fable will cite it."
+   },
+   "proof_obligations": [
+    "enumerate the candidate perimeters (component, entity, group) and show exactly one reproduces all anchor arithmetic",
+    "census: no label or caption in any file names the perimeter of the trapped figure",
+    "executed counterexample: the default reading produces a different deliverable on every check routed through the premise",
+    "blind reader reaches the intended answer with no sentence that ranks the competing sources (TRAP-CATALOG-B7 §1.5)"
+   ],
+   "hazards": [
+    "Internal: S.population (population reshaped by an incidental fact) measured 3%/4% and S.coverage 0/125; if the question becomes 'who is in the population' rather than 'what perimeter this one figure covers', expect it to die",
+    "A deliverable field that is itself ambiguous about perimeter makes the trap unfair",
+    "A governing schedule that itself uses the component figure states the opposite: unfair"
+   ],
+   "kills": [
+    "a perimeter label on or next to the figure",
+    "a consolidation note listing the components",
+    "a template that names the source document for the field"
+   ],
+   "trace_signals": [
+    "the user corrects that a figure was 'just one site' or 'only our share'",
+    "sessions consolidating subsidiaries, sites, leases or segments",
+    "an entity-wide KPI requested from per-unit documents"
+   ],
+   "domains": [
+    "real estate and lease portfolios",
+    "group consolidation and covenants",
+    "segment reporting",
+    "headcount and capacity planning",
+    "multi-site operations"
+   ],
+   "example": "A new lease abstract reports 1,850 m2. The landlord's service-charge letter apportions 1,850 of 6,200 m2 and the insurer's schedule lists three sites summing to 6,200. Deliverable: total occupied area, cost per m2 and headroom against a space covenant; the default reports 1,850 as the total.",
+   "evidence": {
+    "internal": [],
+    "pooled": {
+     "fable": [
+      0,
+      0
+     ],
+     "astra": [
+      0,
+      0
+     ]
+    },
+    "external": [
+     {
+      "source": "APEX-Accounting worked failure: tenant onboarding (arXiv 2607.27189)",
+      "url": "https://arxiv.org/abs/2607.27189",
+      "year": 2026,
+      "finding": "On a tenant-onboarding task both Claude-Fable-5 and GPT-5.6-Sol reported the new lease's square footage as the entity-wide total.",
+      "models": "Claude-Fable-5, GPT-5.6-Sol",
+      "metric": "Single task, failure shared by both top models"
+     },
+     {
+      "source": "OfficeQA Pro V2 (Databricks blog, 2026-08-06; company-reported)",
+      "url": "https://www.databricks.com/blog/introducing-officeqa-pro-v2-new-benchmark-enterprise-grounded-reasoning",
+      "year": 2026,
+      "finding": "The medium example requires reading each year from 'the latest revised prior-year column'; the hard example requires 'only the latest reported figures for each year'. Remaining failures named: parsing fidelity, 'incorrect temporal reconciliation as accounting conventions change over time' and 'misinterpretation of entity scope or category granularity'. Concepts change in 'name, location, table schema, unit, time basis, and level of aggregation'; reporting moved from calendar to fiscal years.",
+      "models": "Claude Code (Claude Opus 4.8, Claude Fable 5, Sonnet 5); Codex (GPT-5.5, GPT-5.6 Sol); Databricks Genie",
+      "metric": "Out-of-the-box agents: 37.5% average in the intro vs 26.0% across five models in Section 1 (inconsistent in the post); GPT-5.6 Sol on Codex 33.3%; Sonnet 5 on Claude Code 15.6%"
+     },
+     {
+      "source": "FinIndices (arXiv 2607.28661, preprint)",
+      "url": "https://arxiv.org/abs/2607.28661",
+      "year": 2026,
+      "finding": "Over uncropped statements up to 32K tokens with adversarial traps, removing formula hints roughly halves Table-Index accuracy. Logged failures: a 2021Q3 YTD profit used as the base of a single-quarter YoY (202.25% vs 58.49%); ROA on ending instead of average assets (1.208% vs 1.217%); a beginning-balance column substituted inside a table (Gemini).",
+      "models": "Claude-Opus-4.8 / Claude-4.5, GPT-5.5, GPT-5.4, Gemini-3.1-Pro (thinking) and open models",
+      "metric": "Table-Index with -> without hints: Claude-Opus-4.8 65.61 -> 38.85; GPT-5.5 66.88 -> 34.18; GPT-5.4 65.61 -> 31.21. Caliber-alignment axis without hints: Claude-4.5 12.79, GPT-5.4 15.12, Gemini-3.1 23.26"
+     },
+     {
+      "source": "FinAuditing (arXiv 2510.08886, preprint)",
+      "url": "https://arxiv.org/abs/2510.08886",
+      "year": 2025,
+      "finding": "On real XBRL filings models 'rely on surface-level semantic similarity': they fail to flag CashAndCashEquivalents where only Cash is permitted and overlook aggregate tags such as AssetsCurrent where components are required.",
+      "models": "13 LLMs (DeepSeek-V3 and GPT-4o lead individual tasks)",
+      "metric": "FinSM Hit Rate@20 below 13% for every model; FinMR best 13.86% (Fin-o1-14B)"
+     },
+     {
+      "source": "OfficeQA Pro (arXiv 2603.08655; Databricks authors, preprint)",
+      "url": "https://arxiv.org/abs/2603.08655",
+      "year": 2026,
+      "finding": "Agents fail to retrieve revised values, 'often prematurely converging on the first numerically plausible instance retrieved' (Sec. 5.1). A majority of remaining errors are final-answer precision, e.g. rounding too early (Sec. 3.2). Frontier agents given the corpus average 34.1% (abstract).",
+      "models": "Agent setups on Claude Opus 4.6, GPT-5.4, Gemini 3.1 Pro Preview",
+      "metric": "Exact accuracy at 0% error (Table 1): Opus 4.6 48.12% full PDF / 54.14% parsed / 66.92% oracle parsed; GPT-5.4 36.09% / 56.39% / 65.41%; Gemini 3.1 Pro 18.05% / 29.32% / 46.62%"
+     }
+    ],
+    "traces": []
+   }
+  },
+  {
+   "id": "L8",
+   "aliases": [
+    "as_of_vintage",
+    "delivered_vintage"
+   ],
+   "name": "As-of vintage: a later restatement must not reach a past test or decision",
+   "family": "revision_supersession",
+   "status": "literature",
+   "aimed_at": "fable",
+   "clock": false,
+   "summary": "Default: the agent uses the most recent, most corrected version of a figure, which is why the labelled restatement trap is dead here (models take the restated value: T.revised 0/125, 0/65). The files make that wrong when the deliverable reproduces or tests a decision defined on a specific delivered document (a covenant certificate, a bonus calculation, a tender score) and the restatement arrived after delivery; which file is the delivered vintage is shown only by the sender's and the recipient's records. aimed_at fable: the newest-version default is most extreme in Claude-family models (Opus 4.6 0.014 on old-version cases).",
+   "loopholes": [
+    "L-default",
+    "L-shield",
+    "L-record"
+   ],
+   "recipe": {
+    "record": "The folder's canonical copy ('Q2_management_accounts_final.xlsx') is the restated vintage, dated after the test; the delivered vintage survives only in a correspondence subfolder.",
+    "anchors": "(1) The recipient's acknowledgement quotes a figure only the delivered vintage contains (the lender's covenant reply quotes the delivered EBITDA) - party A. (2) The sender's delivery email is dated before the restatement and names the attachment's earlier version tag - party B. (3) Optional: the restatement memo dates the adjustment after delivery.",
+    "withheld": "No sentence 'use the figures as delivered' and no 'restated' label; the instrument's defined term points to 'the accounts delivered under clause 7', not to a file name.",
+    "dials": [
+     "a third anchor (a board minute quoting the delivered figure) is one notch",
+     "for Astra change kind: the lender's ratio worksheet reproducing the delivered figures",
+     "a 'restated' label on the later file is a strong notch that probably kills it"
+    ],
+    "conservation": "The certificate's ratio must tie with the delivered vintage; grade the ratio, the headroom and the pass/fail flag so mixing vintages fails at least one.",
+    "shields": "A real 'the latest management accounts govern for forecasting' policy, scoped to forecasting, not to covenant testing; Fable will cite it."
+   },
+   "proof_obligations": [
+    "uniqueness: exactly one file matches every anchor-quoted figure",
+    "counterfactual: the restated vintage flips the pass/fail or headroom checks",
+    "ablation: with two anchors removed no route to the delivered vintage remains",
+    "executed counterexample: the default reading produces a different deliverable on every check routed through the premise",
+    "blind reader reaches the intended answer with no sentence that ranks the competing sources (TRAP-CATALOG-B7 §1.5)"
+   ],
+   "hazards": [
+    "Direct tension with L1: never route an L1 figure and an L8 figure through one figure family unless the defining terms differ and are checkable",
+    "If the deliverable's purpose could reasonably be a fresh re-test on corrected numbers, the trap is ambiguous; the instrument's defined term must pin the delivered document",
+    "Legacy stale_authority labelled traps measured 0/220 Fable, 0/225 Astra",
+    "No benchmark isolates the as-of-vintage direction; the evidence is the version-recency literature (inference, not a measured transfer)"
+   ],
+   "kills": [
+    "a 'restated' label on the later file",
+    "a sentence stating which vintage the certificate used",
+    "an index listing the delivered pack by name"
+   ],
+   "trace_signals": [
+    "the user asks to check or reproduce a calculation 'as submitted' or 'at the time'",
+    "accounts or KPIs restated after a pack went to a lender, board, regulator or customer",
+    "bonus, earn-out or covenant disputes that cite a delivered pack"
+   ],
+   "domains": [
+    "covenant compliance and lender reporting",
+    "bonus and earn-out calculations",
+    "tender evaluation audits",
+    "regulatory returns",
+    "grant milestone claims"
+   ],
+   "example": "A compliance certificate was delivered on 12 August with the Q2 pack; the pack was restated on 2 September. The folder's 'final' Q2 file is the restated one; the lender's reply quotes the delivered EBITDA. Deliverable: verify the certificate's leverage ratio, headroom and pass flag as delivered.",
+   "evidence": {
+    "internal": [],
+    "pooled": {
+     "fable": [
+      0,
+      0
+     ],
+     "astra": [
+      0,
+      0
+     ]
+    },
+    "external": [
+     {
+      "source": "TIDE, 'Time Present and Time Past' (arXiv 2608.08512, preprint)",
+      "url": "https://arxiv.org/abs/2608.08512",
+      "year": 2026,
+      "finding": "Over 644 dated customs instruments, resolving the version in force from an implicit date reaches 59.7% and detecting that a supplied version does not govern only 26.7%; 'Models are more likely to find correct versions than to reject incorrect ones'.",
+      "models": "Nine models incl. GPT-5.2, Claude-Sonnet-4.5, Gemini-3.5-Flash; thinking enabled",
+      "metric": "Temporal Scenario short answer, gold context (ICL): GPT-5.2 75.29, Claude-Sonnet-4.5 64.06; best macro 68.5%"
+     },
+     {
+      "source": "When Do LLMs Apply the Wrong Law? (arXiv 2608.14610, preprint)",
+      "url": "https://arxiv.org/abs/2608.14610",
+      "year": 2026,
+      "finding": "A 'strong bias toward applying the most recently enacted law' regardless of when the facts occurred. Old->new errors are 0.69-0.94 of each model's fault mass. A strong non-retroactivity hint lifts GPT-5.4 only to 0.457. In more than half of the LLMs, reasoning-oriented configurations do worse. The paper does not say whether statute texts are supplied, so this is mainly a parametric default.",
+      "models": "All at highest effort: Claude Opus 4.6 (max), GPT-5.4 (high), Gemini 3.1 Pro (high), DeepSeek-V3.2, GLM-4.7, Qwen3",
+      "metric": "Accuracy old-version vs new-version cases (Table 1): Opus 4.6 0.014 vs 0.820; GPT-5.4 0.237 vs 0.701; Gemini 3.1 Pro 0.135 vs 0.843"
+     },
+     {
+      "source": "Do LLMs Favor Recent Content? (arXiv 2509.11353, preprint)",
+      "url": "https://arxiv.org/abs/2509.11353",
+      "year": 2025,
+      "finding": "Injecting publication dates promotes 'fresh' passages: top-10 mean year shifts forward by up to 4.78 years and pairwise preferences between equally relevant passages reverse by up to 25%; 'Although larger models attenuate the effect, none eliminate it.'",
+      "models": "Seven LLM rerankers (incl. GPT-4o-class and open models)",
+      "metric": "Pairwise preference reversal rate after date injection"
+     },
+     {
+      "source": "When Text and Numbers Disagree: Evidence Arbitration in LLMs (arXiv 2608.20116, preprint)",
+      "url": "https://arxiv.org/abs/2608.20116",
+      "year": 2026,
+      "finding": "In controlled conflicts where exactly one source matches the truth, models follow temporal recency more consistently than explicit reliability cues; arbitration is heuristic and systematic.",
+      "models": "Open-weight instruction-tuned models (not named on the abstract page)",
+      "metric": "Qualitative on the abstract page"
+     }
+    ],
+    "traces": []
+   }
+  },
+  {
+   "id": "L9",
+   "aliases": [
+    "inherited_presupposition",
+    "request_sycophancy"
+   ],
+   "name": "The request presupposes a fact that the records refute",
+   "family": "other",
+   "status": "literature",
+   "aimed_at": "both",
+   "clock": false,
+   "summary": "Default: the agent accepts the factual premise of the work it was asked to do ('recover the duplicate payment', 'chase the short delivery') and produces the deliverable for every presupposed item, at most with a caveat. The files make that wrong because records from two other parties show one presupposed item is something else (two retainers for consecutive months, not a duplicate). aimed_at both: Fable tends to flag and comply ('If X, then Y'), Astra complies silently; GPT-5 proved false statements 29% of the time in BrokenMath, and models rarely critique premises unprompted (PCBench).",
+   "loopholes": [
+    "L-absorb",
+    "L-threshold",
+    "other"
+   ],
+   "recipe": {
+    "record": "A principal's work order or query log in the folder (not in the task instruction) lists items with a presupposed classification ('duplicate payment - March retainer').",
+    "anchors": "(1) The counterparty's statement lists two distinct invoices of the same amount for consecutive service months (party A). (2) The contract's schedule shows a monthly retainer and the bank line's payment reference names the April service period (party B, the bank).",
+    "withheld": "No sentence in the folder doubts the classification; the instruction is neutral ('act on the open items in Priya's query log'); the mechanism (April's invoice paid early) is supplied by the model.",
+    "dials": [
+     "an invoice number on the bank line is a strong notch (a direct identity); prefer content anchors first",
+     "the requester's confidence ('definitely paid twice') pushes toward compliance",
+     "for Astra change kind: a remittance advice listing both invoices"
+    ],
+    "conservation": "Grade the recovery amount (zero for the refuted item) and the supplier balance after the deliverable's actions, which must equal the supplier's statement; recovering and keeping April open breaks it.",
+    "shields": "A real 'recover duplicates within 30 days' AP rule, scoped to duplicates; Fable may cite the deadline as urgency."
+   },
+   "proof_obligations": [
+    "the task instruction contains no presupposition; the premise lives in a dated folder document from a named colleague",
+    "uniqueness: no reading of the records makes the presupposed classification true",
+    "blind reader, given the same neutral instruction, declines the refuted item",
+    "executed counterexample: the default reading produces a different deliverable on every check routed through the premise",
+    "blind reader reaches the intended answer with no sentence that ranks the competing sources (TRAP-CATALOG-B7 §1.5)"
+   ],
+   "hazards": [
+    "Internal: legacy misleading_label traps measured 0/295 Fable, 0/300 Astra, and the self-consistent wrong figure replications 0/215 Fable; if the presupposition is only a label or a figure the agent is not asked to act on, expect it to be dead. The deliverable must require acting on it",
+    "A false premise inside the task instruction itself will likely be ruled unfair, because the instruction is authoritative",
+    "A status enum that names the refutation ('not a duplicate') primes the check; declare the status field neutrally for every row",
+    "External evidence is from proofs and QA (BrokenMath, PCBench, TIDE); transfer to folder work is inference"
+   ],
+   "kills": [
+    "a second colleague's note doubting the item",
+    "an 'unverified' tag on the query log",
+    "a schema value naming the refutation"
+   ],
+   "trace_signals": [
+    "the user asserts a cause or classification ('we were double-billed') that the tool output contradicts",
+    "requests to act on a list prepared by someone else",
+    "the user later corrects their own premise"
+   ],
+   "domains": [
+    "accounts payable recovery",
+    "supplier claims and disputes",
+    "audit follow-up lists",
+    "payroll correction requests",
+    "customer complaints handling"
+   ],
+   "example": "Priya's AP query log lists a 'duplicate payment' of a 4,800 retainer. The supplier statement shows March and April retainer invoices of 4,800 each, and the bank line's reference names the April service period. Deliverable: recovery letters and the expected supplier balance; correct recovery for that item is zero.",
+   "evidence": {
+    "internal": [],
+    "pooled": {
+     "fable": [
+      0,
+      0
+     ],
+     "astra": [
+      0,
+      0
+     ]
+    },
+    "external": [
+     {
+      "source": "BrokenMath (arXiv 2510.04721; NeurIPS 2025 listing)",
+      "url": "https://arxiv.org/abs/2510.04721",
+      "year": 2025,
+      "finding": "Competition problems perturbed into false statements: models produce sycophantic proofs of the false claim; test-time interventions and fine-tuning reduce but do not eliminate it.",
+      "models": "GPT-5 (best tested) and other frontier LLMs",
+      "metric": "Sycophantic-answer rate: GPT-5 29%"
+     },
+     {
+      "source": "PCBench, 'Don't Take the Premise for Granted' (arXiv 2505.23715; EMNLP 2025 Findings)",
+      "url": "https://arxiv.org/abs/2505.23715",
+      "year": 2025,
+      "finding": "'Most models rely heavily on explicit prompts to detect errors'; reasoning ability does not consistently correlate with premise-critique ability; flawed premises make reasoning models overthink.",
+      "models": "15 LLMs incl. reasoning models",
+      "metric": "Premise-critique detection rates across four error types and three difficulty levels"
+     },
+     {
+      "source": "TIDE context-misalignment task (arXiv 2608.08512, preprint)",
+      "url": "https://arxiv.org/abs/2608.08512",
+      "year": 2026,
+      "finding": "A misleading preamble states a wrong version while verified clauses are supplied; 'Models trust a confident false premise over the authoritative text' and no model exceeds 27.62 in-context.",
+      "models": "GPT-5.2, Claude-Sonnet-4.5, Gemini-3.5-Flash, Kimi-K2.5 and five open-weight models",
+      "metric": "Strict accuracy ICL: GPT-5.2 26.73, Claude-Sonnet-4.5 14.71, Kimi-K2.5 27.62 (best)"
+     },
+     {
+      "source": "FinBalance (arXiv 2606.15949, preprint)",
+      "url": "https://arxiv.org/abs/2606.15949",
+      "year": 2026,
+      "finding": "Raw document bundles to cited journal entries and a balance sheet. Document linking is the most common error (52% of correct entries cited the wrong documents in one ablation). Ledger feedback raised exact balance-sheet accuracy 30-33 pp but hurt detection of deliberately inconsistent records (Claude Haiku 4.5 -52 pp): models forced a reconciliation rather than flag the contradiction.",
+      "models": "GPT-5, Gemini 3 Flash, DeepSeek Chat, Qwen 3 235B, Claude Haiku 4.5",
+      "metric": "BS_exact best 46% (GPT-5); 88% at level 1 falling to 0% at level 5"
+     },
+     {
+      "source": "Inverse Scaling in Test-Time Compute (arXiv 2507.14417; Anthropic-affiliated authors; TMLR 2025)",
+      "url": "https://arxiv.org/abs/2507.14417",
+      "year": 2025,
+      "finding": "'OpenAI o-series models resist distractors but overfit to problem framings'; Claude models become more distracted by irrelevant information as reasoning lengthens.",
+      "models": "Claude Sonnet 4 and other Claude models, OpenAI o-series, DeepSeek R1",
+      "metric": "Accuracy vs reasoning length (no single headline number used here)"
+     }
+    ],
+    "traces": []
+   }
+  },
+  {
+   "id": "L10",
+   "aliases": [
+    "series_continuity",
+    "reclassification_mapping",
+    "LIT-B#9-granularity"
+   ],
+   "name": "Series continuity across a reclassification (merged, renamed or renumbered line)",
+   "family": "identity_resolution",
+   "status": "literature",
+   "aimed_at": "both",
+   "clock": false,
+   "summary": "Default: the agent compares lines by their current code or name, so a category merged, split, renamed or renumbered between periods yields a spurious variance or a line that 'ended'. The files make that wrong because the mapping is fixed only by a worked comparative figure in the new-period pack and a by-the-way remark from another party; there is no mapping table. aimed_at both: OfficeQA Pro V2's Claude Code and Codex agents still show 'incorrect temporal reconciliation as accounting conventions change over time'.",
+   "loopholes": [
+    "L-join",
+    "L-record",
+    "L-default"
+   ],
+   "recipe": {
+    "record": "Two period exports keyed by line code; in the later chart of accounts 'Travel' absorbs the former 'Accommodation' line (or CC-410 becomes CC-4100).",
+    "anchors": "(1) The new pack's prior-year comparative for Travel equals old Travel plus old Accommodation to the cent (group finance, party A). (2) A cost-centre manager's commentary (party B) mentions hotel spend 'now coded to travel'.",
+    "withheld": "No mapping table, no 'reclassified' footnote, no instruction to restate the prior period.",
+    "dials": [
+     "a second worked comparative (another merged pair) is one notch",
+     "for Astra change kind: an invoice coded to the new line that the old chart would have put on the old line",
+     "naming the merged line 'Travel & Accommodation' is a label and kills it"
+    ],
+    "conservation": "The prior-period total across lines is unchanged by the mapping; grade per-line variances and the total, so treating the old line as ended breaks the total.",
+    "shields": "A real 'compare like-for-like codes' reporting rule, scoped to unchanged codes; Fable may cite it."
+   },
+   "proof_obligations": [
+    "uniqueness: enumerate every combination of old lines and show exactly one reproduces each worked comparative",
+    "census: no file states the mapping",
+    "executed counterexample: the default reading produces a different deliverable on every check routed through the premise",
+    "blind reader reaches the intended answer with no sentence that ranks the competing sources (TRAP-CATALOG-B7 §1.5)"
+   ],
+   "hazards": [
+    "Internal: S.baseline (comparison-period choice) measured 3%/0%; keep the comparison period fixed and stated, so the trap is category identity, not period choice",
+    "Internal: ID.twin near-twin identities 0/245, 1/150; merged lines must not be namesakes",
+    "If two different old-line combinations reproduce a comparative (equal amounts), the trap is ambiguous"
+   ],
+   "kills": [
+    "a mapping table",
+    "a 'reclassified' footnote",
+    "a combined line name"
+   ],
+   "trace_signals": [
+    "the user mentions a reorganisation, a new chart of accounts, an ERP migration or renamed cost centres",
+    "a variance the user explains as 'just a coding change'",
+    "year-on-year comparisons across a system change"
+   ],
+   "domains": [
+    "management accounts",
+    "budget monitoring",
+    "ERP migrations",
+    "public statistical series",
+    "product catalogue re-coding"
+   ],
+   "example": "The 2026 chart folds Accommodation into Travel. The 2026 pack's 2025 comparative for Travel equals 2025 Travel plus 2025 Accommodation; a manager's note says hotels are 'now coded to travel'. Deliverable: year-on-year variance per line and in total; the default shows a spurious Travel overspend and an Accommodation saving.",
+   "evidence": {
+    "internal": [],
+    "pooled": {
+     "fable": [
+      0,
+      0
+     ],
+     "astra": [
+      0,
+      0
+     ]
+    },
+    "external": [
+     {
+      "source": "OfficeQA Pro V2 (Databricks blog, 2026-08-06; company-reported)",
+      "url": "https://www.databricks.com/blog/introducing-officeqa-pro-v2-new-benchmark-enterprise-grounded-reasoning",
+      "year": 2026,
+      "finding": "The medium example requires reading each year from 'the latest revised prior-year column'; the hard example requires 'only the latest reported figures for each year'. Remaining failures named: parsing fidelity, 'incorrect temporal reconciliation as accounting conventions change over time' and 'misinterpretation of entity scope or category granularity'. Concepts change in 'name, location, table schema, unit, time basis, and level of aggregation'; reporting moved from calendar to fiscal years.",
+      "models": "Claude Code (Claude Opus 4.8, Claude Fable 5, Sonnet 5); Codex (GPT-5.5, GPT-5.6 Sol); Databricks Genie",
+      "metric": "Out-of-the-box agents: 37.5% average in the intro vs 26.0% across five models in Section 1 (inconsistent in the post); GPT-5.6 Sol on Codex 33.3%; Sonnet 5 on Claude Code 15.6%"
+     },
+     {
+      "source": "FinAuditing (arXiv 2510.08886, preprint)",
+      "url": "https://arxiv.org/abs/2510.08886",
+      "year": 2025,
+      "finding": "On real XBRL filings models 'rely on surface-level semantic similarity': they fail to flag CashAndCashEquivalents where only Cash is permitted and overlook aggregate tags such as AssetsCurrent where components are required.",
+      "models": "13 LLMs (DeepSeek-V3 and GPT-4o lead individual tasks)",
+      "metric": "FinSM Hit Rate@20 below 13% for every model; FinMR best 13.86% (Fin-o1-14B)"
+     },
+     {
+      "source": "FinIndices (arXiv 2607.28661, preprint)",
+      "url": "https://arxiv.org/abs/2607.28661",
+      "year": 2026,
+      "finding": "Over uncropped statements up to 32K tokens with adversarial traps, removing formula hints roughly halves Table-Index accuracy. Logged failures: a 2021Q3 YTD profit used as the base of a single-quarter YoY (202.25% vs 58.49%); ROA on ending instead of average assets (1.208% vs 1.217%); a beginning-balance column substituted inside a table (Gemini).",
+      "models": "Claude-Opus-4.8 / Claude-4.5, GPT-5.5, GPT-5.4, Gemini-3.1-Pro (thinking) and open models",
+      "metric": "Table-Index with -> without hints: Claude-Opus-4.8 65.61 -> 38.85; GPT-5.5 66.88 -> 34.18; GPT-5.4 65.61 -> 31.21. Caliber-alignment axis without hints: Claude-4.5 12.79, GPT-5.4 15.12, Gemini-3.1 23.26"
+     }
+    ],
+    "traces": []
+   }
+  },
+  {
+   "id": "L11",
+   "aliases": [
+    "one_event_two_keys",
+    "key_split_double_count",
+    "LIT-A#1b"
+   ],
+   "name": "One event under two document numbers (re-issued or pro-forma counted twice)",
+   "family": "aggregation_basis",
+   "status": "literature",
+   "aimed_at": "astra",
+   "clock": false,
+   "summary": "Default: the agent treats each document number as its own transaction and sums them, so a pro-forma and its tax invoice, or a cancelled invoice and its re-issue under a new number, are both counted. The files make that wrong because content from two other parties shows one delivery: the counterparty's statement carries one of them, and the goods-received note and PO line show one quantity. aimed_at astra: Astra joins silently on keys and credits both readings (L-union, 15 runs); SpreadsheetBench 2 seeds double counting among defects frontier agents leave unfixed (best debugging accuracy 12%).",
+   "loopholes": [
+    "L-join",
+    "L-union",
+    "L-record"
+   ],
+   "recipe": {
+    "record": "An AP register or GRN-to-invoice export with two approved rows under different number series (PF-0193 and INV-2207), a few days apart.",
+    "anchors": "(1) The supplier's statement of account lists only INV-2207 (party A). (2) The warehouse's delivery note and the PO line show a single delivery of the quantity (party B). (3) Optional: one bank payment.",
+    "withheld": "No 'pro-forma' title and no 'replaces' wording; the surfaces differ (number series, document titles), so the identity is latent.",
+    "dials": [
+     "a matching delivery-note number on both documents is a strong notch",
+     "for Astra change kind: a stock movement that books the quantity once",
+     "identical amounts and dates make it a visible duplicate (a near-twin); avoid"
+    ],
+    "conservation": "Grade the payable balance against the supplier statement and the received quantity against the GRN; the union fails both.",
+    "shields": "A real 'every approved document in the register is payable' AP rule, scoped to tax invoices; Fable may cite it."
+   },
+   "proof_obligations": [
+    "the PO and GRN exclude a second delivery (no capacity for two)",
+    "census: no other pair of documents shares PO line and quantity",
+    "executed counterexample: the default reading produces a different deliverable on every check routed through the premise",
+    "blind reader reaches the intended answer with no sentence that ranks the competing sources (TRAP-CATALOG-B7 §1.5)"
+   ],
+   "hazards": [
+    "Internal: ID.twin (false merge/split of near-twins) 0/245 Fable, 1/150 Astra and Q.aggregate (totals that tie) 0/45; keep the two documents dissimilar on the surface and make the double count break a conserved total the agent must report",
+    "If the supplier could legitimately have delivered twice, it is ambiguous",
+    "Internal T10 (structural misfile: a second row under the SAME key) is the same-key sibling; L11 is two DIFFERENT keys for one event. Do not build both on one item",
+    "External evidence is indirect: SpreadsheetBench 2 seeds the defect but reports no per-type rate; FinBalance's document-linking errors are on weaker models"
+   ],
+   "kills": [
+    "'replaces PF-0193' text on the invoice",
+    "a 'pro-forma' title",
+    "a register status marking one row cancelled"
+   ],
+   "trace_signals": [
+    "pro-forma invoices, credit-and-rebill pairs or re-issued invoices in the user's files",
+    "the user notices a supplier balance higher than the supplier's own statement",
+    "document numbers changing series mid-relationship (system migration)"
+   ],
+   "domains": [
+    "accounts payable",
+    "procurement three-way match",
+    "grant expenditure claims",
+    "expense reports",
+    "inventory receipts"
+   ],
+   "example": "An AP register holds PF-0193 (14 March) and INV-2207 (19 March) for the same 40 units. The supplier statement lists only INV-2207 and the GRN shows one delivery of 40. Deliverable: payables ageing and three-way-match status; the default overstates the payable.",
+   "evidence": {
+    "internal": [],
+    "pooled": {
+     "fable": [
+      0,
+      0
+     ],
+     "astra": [
+      0,
+      0
+     ]
+    },
+    "external": [
+     {
+      "source": "SpreadsheetBench 2 (arXiv 2606.29955; repo lists NeurIPS 2026)",
+      "url": "https://arxiv.org/abs/2606.29955",
+      "year": 2026,
+      "finding": "321 end-to-end spreadsheet workflows. Debugging is hardest: ten seeded defect types incl. Double Counting, Incorrect Sign and Unit Mismatch, with no hint of type or location. Dominant failure classes for Opus 4.6 are Insufficient Inspection and Wrong Target Selection (e.g. a Debt/Equity numerator copied from an adjacent ratio, about 2x; a banking model 'textbook-correct but the cell references did not match the actual row layout').",
+      "models": "Claude Opus 4.6, GPT-5.2, Gemini 3.1 Pro and five others in one agent scaffold",
+      "metric": "Overall / debugging accuracy: Opus 4.6 34.89% / 12.00%; GPT-5.2 26.79% / 8.00%; Gemini 3.1 Pro 23.68% / 7.00%"
+     },
+     {
+      "source": "FinBalance (arXiv 2606.15949, preprint)",
+      "url": "https://arxiv.org/abs/2606.15949",
+      "year": 2026,
+      "finding": "Raw document bundles to cited journal entries and a balance sheet. Document linking is the most common error (52% of correct entries cited the wrong documents in one ablation). Ledger feedback raised exact balance-sheet accuracy 30-33 pp but hurt detection of deliberately inconsistent records (Claude Haiku 4.5 -52 pp): models forced a reconciliation rather than flag the contradiction.",
+      "models": "GPT-5, Gemini 3 Flash, DeepSeek Chat, Qwen 3 235B, Claude Haiku 4.5",
+      "metric": "BS_exact best 46% (GPT-5); 88% at level 1 falling to 0% at level 5"
+     },
+     {
+      "source": "NoLiMa (arXiv 2502.05167; ICML 2025)",
+      "url": "https://arxiv.org/abs/2502.05167",
+      "year": 2025,
+      "finding": "When the needle shares no keyword with the question, performance falls with context length; at 32K, 11 of 13 models fall below half their short-context baseline, and reasoning/CoT models still struggle.",
+      "models": "13 long-context LLMs incl. GPT-4o and reasoning models",
+      "metric": "GPT-4o 99.3 base -> 69.7 at 32K"
+     },
+     {
+      "source": "Entity Matching using LLMs (arXiv 2310.11244; EDBT 2025)",
+      "url": "https://arxiv.org/abs/2310.11244",
+      "year": 2023,
+      "finding": "GPT-4-derived error classes on Walmart-Amazon: false positives mostly 'Overemphasis on Matching Attributes' (23 of 26) and 'Price Discrepancy Overlooked' (14); false negatives include 'Model Number Mismatch' (9 of 15). Classes overlap.",
+      "models": "GPT-4 (pre-reasoning model)",
+      "metric": "Error-class counts on misclassified pairs"
+     }
+    ],
+    "traces": []
+   }
+  },
+  {
+   "id": "L12",
+   "aliases": [
+    "by_design_irregularity",
+    "over_normalization"
+   ],
+   "name": "A by-design irregularity 'corrected' (re-normalised shares, fixed base)",
+   "family": "convention_inference",
+   "status": "literature",
+   "aimed_at": "astra",
+   "clock": false,
+   "summary": "Default: after computing correctly, the agent 'repairs' a figure that looks wrong by textbook standards: it re-normalises shares that sum to less than 100%, recomputes a contracted fixed base on actuals, or closes a deliberate residual. The files make that wrong because two worked figures in the governing document and a remark from another party show the irregularity is intended (a landlord holdback, a contracted base). aimed_at astra: APEX-Accounting logs GPT-5.6 Sol shrinking a fixed room-night denominator (and Muse-Spark re-normalising correct weights), and Astra's misses are mostly silent default conventions (class D, 25%).",
+   "loopholes": [
+    "L-default",
+    "L-absorb"
+   ],
+   "recipe": {
+    "record": "A cost-sharing schedule whose tenant shares sum to 96% (the landlord bears 4% for a vacant unit), or a hotel block contract priced on a fixed 1,200 contracted room-nights.",
+    "anchors": "(1) Last year's worked apportionment statement in the governing agreement (party A, the managing agent) whose charges reproduce only without re-normalising. (2) A remark from another party ('our share for the empty unit' in the landlord's email, or the hotel's attrition invoice citing contracted nights).",
+    "withheld": "No sentence 'shares are not re-normalised' or 'the denominator is fixed'; no caption explaining the residual.",
+    "dials": [
+     "exactly two worked figures; a third figure inside the entry that defines the graded rate killed Astra's T2 miss (profile P5) and likely does here",
+     "for Fable, a remark that witnesses the holdback (the landlord paying its share) is one notch"
+    ],
+    "conservation": "The holdback equals total cost minus tenant charges; grade tenant charges and the residual, so re-normalising fails both.",
+    "shields": "A real 'allocate 100% of the cost' rule that governs a different pool (utilities), scoped away from the service charge."
+   },
+   "proof_obligations": [
+    "enumerate normalised and un-normalised readings and show only the by-design reading reproduces both worked figures",
+    "the deliverable is an application of the schedule, not a review of it (otherwise 'fixing' is defensible)",
+    "executed counterexample: the default reading produces a different deliverable on every check routed through the premise",
+    "blind reader reaches the intended answer with no sentence that ranks the competing sources (TRAP-CATALOG-B7 §1.5)"
+   ],
+   "hazards": [
+    "Internal: E.stored (stored vs derived figure) 0/115 and S.baseline 3%/0%; the trap must not be a stored figure the agent can re-derive, nor a choice of comparison base",
+    "Internal: CV.method (conventions from examples) is dead once ambiguous units are excluded (3%/4%); only discriminating worked figures in the governing document keep it alive",
+    "If the irregularity could be an error the deliverable is meant to catch (an audit or review task), it is ambiguous",
+    "FinVerBench shows the opposite failure (95-100% false positives on clean statements in 9 of 14 runs); grade both directions only if the task is a review"
+   ],
+   "kills": [
+    "a caption explaining the residual",
+    "a third worked figure inside the entry defining the graded rate",
+    "an instruction to 'correct any inconsistencies'"
+   ],
+   "trace_signals": [
+    "the assistant 'fixes' shares, weights or a denominator and the user says it was intentional",
+    "service-charge, cost-sharing or allocation schedules that do not sum to 100%",
+    "contracted minimums, attrition clauses or fixed bases in hospitality or logistics contracts"
+   ],
+   "domains": [
+    "property service charges",
+    "shared-service cost allocation",
+    "hotel and event contracts",
+    "joint-venture cost sharing",
+    "grant indirect-cost rates"
+   ],
+   "example": "A building's service-charge schedule gives five tenants shares summing to 96%. Last year's statement charges them without re-normalising, and the landlord's email mentions 'our share for the empty unit'. Deliverable: this year's charge per tenant; the default scales every share by 100/96.",
+   "evidence": {
+    "internal": [],
+    "pooled": {
+     "fable": [
+      0,
+      0
+     ],
+     "astra": [
+      0,
+      0
+     ]
+    },
+    "external": [
+     {
+      "source": "APEX-Accounting worked failures: fixed denominator and re-normalized weights (arXiv 2607.27189)",
+      "url": "https://arxiv.org/abs/2607.27189",
+      "year": 2026,
+      "finding": "GPT-5.6-Sol shrank a fixed room-night denominator by counting rooms out of order; Muse-Spark-1.1 computed the correct allocation and then re-normalized the weights, changing the result.",
+      "models": "GPT-5.6-Sol, Muse-Spark-1.1",
+      "metric": "Single annotated trajectories"
+     },
+     {
+      "source": "APEX-Accounting (arXiv 2607.27189; Mercor with Ramp, company-authored preprint)",
+      "url": "https://arxiv.org/abs/2607.27189",
+      "year": 2026,
+      "finding": "160 month-end close tasks (reconciliation, data entry, variance analysis, schedules and accruals). 'Top models reliably find the right inputs; they make mistakes when applying accounting judgment and multi-step logic to them': the right documents and intermediates, then the wrong basis, source or authorization downstream. Reasoning failures are 79% of Fable 5's and 75% of GPT-5.6 Sol's annotated failures; tool-use failures 0%.",
+      "models": "Claude-Fable-5 (adaptive, max), GPT-5.6-Sol (pro, max), Claude-Opus-4.8, Gemini-3.1-Pro and five others",
+      "metric": "Mean Criteria@3: Claude-Fable-5 56.4%, GPT-5.6-Sol 51.5%, Claude-Opus-4.8 48.0%; Pass^8 best 2.6% (GPT-5.6-Sol)"
+     },
+     {
+      "source": "FinVerBench (arXiv 2605.29586, single-author preprint)",
+      "url": "https://arxiv.org/abs/2605.29586",
+      "year": 2026,
+      "finding": "Under a guided-checklist prompt on unrounded data, 'nine of fourteen complete LLM runs produce 95-100% false positives on clean statements'; rendering and rounding choices move measured recall from 79.0% to 100.0%.",
+      "models": "Fourteen LLM runs (models not named on the abstract page)",
+      "metric": "False-positive rate on 43 clean statements"
+     }
+    ],
+    "traces": []
+   }
+  },
+  {
+   "id": "L13",
+   "aliases": [
+    "coincident_amount_match",
+    "forced_reconciliation",
+    "LIT-B#12"
+   ],
+   "name": "Coincident-amount match beats the content match in a reconciliation",
+   "family": "identity_resolution",
+   "status": "literature",
+   "aimed_at": "astra",
+   "clock": false,
+   "summary": "Default: in a matching or reconciliation task the agent pairs items whose amounts agree exactly and treats the residual as explained. The files make that wrong because the exact-amount item is a different transaction (another account, period or customer), while the true counterpart differs by a deduction itemised in two parties' documents (withholding, bank charge, early-payment discount). aimed_at astra: Astra joins on the most salient key silently; GPT-4's matching errors are dominated by 'Overemphasis on Matching Attributes', and FinBalance shows models forcing a reconciliation instead of flagging a contradiction. The external evidence is on weaker models than ours.",
+   "loopholes": [
+    "L-join",
+    "L-absorb",
+    "L-union"
+   ],
+   "recipe": {
+    "record": "A bank statement line and an open-items ledger in which one open item has exactly the bank line's amount.",
+    "anchors": "(1) The customer's remittance advice (party A) names the invoice it pays and itemises the deductions taken. (2) The coincident item's own document (party B) belongs to another bank account, entity or a later period.",
+    "withheld": "No sentence pairing them; the deduction rate is not stated as a rule, only applied in the remittance.",
+    "dials": [
+     "the remittance naming the invoice number is a strong notch; content-only remittances (service period, PO) are weaker",
+     "for Fable, a second remark witnessing the deduction (the customer's tax certificate) is one notch"
+    ],
+    "conservation": "Grade the remaining open items and the unapplied cash against the customer's statement, so matching the coincident item leaves a balance that cannot tie.",
+    "shields": "A real 'match exact amounts first' rule in the cash-application SOP, scoped to same-account items."
+   },
+   "proof_obligations": [
+    "uniqueness: exactly one assignment of bank lines to items ties every party's balance",
+    "the coincident item is a live open item the deliverable must place somewhere (not a dismissible decoy)",
+    "executed counterexample: the default reading produces a different deliverable on every check routed through the premise",
+    "blind reader reaches the intended answer with no sentence that ranks the competing sources (TRAP-CATALOG-B7 §1.5)"
+   ],
+   "hazards": [
+    "Internal: ID.twin near-twins 0/245, 1/150; the coincident item must differ in account, period or party, not merely by name",
+    "Internal: decoys and pointers are dead; an obviously irrelevant equal-amount line will be dismissed",
+    "If the deduction could be a disputed short payment, it is ambiguous; the remittance must itemise it",
+    "AccountingBench's 'pulled unrelated transactions' claim could not be verified (page did not render) and is not used"
+   ],
+   "kills": [
+    "a remittance that quotes the gross invoice amount",
+    "a cash-application note pairing the lines",
+    "a schema field that asks for 'deductions taken'"
+   ],
+   "trace_signals": [
+    "bank or cash-application reconciliations with withholding tax, bank charges or settlement discounts",
+    "the user says a match 'looked right but was the other customer'",
+    "residuals that the assistant explains with a same-amount item"
+   ],
+   "domains": [
+    "cash application and bank reconciliation",
+    "intercompany matching",
+    "marketplace and card settlement",
+    "grant drawdown reconciliation"
+   ],
+   "example": "A bank receipt of 9,702.00 sits against open items including an unrelated 9,702.00 invoice for another entity; the customer's remittance pays invoice 10,000.00 less 2% withholding and a 98.00 bank charge. Deliverable: cash application and open-items list after allocation.",
+   "evidence": {
+    "internal": [],
+    "pooled": {
+     "fable": [
+      0,
+      0
+     ],
+     "astra": [
+      0,
+      0
+     ]
+    },
+    "external": [
+     {
+      "source": "Entity Matching using LLMs (arXiv 2310.11244; EDBT 2025)",
+      "url": "https://arxiv.org/abs/2310.11244",
+      "year": 2023,
+      "finding": "GPT-4-derived error classes on Walmart-Amazon: false positives mostly 'Overemphasis on Matching Attributes' (23 of 26) and 'Price Discrepancy Overlooked' (14); false negatives include 'Model Number Mismatch' (9 of 15). Classes overlap.",
+      "models": "GPT-4 (pre-reasoning model)",
+      "metric": "Error-class counts on misclassified pairs"
+     },
+     {
+      "source": "FinBalance (arXiv 2606.15949, preprint)",
+      "url": "https://arxiv.org/abs/2606.15949",
+      "year": 2026,
+      "finding": "Raw document bundles to cited journal entries and a balance sheet. Document linking is the most common error (52% of correct entries cited the wrong documents in one ablation). Ledger feedback raised exact balance-sheet accuracy 30-33 pp but hurt detection of deliberately inconsistent records (Claude Haiku 4.5 -52 pp): models forced a reconciliation rather than flag the contradiction.",
+      "models": "GPT-5, Gemini 3 Flash, DeepSeek Chat, Qwen 3 235B, Claude Haiku 4.5",
+      "metric": "BS_exact best 46% (GPT-5); 88% at level 1 falling to 0% at level 5"
+     }
+    ],
+    "traces": []
+   }
+  },
+  {
+   "id": "L14",
+   "aliases": [
+    "counterparty_perspective",
+    "sign_direction"
+   ],
+   "name": "Counterparty perspective inversion (sign or direction read from the wrong side)",
+   "family": "quantity_basis",
+   "status": "literature",
+   "aimed_at": "astra",
+   "clock": false,
+   "summary": "Default: the agent reads a counterparty's document (supplier statement, customer remittance export, landlord statement) with its own sign convention, so a few lines flip direction and the net position is wrong. The files make that wrong because the counterparty's opening balance equals ours with the opposite sign and a payment we made appears with the counterparty's sign; no legend says whose books the export comes from. aimed_at astra: Astra's misses are mostly silent default conventions. Evidence is thin: FinanceBench logs 'the wrong direction for an effect' and SpreadsheetBench 2 seeds Incorrect Sign among debugging defects, but no study isolates this shape on frontier models.",
+   "loopholes": [
+    "L-default",
+    "L-join"
+   ],
+   "recipe": {
+    "record": "A counterparty export with one signed amount column and no Dr/Cr headers, joined to our ledger by reference.",
+    "anchors": "(1) The counterparty's opening balance equals our closing balance with the opposite sign (party A's export vs our ledger). (2) The counterparty's covering email (party A) and our bank statement (party B) agree on a payment that the export shows with the counterparty's sign.",
+    "withheld": "No legend, no 'as per our books' caption, no sentence about sign convention.",
+    "dials": [
+     "only credit notes or reversals carry the inverted sign in the graded population; invoices alone make it obvious",
+     "for Fable, a covering line 'balance due to us' is a strong notch"
+    ],
+    "conservation": "Grade the agreed net balance and the per-line differences, so a sign slip on a few lines fails the tie.",
+    "shields": "A real ledger convention ('our AP ledger shows liabilities as negative'), which governs our ledger, not the counterparty's export; Fable may cite it."
+   },
+   "proof_obligations": [
+    "both conventions are enumerated; only one ties the opening balance and the payment line",
+    "executed counterexample: the default reading produces a different deliverable on every check routed through the premise",
+    "blind reader reaches the intended answer with no sentence that ranks the competing sources (TRAP-CATALOG-B7 §1.5)"
+   ],
+   "hazards": [
+    "If every line inverts, the agent notices at once; the inversion must matter only on a minority of graded lines",
+    "Weakest external support in this file; pilot before relying on it",
+    "A legend or Dr/Cr header makes it a stated convention (dead)"
+   ],
+   "kills": [
+    "Dr/Cr column headers",
+    "an 'as per our books' caption",
+    "a worked reconciliation in the covering email"
+   ],
+   "trace_signals": [
+    "supplier or customer statement reconciliations",
+    "the user says 'their credit is our debit' or flips a sign after the assistant's draft",
+    "exports from another party's system joined to the user's ledger"
+   ],
+   "domains": [
+    "supplier statement reconciliation",
+    "intercompany balances",
+    "landlord and tenant statements",
+    "broker and custodian statements"
+   ],
+   "example": "A supplier's statement export lists invoices positive and our payments negative; our ledger stores invoices negative. Two credit notes appear positive in the supplier's export. Deliverable: agreed balance and unreconciled items.",
+   "evidence": {
+    "internal": [],
+    "pooled": {
+     "fable": [
+      0,
+      0
+     ],
+     "astra": [
+      0,
+      0
+     ]
+    },
+    "external": [
+     {
+      "source": "FinanceBench (arXiv 2311.11944, preprint)",
+      "url": "https://arxiv.org/abs/2311.11944",
+      "year": 2023,
+      "finding": "Incorrect answers range from small calculation slips to orders of magnitude, and include 'the wrong direction for an effect (e.g. reporting negative growth when it is actually positive)'.",
+      "models": "GPT-4-Turbo, Claude 2, Llama 2 and others (2023 generation)",
+      "metric": "GPT-4-Turbo with a shared vector store: 81% incorrect or refused"
+     },
+     {
+      "source": "SpreadsheetBench 2 (arXiv 2606.29955; repo lists NeurIPS 2026)",
+      "url": "https://arxiv.org/abs/2606.29955",
+      "year": 2026,
+      "finding": "321 end-to-end spreadsheet workflows. Debugging is hardest: ten seeded defect types incl. Double Counting, Incorrect Sign and Unit Mismatch, with no hint of type or location. Dominant failure classes for Opus 4.6 are Insufficient Inspection and Wrong Target Selection (e.g. a Debt/Equity numerator copied from an adjacent ratio, about 2x; a banking model 'textbook-correct but the cell references did not match the actual row layout').",
+      "models": "Claude Opus 4.6, GPT-5.2, Gemini 3.1 Pro and five others in one agent scaffold",
+      "metric": "Overall / debugging accuracy: Opus 4.6 34.89% / 12.00%; GPT-5.2 26.79% / 8.00%; Gemini 3.1 Pro 23.68% / 7.00%"
+     }
+    ],
+    "traces": []
+   }
+  }
+ ]
+}

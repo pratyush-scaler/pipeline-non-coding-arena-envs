@@ -1,0 +1,262 @@
+{
+ "schema": "traplib/1",
+ "source": "external",
+ "generated": "2026-10-15T20:00+05:30",
+ "modes": [
+  {
+   "id": "L1",
+   "aliases": [],
+   "name": "later restatement replaces the first-reported figure",
+   "family": "revision_supersession",
+   "status": "literature",
+   "aimed_at": "unknown",
+   "clock": false,
+   "summary": "FIXTURE (L1): synthetic test mode; not a measurement. The default reading of later restatement replaces the first-reported figure is wrong because the files settle it another way.",
+   "loopholes": [
+    "L-record"
+   ],
+   "recipe": {
+    "record": "a structured record gives the default",
+    "anchors": "two by-the-way anchors from other parties",
+    "withheld": "no sentence gives the record priority",
+    "dials": [
+     "one anchor per notch"
+    ],
+    "conservation": "grade both sides",
+    "shields": "scope any tempting rule away"
+   },
+   "proof_obligations": [
+    "uniqueness",
+    "anchor ablation",
+    "executed counterfactual"
+   ],
+   "hazards": [],
+   "kills": [
+    "a stated rule"
+   ],
+   "trace_signals": [
+    "the user corrects a record filed under the wrong owner"
+   ],
+   "domains": [
+    "retail"
+   ],
+   "example": "fixture example with no graded value",
+   "evidence": {
+    "external": [
+     {
+      "source": "Fixture Bench A",
+      "url": "https://example.invalid/fixture",
+      "year": 2026,
+      "finding": "agents stop at the first plausible figure",
+      "models": "fixture",
+      "metric": "fixture"
+     }
+    ]
+   }
+  },
+  {
+   "id": "L2",
+   "aliases": [],
+   "name": "older edition governs by the event date",
+   "family": "authority_selection",
+   "status": "literature",
+   "aimed_at": "unknown",
+   "clock": false,
+   "summary": "FIXTURE (L2): synthetic test mode; not a measurement. The default reading of older edition governs by the event date is wrong because the files settle it another way.",
+   "loopholes": [
+    "L-record"
+   ],
+   "recipe": {
+    "record": "a structured record gives the default",
+    "anchors": "two by-the-way anchors from other parties",
+    "withheld": "no sentence gives the record priority",
+    "dials": [
+     "one anchor per notch"
+    ],
+    "conservation": "grade both sides",
+    "shields": "scope any tempting rule away"
+   },
+   "proof_obligations": [
+    "uniqueness",
+    "anchor ablation",
+    "executed counterfactual"
+   ],
+   "hazards": [],
+   "kills": [
+    "a stated rule"
+   ],
+   "trace_signals": [
+    "the user corrects a record filed under the wrong owner"
+   ],
+   "domains": [
+    "retail"
+   ],
+   "example": "fixture example with no graded value",
+   "evidence": {
+    "external": [
+     {
+      "source": "Fixture Paper B",
+      "url": "https://example.invalid/fixture",
+      "year": 2026,
+      "finding": "newest version taken by default",
+      "models": "fixture",
+      "metric": "fixture"
+     }
+    ]
+   }
+  },
+  {
+   "id": "L3",
+   "aliases": [],
+   "name": "wrong anchor event starts a period",
+   "family": "temporal_anchor",
+   "status": "literature",
+   "aimed_at": "unknown",
+   "clock": false,
+   "summary": "FIXTURE (L3): synthetic test mode; not a measurement. The default reading of wrong anchor event starts a period is wrong because the files settle it another way.",
+   "loopholes": [
+    "L-record"
+   ],
+   "recipe": {
+    "record": "a structured record gives the default",
+    "anchors": "two by-the-way anchors from other parties",
+    "withheld": "no sentence gives the record priority",
+    "dials": [
+     "one anchor per notch"
+    ],
+    "conservation": "grade both sides",
+    "shields": "scope any tempting rule away"
+   },
+   "proof_obligations": [
+    "uniqueness",
+    "anchor ablation",
+    "executed counterfactual"
+   ],
+   "hazards": [],
+   "kills": [
+    "a stated rule"
+   ],
+   "trace_signals": [
+    "the user corrects a record filed under the wrong owner"
+   ],
+   "domains": [
+    "retail"
+   ],
+   "example": "fixture example with no graded value",
+   "evidence": {
+    "external": [
+     {
+      "source": "Fixture Paper C",
+      "url": "https://example.invalid/fixture",
+      "year": 2026,
+      "finding": "period start event confused",
+      "models": "fixture",
+      "metric": "fixture"
+     }
+    ]
+   }
+  },
+  {
+   "id": "L4",
+   "aliases": [],
+   "name": "fiscal vs calendar period mapping",
+   "family": "temporal_anchor",
+   "status": "literature",
+   "aimed_at": "unknown",
+   "clock": false,
+   "summary": "FIXTURE (L4): synthetic test mode; not a measurement. The default reading of fiscal vs calendar period mapping is wrong because the files settle it another way.",
+   "loopholes": [
+    "L-record"
+   ],
+   "recipe": {
+    "record": "a structured record gives the default",
+    "anchors": "two by-the-way anchors from other parties",
+    "withheld": "no sentence gives the record priority",
+    "dials": [
+     "one anchor per notch"
+    ],
+    "conservation": "grade both sides",
+    "shields": "scope any tempting rule away"
+   },
+   "proof_obligations": [
+    "uniqueness",
+    "anchor ablation",
+    "executed counterfactual"
+   ],
+   "hazards": [],
+   "kills": [
+    "a stated rule"
+   ],
+   "trace_signals": [
+    "the user corrects a record filed under the wrong owner"
+   ],
+   "domains": [
+    "retail"
+   ],
+   "example": "fixture example with no graded value",
+   "evidence": {
+    "external": [
+     {
+      "source": "Fixture Bench D",
+      "url": "https://example.invalid/fixture",
+      "year": 2026,
+      "finding": "fiscal years read as calendar years",
+      "models": "fixture",
+      "metric": "fixture"
+     }
+    ]
+   }
+  },
+  {
+   "id": "L5",
+   "aliases": [],
+   "name": "cumulative vs period figures",
+   "family": "aggregation_basis",
+   "status": "literature",
+   "aimed_at": "unknown",
+   "clock": false,
+   "summary": "FIXTURE (L5): synthetic test mode; not a measurement. The default reading of cumulative vs period figures is wrong because the files settle it another way.",
+   "loopholes": [
+    "L-record"
+   ],
+   "recipe": {
+    "record": "a structured record gives the default",
+    "anchors": "two by-the-way anchors from other parties",
+    "withheld": "no sentence gives the record priority",
+    "dials": [
+     "one anchor per notch"
+    ],
+    "conservation": "grade both sides",
+    "shields": "scope any tempting rule away"
+   },
+   "proof_obligations": [
+    "uniqueness",
+    "anchor ablation",
+    "executed counterfactual"
+   ],
+   "hazards": [],
+   "kills": [
+    "a stated rule"
+   ],
+   "trace_signals": [
+    "the user corrects a record filed under the wrong owner"
+   ],
+   "domains": [
+    "retail"
+   ],
+   "example": "fixture example with no graded value",
+   "evidence": {
+    "external": [
+     {
+      "source": "Fixture Bench E",
+      "url": "https://example.invalid/fixture",
+      "year": 2026,
+      "finding": "year-to-date read as period",
+      "models": "fixture",
+      "metric": "fixture"
+     }
+    ]
+   }
+  }
+ ]
+}

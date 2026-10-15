@@ -1,0 +1,1018 @@
+{
+ "schema": "traplib/1",
+ "source": "internal",
+ "generated": "2026-10-15T20:00+05:30",
+ "modes": [
+  {
+   "id": "T1",
+   "aliases": [
+    "keying-slip"
+   ],
+   "name": "keying slip reversed by 2+ parties anchors",
+   "family": "record_reversal",
+   "status": "proven",
+   "aimed_at": "both",
+   "clock": false,
+   "summary": "FIXTURE (T1): synthetic test mode; not a measurement. The default reading of keying slip reversed by 2+ parties anchors is wrong because the files settle it another way.",
+   "loopholes": [
+    "L-record"
+   ],
+   "recipe": {
+    "record": "a structured record gives the default",
+    "anchors": "two by-the-way anchors from other parties",
+    "withheld": "no sentence gives the record priority",
+    "dials": [
+     "one anchor per notch"
+    ],
+    "conservation": "grade both sides",
+    "shields": "scope any tempting rule away"
+   },
+   "proof_obligations": [
+    "uniqueness",
+    "anchor ablation",
+    "executed counterfactual"
+   ],
+   "hazards": [],
+   "kills": [
+    "a stated rule"
+   ],
+   "trace_signals": [
+    "the user corrects a record filed under the wrong owner"
+   ],
+   "domains": [
+    "accounting",
+    "school administration"
+   ],
+   "example": "fixture example with no graded value",
+   "evidence": {
+    "internal": [
+     {
+      "task": "fixture-task-a",
+      "version": "1.0.0",
+      "premise": "P1",
+      "stage": "final",
+      "audit": "GENUINE",
+      "fable": [
+       6,
+       10
+      ],
+      "astra": [
+       5,
+       10
+      ]
+     },
+     {
+      "task": "fixture-task-b",
+      "version": "1.0.0",
+      "premise": "P1",
+      "stage": "final",
+      "audit": "GENUINE",
+      "fable": [
+       6,
+       10
+      ],
+      "astra": [
+       4,
+       10
+      ]
+     }
+    ],
+    "pooled": {
+     "fable": [
+      12,
+      20
+     ],
+     "astra": [
+      9,
+      20
+     ]
+    }
+   }
+  },
+  {
+   "id": "T2",
+   "aliases": [],
+   "name": "convention fixed only by worked figures",
+   "family": "convention_inference",
+   "status": "proven",
+   "aimed_at": "astra",
+   "clock": false,
+   "summary": "FIXTURE (T2): synthetic test mode; not a measurement. The default reading of convention fixed only by worked figures is wrong because the files settle it another way.",
+   "loopholes": [
+    "L-record"
+   ],
+   "recipe": {
+    "record": "a structured record gives the default",
+    "anchors": "two by-the-way anchors from other parties",
+    "withheld": "no sentence gives the record priority",
+    "dials": [
+     "one anchor per notch"
+    ],
+    "conservation": "grade both sides",
+    "shields": "scope any tempting rule away"
+   },
+   "proof_obligations": [
+    "uniqueness",
+    "anchor ablation",
+    "executed counterfactual"
+   ],
+   "hazards": [],
+   "kills": [
+    "a stated rule"
+   ],
+   "trace_signals": [
+    "the user corrects a record filed under the wrong owner"
+   ],
+   "domains": [
+    "tax",
+    "retail"
+   ],
+   "example": "fixture example with no graded value",
+   "evidence": {
+    "internal": [
+     {
+      "task": "fixture-task-a",
+      "version": "1.0.0",
+      "premise": "P2",
+      "stage": "final",
+      "audit": "GENUINE",
+      "fable": [
+       1,
+       10
+      ],
+      "astra": [
+       8,
+       10
+      ]
+     },
+     {
+      "task": "fixture-task-c",
+      "version": "1.0.0",
+      "premise": "P1",
+      "stage": "final",
+      "audit": "GENUINE",
+      "fable": [
+       1,
+       10
+      ],
+      "astra": [
+       8,
+       10
+      ]
+     }
+    ],
+    "pooled": {
+     "fable": [
+      2,
+      20
+     ],
+     "astra": [
+      16,
+      20
+     ]
+    }
+   }
+  },
+  {
+   "id": "T3",
+   "aliases": [],
+   "name": "quantity basis cued on the record itself",
+   "family": "quantity_basis",
+   "status": "promising",
+   "aimed_at": "fable",
+   "clock": false,
+   "summary": "FIXTURE (T3): synthetic test mode; not a measurement. The default reading of quantity basis cued on the record itself is wrong because the files settle it another way.",
+   "loopholes": [
+    "L-record"
+   ],
+   "recipe": {
+    "record": "a structured record gives the default",
+    "anchors": "two by-the-way anchors from other parties",
+    "withheld": "no sentence gives the record priority",
+    "dials": [
+     "one anchor per notch"
+    ],
+    "conservation": "grade both sides",
+    "shields": "scope any tempting rule away"
+   },
+   "proof_obligations": [
+    "uniqueness",
+    "anchor ablation",
+    "executed counterfactual"
+   ],
+   "hazards": [],
+   "kills": [
+    "a stated rule"
+   ],
+   "trace_signals": [
+    "the user corrects a record filed under the wrong owner"
+   ],
+   "domains": [
+    "procurement",
+    "bills"
+   ],
+   "example": "fixture example with no graded value",
+   "evidence": {
+    "internal": [
+     {
+      "task": "fixture-task-b",
+      "version": "1.0.0",
+      "premise": "P3",
+      "stage": "final",
+      "audit": "GENUINE",
+      "fable": [
+       8,
+       10
+      ],
+      "astra": [
+       0,
+       10
+      ]
+     }
+    ],
+    "pooled": {
+     "fable": [
+      8,
+      10
+     ],
+     "astra": [
+      0,
+      10
+     ]
+    }
+   }
+  },
+  {
+   "id": "T4",
+   "aliases": [],
+   "name": "already in hand, shown by a technical bridge",
+   "family": "possession_state",
+   "status": "promising",
+   "aimed_at": "fable",
+   "clock": false,
+   "summary": "FIXTURE (T4): synthetic test mode; not a measurement. The default reading of already in hand, shown by a technical bridge is wrong because the files settle it another way.",
+   "loopholes": [
+    "L-record"
+   ],
+   "recipe": {
+    "record": "a structured record gives the default",
+    "anchors": "two by-the-way anchors from other parties",
+    "withheld": "no sentence gives the record priority",
+    "dials": [
+     "one anchor per notch"
+    ],
+    "conservation": "grade both sides",
+    "shields": "scope any tempting rule away"
+   },
+   "proof_obligations": [
+    "uniqueness",
+    "anchor ablation",
+    "executed counterfactual"
+   ],
+   "hazards": [],
+   "kills": [
+    "a stated rule"
+   ],
+   "trace_signals": [
+    "the user corrects a record filed under the wrong owner"
+   ],
+   "domains": [
+    "procurement",
+    "engineering"
+   ],
+   "example": "fixture example with no graded value",
+   "evidence": {
+    "internal": [
+     {
+      "task": "fixture-task-d",
+      "version": "1.0.0",
+      "premise": "P1",
+      "stage": "final",
+      "audit": "GENUINE",
+      "fable": [
+       6,
+       10
+      ],
+      "astra": [
+       0,
+       10
+      ]
+     }
+    ],
+    "pooled": {
+     "fable": [
+      6,
+      10
+     ],
+     "astra": [
+      0,
+      10
+     ]
+    }
+   }
+  },
+  {
+   "id": "T5",
+   "aliases": [],
+   "name": "misfiled note whose content is about another item",
+   "family": "record_reversal",
+   "status": "promising",
+   "aimed_at": "fable",
+   "clock": false,
+   "summary": "FIXTURE (T5): synthetic test mode; not a measurement. The default reading of misfiled note whose content is about another item is wrong because the files settle it another way.",
+   "loopholes": [
+    "L-record"
+   ],
+   "recipe": {
+    "record": "a structured record gives the default",
+    "anchors": "two by-the-way anchors from other parties",
+    "withheld": "no sentence gives the record priority",
+    "dials": [
+     "one anchor per notch"
+    ],
+    "conservation": "grade both sides",
+    "shields": "scope any tempting rule away"
+   },
+   "proof_obligations": [
+    "uniqueness",
+    "anchor ablation",
+    "executed counterfactual"
+   ],
+   "hazards": [],
+   "kills": [
+    "a stated rule"
+   ],
+   "trace_signals": [
+    "the user corrects a record filed under the wrong owner"
+   ],
+   "domains": [
+    "retail"
+   ],
+   "example": "fixture example with no graded value",
+   "evidence": {
+    "internal": [
+     {
+      "task": "fixture-task-e",
+      "version": "1.0.0",
+      "premise": "P1",
+      "stage": "final",
+      "audit": "GENUINE",
+      "fable": [
+       4,
+       10
+      ],
+      "astra": [
+       0,
+       10
+      ]
+     }
+    ],
+    "pooled": {
+     "fable": [
+      4,
+      10
+     ],
+     "astra": [
+      0,
+      10
+     ]
+    }
+   }
+  },
+  {
+   "id": "T6",
+   "aliases": [],
+   "name": "edition or rate by the real date",
+   "family": "authority_selection",
+   "status": "promising",
+   "aimed_at": "both",
+   "clock": false,
+   "summary": "FIXTURE (T6): synthetic test mode; not a measurement. The default reading of edition or rate by the real date is wrong because the files settle it another way.",
+   "loopholes": [
+    "L-record"
+   ],
+   "recipe": {
+    "record": "a structured record gives the default",
+    "anchors": "two by-the-way anchors from other parties",
+    "withheld": "no sentence gives the record priority",
+    "dials": [
+     "one anchor per notch"
+    ],
+    "conservation": "grade both sides",
+    "shields": "scope any tempting rule away"
+   },
+   "proof_obligations": [
+    "uniqueness",
+    "anchor ablation",
+    "executed counterfactual"
+   ],
+   "hazards": [],
+   "kills": [
+    "a stated rule"
+   ],
+   "trace_signals": [
+    "the user corrects a record filed under the wrong owner"
+   ],
+   "domains": [
+    "hospitality",
+    "scheduling"
+   ],
+   "example": "fixture example with no graded value",
+   "evidence": {
+    "internal": [
+     {
+      "task": "fixture-task-f",
+      "version": "1.0.0",
+      "premise": "P1",
+      "stage": "final",
+      "audit": "GENUINE",
+      "fable": [
+       5,
+       10
+      ],
+      "astra": [
+       9,
+       10
+      ]
+     }
+    ],
+    "pooled": {
+     "fable": [
+      5,
+      10
+     ],
+     "astra": [
+      9,
+      10
+     ]
+    }
+   }
+  },
+  {
+   "id": "T7",
+   "aliases": [],
+   "name": "convention from two worked figures by different parties",
+   "family": "convention_inference",
+   "status": "promising",
+   "aimed_at": "fable",
+   "clock": false,
+   "summary": "FIXTURE (T7): synthetic test mode; not a measurement. The default reading of convention from two worked figures by different parties is wrong because the files settle it another way.",
+   "loopholes": [
+    "L-record"
+   ],
+   "recipe": {
+    "record": "a structured record gives the default",
+    "anchors": "two by-the-way anchors from other parties",
+    "withheld": "no sentence gives the record priority",
+    "dials": [
+     "one anchor per notch"
+    ],
+    "conservation": "grade both sides",
+    "shields": "scope any tempting rule away"
+   },
+   "proof_obligations": [
+    "uniqueness",
+    "anchor ablation",
+    "executed counterfactual"
+   ],
+   "hazards": [],
+   "kills": [
+    "a stated rule"
+   ],
+   "trace_signals": [
+    "the user corrects a record filed under the wrong owner"
+   ],
+   "domains": [
+    "retail"
+   ],
+   "example": "fixture example with no graded value",
+   "evidence": {
+    "internal": [
+     {
+      "task": "fixture-task-f",
+      "version": "1.0.0",
+      "premise": "P11",
+      "stage": "final",
+      "audit": "GENUINE",
+      "fable": [
+       4,
+       10
+      ],
+      "astra": [
+       1,
+       10
+      ]
+     }
+    ],
+    "pooled": {
+     "fable": [
+      4,
+      10
+     ],
+     "astra": [
+      1,
+      10
+     ]
+    }
+   }
+  },
+  {
+   "id": "T8",
+   "aliases": [],
+   "name": "changed premise received before issue",
+   "family": "revision_supersession",
+   "status": "bimodal",
+   "aimed_at": "fable",
+   "clock": false,
+   "summary": "FIXTURE (T8): synthetic test mode; not a measurement. The default reading of changed premise received before issue is wrong because the files settle it another way.",
+   "loopholes": [
+    "L-record"
+   ],
+   "recipe": {
+    "record": "a structured record gives the default",
+    "anchors": "two by-the-way anchors from other parties",
+    "withheld": "no sentence gives the record priority",
+    "dials": [
+     "one anchor per notch"
+    ],
+    "conservation": "grade both sides",
+    "shields": "scope any tempting rule away"
+   },
+   "proof_obligations": [
+    "uniqueness",
+    "anchor ablation",
+    "executed counterfactual"
+   ],
+   "hazards": [],
+   "kills": [
+    "a stated rule"
+   ],
+   "trace_signals": [
+    "the user corrects a record filed under the wrong owner"
+   ],
+   "domains": [
+    "retail"
+   ],
+   "example": "fixture example with no graded value",
+   "evidence": {
+    "internal": [
+     {
+      "task": "fixture-task-f",
+      "version": "1.0.0",
+      "premise": "P8",
+      "stage": "final",
+      "audit": "GENUINE",
+      "fable": [
+       0,
+       10
+      ],
+      "astra": [
+       0,
+       10
+      ]
+     },
+     {
+      "task": "fixture-task-g",
+      "version": "1.0.0",
+      "premise": "P1",
+      "stage": "final",
+      "audit": "GENUINE",
+      "fable": [
+       10,
+       10
+      ],
+      "astra": [
+       9,
+       10
+      ]
+     }
+    ],
+    "pooled": {
+     "fable": [
+      10,
+      20
+     ],
+     "astra": [
+      9,
+      20
+     ]
+    }
+   }
+  },
+  {
+   "id": "T9",
+   "aliases": [],
+   "name": "rule-scope shield over-applied to the graded value",
+   "family": "rule_scope",
+   "status": "promising",
+   "aimed_at": "fable",
+   "clock": false,
+   "summary": "FIXTURE (T9): synthetic test mode; not a measurement. The default reading of rule-scope shield over-applied to the graded value is wrong because the files settle it another way.",
+   "loopholes": [
+    "L-record"
+   ],
+   "recipe": {
+    "record": "a structured record gives the default",
+    "anchors": "two by-the-way anchors from other parties",
+    "withheld": "no sentence gives the record priority",
+    "dials": [
+     "one anchor per notch"
+    ],
+    "conservation": "grade both sides",
+    "shields": "scope any tempting rule away"
+   },
+   "proof_obligations": [
+    "uniqueness",
+    "anchor ablation",
+    "executed counterfactual"
+   ],
+   "hazards": [],
+   "kills": [
+    "a stated rule"
+   ],
+   "trace_signals": [
+    "the user corrects a record filed under the wrong owner"
+   ],
+   "domains": [
+    "education"
+   ],
+   "example": "fixture example with no graded value",
+   "evidence": {
+    "internal": [
+     {
+      "task": "fixture-task-h",
+      "version": "1.0.0",
+      "premise": "P1",
+      "stage": "final",
+      "audit": "GENUINE",
+      "fable": [
+       8,
+       10
+      ],
+      "astra": [
+       0,
+       15
+      ]
+     }
+    ],
+    "pooled": {
+     "fable": [
+      8,
+      10
+     ],
+     "astra": [
+      0,
+      15
+     ]
+    }
+   }
+  },
+  {
+   "id": "T10",
+   "aliases": [],
+   "name": "clock offset between two unzoned exports",
+   "family": "temporal_anchor",
+   "status": "promising",
+   "aimed_at": "both",
+   "clock": true,
+   "summary": "FIXTURE (T10): synthetic test mode; not a measurement. The default reading of clock offset between two unzoned exports is wrong because the files settle it another way.",
+   "loopholes": [
+    "L-record"
+   ],
+   "recipe": {
+    "record": "a structured record gives the default",
+    "anchors": "two by-the-way anchors from other parties",
+    "withheld": "no sentence gives the record priority",
+    "dials": [
+     "one anchor per notch"
+    ],
+    "conservation": "grade both sides",
+    "shields": "scope any tempting rule away"
+   },
+   "proof_obligations": [
+    "uniqueness",
+    "anchor ablation",
+    "executed counterfactual"
+   ],
+   "hazards": [],
+   "kills": [
+    "a stated rule"
+   ],
+   "trace_signals": [
+    "the user corrects a record filed under the wrong owner"
+   ],
+   "domains": [
+    "retail"
+   ],
+   "example": "fixture example with no graded value",
+   "evidence": {
+    "internal": [
+     {
+      "task": "fixture-task-i",
+      "version": "1.0.0",
+      "premise": "P1",
+      "stage": "final",
+      "audit": "GENUINE",
+      "fable": [
+       3,
+       10
+      ],
+      "astra": [
+       2,
+       10
+      ]
+     }
+    ],
+    "pooled": {
+     "fable": [
+      3,
+      10
+     ],
+     "astra": [
+      2,
+      10
+     ]
+    }
+   }
+  },
+  {
+   "id": "T11",
+   "aliases": [
+    "L4"
+   ],
+   "name": "fiscal vs calendar period mapping",
+   "family": "temporal_anchor",
+   "status": "promising",
+   "aimed_at": "astra",
+   "clock": false,
+   "summary": "FIXTURE (T11): synthetic test mode; not a measurement. The default reading of fiscal vs calendar period mapping is wrong because the files settle it another way.",
+   "loopholes": [
+    "L-record"
+   ],
+   "recipe": {
+    "record": "a structured record gives the default",
+    "anchors": "two by-the-way anchors from other parties",
+    "withheld": "no sentence gives the record priority",
+    "dials": [
+     "one anchor per notch"
+    ],
+    "conservation": "grade both sides",
+    "shields": "scope any tempting rule away"
+   },
+   "proof_obligations": [
+    "uniqueness",
+    "anchor ablation",
+    "executed counterfactual"
+   ],
+   "hazards": [],
+   "kills": [
+    "a stated rule"
+   ],
+   "trace_signals": [
+    "the user corrects a record filed under the wrong owner"
+   ],
+   "domains": [
+    "finance"
+   ],
+   "example": "fixture example with no graded value",
+   "evidence": {
+    "internal": [
+     {
+      "task": "fixture-task-j",
+      "version": "1.0.0",
+      "premise": "P1",
+      "stage": "pilot",
+      "audit": "",
+      "fable": [
+       1,
+       5
+      ],
+      "astra": [
+       4,
+       5
+      ]
+     }
+    ],
+    "pooled": {
+     "fable": [
+      1,
+      5
+     ],
+     "astra": [
+      4,
+      5
+     ]
+    }
+   }
+  },
+  {
+   "id": "D1",
+   "aliases": [],
+   "name": "near-twin identities kept apart",
+   "family": "identity_resolution",
+   "status": "dead",
+   "aimed_at": "unknown",
+   "clock": false,
+   "summary": "FIXTURE (D1): synthetic test mode; not a measurement. The default reading of near-twin identities kept apart is wrong because the files settle it another way.",
+   "loopholes": [
+    "L-record"
+   ],
+   "recipe": {
+    "record": "a structured record gives the default",
+    "anchors": "two by-the-way anchors from other parties",
+    "withheld": "no sentence gives the record priority",
+    "dials": [
+     "one anchor per notch"
+    ],
+    "conservation": "grade both sides",
+    "shields": "scope any tempting rule away"
+   },
+   "proof_obligations": [
+    "uniqueness",
+    "anchor ablation",
+    "executed counterfactual"
+   ],
+   "hazards": [],
+   "kills": [
+    "a stated rule"
+   ],
+   "trace_signals": [
+    "the user corrects a record filed under the wrong owner"
+   ],
+   "domains": [
+    "retail"
+   ],
+   "example": "fixture example with no graded value",
+   "evidence": {
+    "internal": [
+     {
+      "task": "fixture-task-k",
+      "version": "1.0.0",
+      "premise": "P1",
+      "stage": "final",
+      "audit": "GENUINE",
+      "fable": [
+       0,
+       25
+      ],
+      "astra": [
+       1,
+       25
+      ]
+     }
+    ],
+    "pooled": {
+     "fable": [
+      0,
+      25
+     ],
+     "astra": [
+      1,
+      25
+     ]
+    }
+   }
+  },
+  {
+   "id": "D2",
+   "aliases": [],
+   "name": "aggregate totals that tie",
+   "family": "aggregation_basis",
+   "status": "dead",
+   "aimed_at": "unknown",
+   "clock": false,
+   "summary": "FIXTURE (D2): synthetic test mode; not a measurement. The default reading of aggregate totals that tie is wrong because the files settle it another way.",
+   "loopholes": [
+    "L-record"
+   ],
+   "recipe": {
+    "record": "a structured record gives the default",
+    "anchors": "two by-the-way anchors from other parties",
+    "withheld": "no sentence gives the record priority",
+    "dials": [
+     "one anchor per notch"
+    ],
+    "conservation": "grade both sides",
+    "shields": "scope any tempting rule away"
+   },
+   "proof_obligations": [
+    "uniqueness",
+    "anchor ablation",
+    "executed counterfactual"
+   ],
+   "hazards": [],
+   "kills": [
+    "a stated rule"
+   ],
+   "trace_signals": [
+    "the user corrects a record filed under the wrong owner"
+   ],
+   "domains": [
+    "retail"
+   ],
+   "example": "fixture example with no graded value",
+   "evidence": {
+    "internal": [
+     {
+      "task": "fixture-task-l",
+      "version": "1.0.0",
+      "premise": "P1",
+      "stage": "final",
+      "audit": "GENUINE",
+      "fable": [
+       1,
+       30
+      ],
+      "astra": [
+       0,
+       30
+      ]
+     }
+    ],
+    "pooled": {
+     "fable": [
+      1,
+      30
+     ],
+     "astra": [
+      0,
+      30
+     ]
+    }
+   }
+  },
+  {
+   "id": "D3",
+   "aliases": [
+    "decoys"
+   ],
+   "name": "decoy documents and pointers",
+   "family": "other",
+   "status": "promising",
+   "aimed_at": "unknown",
+   "clock": false,
+   "summary": "FIXTURE (D3): synthetic test mode; not a measurement. A dead-list mechanism whose small sample computes as promising.",
+   "loopholes": [
+    "L-record"
+   ],
+   "recipe": {
+    "record": "a structured record gives the default",
+    "anchors": "two by-the-way anchors from other parties",
+    "withheld": "no sentence gives the record priority",
+    "dials": [
+     "one anchor per notch"
+    ],
+    "conservation": "grade both sides",
+    "shields": "scope any tempting rule away"
+   },
+   "proof_obligations": [
+    "uniqueness",
+    "anchor ablation",
+    "executed counterfactual"
+   ],
+   "hazards": [],
+   "kills": [
+    "a stated rule"
+   ],
+   "trace_signals": [
+    "the user corrects a record filed under the wrong owner"
+   ],
+   "domains": [
+    "retail"
+   ],
+   "example": "fixture example with no graded value",
+   "evidence": {
+    "internal": [
+     {
+      "task": "fixture-task-m",
+      "version": "1.0.0",
+      "premise": "P4",
+      "stage": "final",
+      "audit": "GENUINE",
+      "fable": [
+       0,
+       5
+      ],
+      "astra": [
+       0,
+       5
+      ]
+     }
+    ],
+    "pooled": {
+     "fable": [
+      0,
+      5
+     ],
+     "astra": [
+      0,
+      5
+     ]
+    },
+    "external": [],
+    "traces": []
+   },
+   "low_n": true
+  }
+ ]
+}

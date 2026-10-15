@@ -1,0 +1,142 @@
+{
+ "schema": "trace-traps/1",
+ "session_id": "01a0c808-bd7f-79dc-82ae-4b2401941eb1",
+ "language": "en",
+ "categories": [
+  "document_creation"
+ ],
+ "n_turns": 55,
+ "n_user_turns": 26,
+ "undone_text_records_skipped": 0,
+ "pipeline_corrections": 2,
+ "pipeline_corrections_strong": true,
+ "mode": "deterministic",
+ "signals": [
+  {
+   "turn": 4,
+   "user_turn": 3,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.55,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "outcome_only"
+   ],
+   "refs": [],
+   "outcome_label": true,
+   "paraphrase": "Arena outcome label marks a user steer or complaint here; no lexical cue matched."
+  },
+  {
+   "turn": 5,
+   "user_turn": 3,
+   "role": "assistant",
+   "category": "assistant_error_caught",
+   "subkind": null,
+   "strength": 0.6,
+   "strong": true,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "concession"
+   ],
+   "refs": [
+    4
+   ],
+   "outcome_label": false,
+   "paraphrase": "Assistant concedes an error right after the user's turn."
+  },
+  {
+   "turn": 11,
+   "user_turn": 6,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.55,
+   "strong": false,
+   "mapped_ids": [
+    "T1",
+    "T5",
+    "T10"
+   ],
+   "mapping_source": "library",
+   "cues": [
+    "concede",
+    "doubt"
+   ],
+   "refs": [],
+   "outcome_label": false,
+   "paraphrase": "User says a figure or record in the previous output was wrong and gives a figure; the assistant then concedes."
+  },
+  {
+   "turn": 12,
+   "user_turn": 6,
+   "role": "assistant",
+   "category": "assistant_error_caught",
+   "subkind": null,
+   "strength": 0.5,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "concession"
+   ],
+   "refs": [
+    11
+   ],
+   "outcome_label": false,
+   "paraphrase": "Assistant concedes an error right after the user's turn."
+  },
+  {
+   "turn": 19,
+   "user_turn": 10,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.4,
+   "strong": false,
+   "mapped_ids": [
+    "T1",
+    "T5",
+    "T10"
+   ],
+   "mapping_source": "library",
+   "cues": [
+    "doubt"
+   ],
+   "refs": [],
+   "outcome_label": false,
+   "paraphrase": "User says a figure or record in the previous output was wrong and gives a figure."
+  },
+  {
+   "turn": 30,
+   "user_turn": 15,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.4,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "outcome_only"
+   ],
+   "refs": [],
+   "outcome_label": true,
+   "paraphrase": "Arena outcome label marks a user steer or complaint here; no lexical cue matched."
+  }
+ ],
+ "trap_rich": {
+  "score": 0.2,
+  "strong_signals": 0,
+  "events": 0,
+  "independent_strong": 0,
+  "mid_session_premise_change": false,
+  "event_categories": [],
+  "weak_signals": 4,
+  "knowledge_work_fit": true
+ },
+ "proposed_ids": []
+}

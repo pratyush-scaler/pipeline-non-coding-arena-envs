@@ -1,0 +1,372 @@
+{
+ "schema": "traplib-verdicts/1",
+ "about": "Audit verdicts that post-date or correct the 45-task pass (whose verdicts build_evidence.py reads from research/INTERNAL-trap-evidence.csv). Later records override earlier ones; any record here overrides the CSV. 'source' is relative to the workspace root and 'quote' must occur in it verbatim (whitespace-normalised): build_evidence.py checks every one and reports a drifted citation. Verdict classes: GENUINE / GENUINE-soft (section-14 audit or re-audit), BLIND-1.0 (an Opus blind reader reached the reference; provisional, reachable is not unique), UNCONFIRMED (not counted either way: a reader missed it, or a re-audit was unclear), AMBIGUOUS / DEFECT (excluded from every pooled rate).",
+ "verdicts": [
+  {
+   "task": "a_f1_melody-lesson-results",
+   "versions": "1.1.0..1.1.1",
+   "premises": [
+    "P3"
+   ],
+   "verdict": "GENUINE",
+   "source": "research/batch4/b7/reaudit/a_f1_melody-lesson-results.md",
+   "quote": "c_pretest_percent, the late-sitter reading: GENUINE. The audit was too strict.",
+   "note": "B7 re-audit overturns the 1.1.0 AMBIGUOUS call (guide 4 governs only the gain); 1.1.1 is doc-only, fixture identical"
+  },
+  {
+   "task": "a_f1_melody-lesson-results",
+   "versions": "1.1.1",
+   "premises": [
+    "P2"
+   ],
+   "verdict": "GENUINE",
+   "source": "research/batch4/b6/genuineness.md",
+   "quote": "re-audit = audit; fixture identical to 1.1.0",
+   "note": "carried from the 1.1.0 audit and re-audit (P2 slip GENUINE)"
+  },
+  {
+   "task": "a_f1_kibo-budget-cap-review",
+   "versions": "2.0.0",
+   "premises": [
+    "P4"
+   ],
+   "verdict": "GENUINE-soft",
+   "source": "research/batch4/b7/reaudit/OTHER-ambiguity-verdicts.md",
+   "quote": "Re-verdict: TOO STRICT (GENUINE-soft).",
+   "note": "B7 re-audit: the R$0.50 exemplar sits in a same-client filed record the method points to"
+  },
+  {
+   "task": "a_f2_cafe-kitchen-schedule-revisions",
+   "versions": "2.1.0",
+   "premises": [
+    "P10"
+   ],
+   "verdict": "GENUINE-soft",
+   "source": "research/batch4/b7/reaudit/OTHER-ambiguity-verdicts.md",
+   "quote": "The alternative stretches 2.2 beyond its own scope.",
+   "note": "B7 re-audit: the 2.1.0 AMBIGUOUS call was too strict; recorded as soft"
+  },
+  {
+   "task": "a_f1_probation-answer-key",
+   "versions": "2.2.0",
+   "premises": [
+    "P4"
+   ],
+   "verdict": "UNCONFIRMED",
+   "source": "research/batch4/b7/reaudit/OTHER-ambiguity-verdicts.md",
+   "quote": "Re-verdict: UNCLEAR, leaning too strict.",
+   "note": "B7 re-audit could not settle the 2.2.0 AMBIGUOUS call; neither counted genuine nor excluded"
+  },
+  {
+   "task": "a_f1_profile-copy-claims-audit",
+   "versions": "2.5.0..2.6.0",
+   "premises": [
+    "P8"
+   ],
+   "verdict": "AMBIGUOUS",
+   "source": "research/batch4/b7/reaudit/OTHER-ambiguity-verdicts.md",
+   "quote": "The governing definition points to the `all` row, and the exclusion needs world knowledge.",
+   "note": "B7 re-audit: the 2.5.0/2.6.0 AMBIGUOUS call (booking = reserved ahead) was CORRECT; the 45-task pass marked only 2.6.0"
+  },
+  {
+   "task": "a_f1_council-video-index",
+   "versions": "1.4.0",
+   "premises": [
+    "P5"
+   ],
+   "verdict": "GENUINE-soft",
+   "source": "research/batch4/b7/audits/a_f1_council-video-index-1.4.0.md",
+   "quote": "P5 GENUINE-soft, P2 GENUINE",
+   "note": "section-14 audit WITHHOLD on a grader double charge only"
+  },
+  {
+   "task": "a_f1_council-video-index",
+   "versions": "1.4.0",
+   "premises": [
+    "P2"
+   ],
+   "verdict": "GENUINE",
+   "source": "research/batch4/b7/audits/a_f1_council-video-index-1.4.0.md",
+   "quote": "P5 GENUINE-soft, P2 GENUINE",
+   "note": "section-14 audit; c_other_resolutions double-charges P2 (grader fix pending), premise-level misses unaffected"
+  },
+  {
+   "task": "a_f0_ats-embedded-screening-register",
+   "versions": "1.7.0..1.7.1",
+   "premises": [
+    "P6"
+   ],
+   "verdict": "GENUINE",
+   "source": "research/batch4/b7/audits/a_f0_ats-embedded-screening-register-1.7.0.md",
+   "quote": "Verdict on P6: GENUINE.",
+   "note": "1.7.1 is weights-only (regrade identical pass/fail)"
+  },
+  {
+   "task": "a_f0_ats-embedded-screening-register",
+   "versions": "1.7.0..1.7.1",
+   "premises": [
+    "P4"
+   ],
+   "verdict": "GENUINE",
+   "source": "research/batch4/b7/audits/a_f0_ats-embedded-screening-register-1.7.0.md",
+   "quote": "GENUINE (2/10 Fable misses silent `round()`)",
+   "note": "single discriminating figure in the governing section"
+  },
+  {
+   "task": "a_f0_ats-embedded-screening-register",
+   "versions": "1.7.0..1.7.1",
+   "premises": [
+    "P2"
+   ],
+   "verdict": "GENUINE",
+   "source": "research/batch4/b7/audits/a_f0_ats-embedded-screening-register-1.7.0.md",
+   "quote": "no line limits experience to \"declared\" ro",
+   "note": "G2 table: every competing reading of the Lumen slip is defeated by a line"
+  },
+  {
+   "task": "a_f0_ats-embedded-screening-register",
+   "versions": "1.6.0",
+   "premises": [
+    "P6"
+   ],
+   "verdict": "BLIND-1.0",
+   "source": "research/batch4/b6/genuineness.md",
+   "quote": "P6 (T5, two near-true details) SOLVED -> genuine",
+   "note": "the 1.6.0 reader scored 0.87 overall; it solved P6"
+  },
+  {
+   "task": "a_f0_ats-embedded-screening-register",
+   "versions": "1.6.0",
+   "premises": [
+    "P2"
+   ],
+   "verdict": "UNCONFIRMED",
+   "source": "research/batch4/b6/genuineness.md",
+   "quote": "c_slip_printed arguably defensible",
+   "note": "1.6.0 reader kept the C-304 Lumen line too (the 'both' soft spot); closed in 1.7.0"
+  },
+  {
+   "task": "a_f1_home-bp-diary-summary",
+   "versions": "2.12.0..2.12.1",
+   "premises": [
+    "P2",
+    "P3",
+    "P4",
+    "P6"
+   ],
+   "verdict": "GENUINE",
+   "source": "research/batch4/b7/audits/a_f1_home-bp-diary-summary-2.12.0.md",
+   "quote": "Every failing premise is GENUINE under the B7 bar.",
+   "note": "2.12.1 is doc-only (30 regrades identical)"
+  },
+  {
+   "task": "a_f1_home-bp-diary-summary",
+   "versions": "2.10.0",
+   "premises": [
+    "P2"
+   ],
+   "verdict": "BLIND-1.0",
+   "source": "research/batch4/b6/genuineness.md",
+   "quote": "home-bp 2.10.0 blind reader 1.0 (P2 genuine now)",
+   "note": ""
+  },
+  {
+   "task": "a_f1_home-bp-diary-summary",
+   "versions": "2.8.0",
+   "premises": [
+    "P2"
+   ],
+   "verdict": "UNCONFIRMED",
+   "source": "research/batch4/b6/genuineness.md",
+   "quote": "home-bp 2.8.0 P2 judged too hidden (blind reader also missed",
+   "note": "a blind reader missed it too: too hidden, possibly unfair"
+  },
+  {
+   "task": "a_f1_home-bp-diary-summary",
+   "versions": "2.9.0",
+   "premises": [
+    "P2"
+   ],
+   "verdict": "UNCONFIRMED",
+   "source": "research/batch4/b6/genuineness.md",
+   "quote": "home-bp 2.9.0 blind reader 0.83 (P2 missed again",
+   "note": "a blind reader missed it too: too hidden"
+  },
+  {
+   "task": "a_f1_home-bp-diary-summary",
+   "versions": "2.11.0",
+   "premises": [
+    "P6"
+   ],
+   "verdict": "UNCONFIRMED",
+   "source": "research/batch4/b6/genuineness.md",
+   "quote": "home-bp 2.11.0 P6 5/5 both + reader missed (0.84) -> too hidden",
+   "note": "a blind reader missed it too: too hidden; eased in 2.12.0"
+  },
+  {
+   "task": "a_f1_kibo-budget-cap-review",
+   "versions": "2.9.0",
+   "premises": [
+    "P3"
+   ],
+   "verdict": "GENUINE",
+   "source": "research/batch4/b7/audits/a_f1_kibo-budget-cap-review-2.9.0.md",
+   "quote": "P3: keying slip (Japanese foil filed as \"Cinder Glade\"). **GENUINE**",
+   "note": ""
+  },
+  {
+   "task": "a_f1_kibo-budget-cap-review",
+   "versions": "2.9.0",
+   "premises": [
+    "P6"
+   ],
+   "verdict": "GENUINE",
+   "source": "research/batch4/b7/audits/a_f1_kibo-budget-cap-review-2.9.0.md",
+   "quote": "P6: Landfall basics priced per pack of four. **GENUINE**",
+   "note": ""
+  },
+  {
+   "task": "a_f1_kibo-budget-cap-review",
+   "versions": "2.9.0",
+   "premises": [
+    "P7"
+   ],
+   "verdict": "AMBIGUOUS",
+   "source": "research/batch4/b7/audits/a_f1_kibo-budget-cap-review-2.9.0.md",
+   "quote": "c_over_ceiling_quote_off AMBIGUOUS",
+   "note": "split verdict: c_over_ceiling_quote GENUINE, c_over_ceiling_quote_off AMBIGUOUS; a premise is missed if any check fails, so the unit is excluded"
+  },
+  {
+   "task": "a_f1_psychopathy-evidence-screen",
+   "versions": "2.4.0",
+   "premises": [
+    "P4",
+    "P6"
+   ],
+   "verdict": "GENUINE",
+   "source": "research/batch4/b7/audits/a_f1_psychopathy-evidence-screen-2.4.0.md",
+   "quote": "No premise is AMBIGUOUS, and no defect, leak or void was found.",
+   "note": "P6 GENUINE with a soft spot (the 360-sheet bridge)"
+  },
+  {
+   "task": "a_f1_psychopathy-evidence-screen",
+   "versions": "2.4.0",
+   "premises": [
+    "P3"
+   ],
+   "verdict": "GENUINE-soft",
+   "source": "research/batch4/b7/audits/a_f1_psychopathy-evidence-screen-2.4.0.md",
+   "quote": "P3 is GENUINE-soft.",
+   "note": ""
+  },
+  {
+   "task": "a_f1_suitcase-cover-matrix-check",
+   "versions": "2.6.0",
+   "premises": [
+    "P2",
+    "P5",
+    "P7"
+   ],
+   "verdict": "GENUINE",
+   "source": "research/batch4/b7/audits/a_f1_suitcase-cover-matrix-check-2.6.0.md",
+   "quote": "Every failing premise is GENUINE: P2, P5 and P7",
+   "note": ""
+  },
+  {
+   "task": "a_f2_cafe-kitchen-schedule-revisions",
+   "versions": "2.3.0",
+   "premises": [
+    "P1",
+    "P5",
+    "P6",
+    "P8",
+    "P11"
+   ],
+   "verdict": "GENUINE",
+   "source": "research/batch4/b7/audits/a_f2_cafe-kitchen-schedule-revisions-2.3.0.md",
+   "quote": "P1, P5, P6, P8, P11.",
+   "note": ""
+  },
+  {
+   "task": "a_f2_cafe-kitchen-schedule-revisions",
+   "versions": "2.3.0",
+   "premises": [
+    "P4",
+    "P10"
+   ],
+   "verdict": "GENUINE-soft",
+   "source": "research/batch4/b7/audits/a_f2_cafe-kitchen-schedule-revisions-2.3.0.md",
+   "quote": "P4, P10. See §2b and §4.",
+   "note": ""
+  },
+  {
+   "task": "a_f2_deck-preread-review",
+   "versions": "2.8.0",
+   "premises": [
+    "P2"
+   ],
+   "verdict": "GENUINE",
+   "source": "research/batch4/b7/audits/a_f2_deck-preread-review-2.8.0.md",
+   "quote": "P2 Astra 10/10: GENUINE.",
+   "note": ""
+  },
+  {
+   "task": "a_f2_deck-preread-review",
+   "versions": "2.8.0",
+   "premises": [
+    "P4"
+   ],
+   "verdict": "GENUINE-soft",
+   "source": "research/batch4/b7/audits/a_f2_deck-preread-review-2.8.0.md",
+   "quote": "P4 is GENUINE-soft.",
+   "note": "one discriminating worked figure"
+  },
+  {
+   "task": "a_f2_deck-preread-review",
+   "versions": "2.8.0",
+   "premises": [
+    "P5",
+    "P6"
+   ],
+   "verdict": "GENUINE",
+   "source": "research/batch4/b7/audits/a_f2_deck-preread-review-2.8.0.md",
+   "quote": "P5 GENUINE.",
+   "note": "P6 GENUINE (1 pilot miss)"
+  },
+  {
+   "task": "a_f2_pathway-choice-audit",
+   "versions": "2.6.0",
+   "premises": [
+    "P2",
+    "P6",
+    "P7"
+   ],
+   "verdict": "BLIND-1.0",
+   "source": "research/batch4/b6/genuineness.md",
+   "quote": "reader slip, traps genuine",
+   "note": "reader 0.83 from its own arithmetic slip on c_rates; recorded as reachable"
+  },
+  {
+   "task": "a_f1_killzone-journal-review",
+   "versions": "1.5.0",
+   "premises": [
+    "P4"
+   ],
+   "verdict": "UNCONFIRMED",
+   "source": "research/batch4/b6/genuineness.md",
+   "quote": "Audit must adjudicate c_r_values fairness.",
+   "note": "blind reader 0.78 failed c_r_values (P4) only"
+  },
+  {
+   "task": "lab-L20",
+   "versions": "lab",
+   "premises": [
+    "lever"
+   ],
+   "verdict": "AMBIGUOUS",
+   "source": "pipeline/author/lever_evidence.json",
+   "quote": "Fable 0/5 was an AMBIGUITY",
+   "note": "lever lab: Fable's 0/5 was an ambiguity in policy 3.2, not a bite"
+  }
+ ]
+}

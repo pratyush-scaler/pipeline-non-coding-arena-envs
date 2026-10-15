@@ -1,0 +1,133 @@
+1. REFERENCE AND EMPTY
+   key: {"matrix_sku_count":60,"designs":["Акварель","Воздушные шары","Геометрия","Город","Горы","Звёзды","Камуфляж","Карта мира","Клетка","Леопард","Лимоны","Маяки","Монограмма","Мрамор","Неон","Облака","Пальмы","Полоска","Ромашки","Ромбы","Самолёты","Тропики","Фламинго","Флора"],"design_count":24,"skus_by_body":{"hard":38,"soft":22},"skus_by_colour_cluster":{"dark":23,"neutral":17,"bright":20},"skus_by_size":{"S":12,"M":23,"L":19,"XL":6},"skus_by_price_segment":{"base":8,"mid":36,"top":16},"slide1":{"active_skus_before":236,"active_skus_after_by_subcategory":{"hard_suitcases":44,"soft_suitcases":47,"travel_bags":46,"backpacks":44,"luggage_scales":40,"accessories":43},"active_skus_after":264,"ru_skus_after":34,"ru_share_after_pct":12}}
+   ok   reference scores 1.0  [1.0 {'failed': [], 'contract': []}]
+   ok   empty workspace scores 0.0  [0.0 ["cover_matrix_check.json: [Errno 2] No such file or directory: '/private/var/folders/gk/f_l1kjks5bq7lbb62mnpv16w0000gn/T/tmp.YNPRq7Ryf4/val/base/_sub/cover_matrix_check.json'"]]
+2. MISREADINGS (each alone, the interlocked pair, the decisive trio and all five; design_lint runs all 32 subsets)
+   ok   misread P1 fails exactly ['obj_after_by_subcategory'], reward 0.95  [got ['obj_after_by_subcategory'] 0.95]
+   ok   misread P2 fails exactly ['obj_ru_share_pct'], reward 0.83  [got ['obj_ru_share_pct'] 0.83]
+   ok   misread P5 fails exactly ['obj_designs'], reward 0.79  [got ['obj_designs'] 0.79]
+   ok   misread P6 fails exactly ['obj_size_bands'], reward 0.95  [got ['obj_size_bands'] 0.95]
+   ok   misread P7 fails exactly ['obj_price_segments'], reward 0.76  [got ['obj_price_segments'] 0.76]
+   ok   misread P1,P2 fails exactly ['obj_after_by_subcategory', 'obj_ru_share_pct'], reward 0.78  [got ['obj_after_by_subcategory', 'obj_ru_share_pct'] 0.78]
+   ok   misread P5,P6 fails exactly ['obj_designs', 'obj_size_bands'], reward 0.74  [got ['obj_designs', 'obj_size_bands'] 0.74]
+   ok   misread P2,P5,P7 fails exactly ['obj_designs', 'obj_price_segments', 'obj_ru_share_pct'], reward 0.38  [got ['obj_designs', 'obj_price_segments', 'obj_ru_share_pct'] 0.38]
+   ok   misread P1,P2,P5,P6,P7 fails exactly ['obj_after_by_subcategory', 'obj_designs', 'obj_price_segments', 'obj_ru_share_pct', 'obj_size_bands'], reward 0.28  [got ['obj_after_by_subcategory', 'obj_designs', 'obj_price_segments', 'obj_ru_share_pct', 'obj_size_bands'] 0.28]
+2b. NO ANOMALY UNDER THE DEFAULT (HARD-DOCTRINE section 7.1): the all-misread deliverable is complete and consistent
+   ok   design_count equals len(designs)
+   ok   every misread design is a matrix print or the letter's new print (no stray, nothing unmatched)
+   ok   size split sums to matrix_sku_count (60) and equals the supplier-label split and the deck's split
+   ok   cluster and body splits sum to 60
+   ok   price split sums to 60 and every segment is used (no empty or implausible segment)
+   ok   active_skus_after equals the subcategory sum and the 9 October export's row count
+   ok   share is a plausible whole percent of its own counts
+   misread deliverable: {"design_count": 25, "skus_by_size": {"S": 13, "M": 23, "L": 19, "XL": 5}} {"active_skus_before": 236, "active_skus_after_by_subcategory": {"hard_suitcases": 44, "soft_suitcases": 47, "travel_bags": 46, "backpacks": 44, "luggage_scales": 46, "accessories": 43}, "active_skus_after": 270, "ru_skus_after": 34, "ru_share_after_pct": 13}
+3. RULE-BREAKING VARIANTS (each must lose credit)
+   ok   P7 census: VAT at 20 % on Багажный щит's rows gives the reference split (not a wrong reading)  [{'base': 8, 'mid': 36, 'top': 16}]
+   ok   P7 census: printed, all-net and all-gross splits each differ from the reference and from each other  [printed={'base': 4, 'mid': 32, 'top': 24} all_net={'base': 36, 'mid': 17, 'top': 7} all_gross={'base': 0, 'mid': 21, 'top': 39}]
+   ok   designs = the 28 position names (2.0.0's print convention): fails exactly ['obj_designs'], reward 0.79  [got ['obj_designs'] 0.79]
+   ok   designs keep 'Ретро-марки' and add the new print (P5 default): fails exactly ['obj_designs'], reward 0.79  [got ['obj_designs'] 0.79]
+   ok   designs drop 'Ретро-марки' but omit the new print: fails exactly ['obj_designs'], reward 0.79  [got ['obj_designs'] 0.79]
+   ok   designs ignore the letter (the 24 matrix prints): fails exactly ['obj_designs'], reward 0.79  [got ['obj_designs'] 0.79]
+   ok   designs missing one print: fails exactly ['obj_designs'], reward 0.79  [got ['obj_designs'] 0.79]
+   ok   designs with one print repeated under its ground colour: fails exactly ['obj_designs'], reward 0.79  [got ['obj_designs'] 0.79]
+   ok   design_count disagrees with the solver's own list: fails exactly ['obj_design_count'], reward 0.97  [got ['obj_design_count'] 0.97]
+   ok   scales left at the export's count, total not updated (2.1.1: share on own counts still passes): fails exactly ['obj_after_by_subcategory', 'obj_after_total'], reward 0.91  [got ['obj_after_by_subcategory', 'obj_after_total'] 0.91]
+   ok   scales and total both left at the export (P1, consistent): fails exactly ['obj_after_by_subcategory'], reward 0.95  [got ['obj_after_by_subcategory'] 0.95]
+   ok   all Indian SKUs of every subcategory removed: fails exactly ['obj_after_by_subcategory', 'obj_after_total'], reward 0.91  [got ['obj_after_by_subcategory', 'obj_after_total'] 0.91]
+   ok   every luggage scale removed (own share kept consistent): fails exactly ['obj_after_by_subcategory'], reward 0.95  [got ['obj_after_by_subcategory'] 0.95]
+   ok   share rounded to nearest (P2): fails exactly ['obj_ru_share_pct'], reward 0.83  [got ['obj_ru_share_pct'] 0.83]
+   ok   share one below the floor: fails exactly ['obj_ru_share_pct'], reward 0.83  [got ['obj_ru_share_pct'] 0.83]
+   ok   sizes by supplier label = lower end (P6): fails exactly ['obj_size_bands'], reward 0.95  [got ['obj_size_bands'] 0.95]
+   ok   price segments on the printed price (P7 default): fails exactly ['obj_price_segments'], reward 0.76  [got ['obj_price_segments'] 0.76]
+   ok   price segments with the VAT taken out of every row, both suppliers (P7 census): fails exactly ['obj_price_segments'], reward 0.76  [got ['obj_price_segments'] 0.76]
+   ok   price segments with VAT added to Ковертэк's rows, all on the gross basis (P7 census): fails exactly ['obj_price_segments'], reward 0.76  [got ['obj_price_segments'] 0.76]
+   ok   price segments with 22 % of the gross taken off Багажный щит's figures (x0.78, an arithmetic slip; P7 census): fails exactly ['obj_price_segments'], reward 0.76  [got ['obj_price_segments'] 0.76]
+   ok   price segments: base and mid swapped: fails exactly ['obj_price_segments'], reward 0.76  [got ['obj_price_segments'] 0.76]
+   ok   sizes: only the L/XL range banded by its upper end: fails exactly ['obj_size_bands'], reward 0.95  [got ['obj_size_bands'] 0.95]
+   ok   sizes: L and XL swapped: fails exactly ['obj_size_bands'], reward 0.95  [got ['obj_size_bands'] 0.95]
+   ok   clusters by collection name: fails exactly ['obj_colour_clusters'], reward 0.96  [got ['obj_colour_clusters'] 0.96]
+   ok   before = first export (232): fails exactly ['obj_before'], reward 0.94  [got ['obj_before'] 0.94]
+   ok   before reverses only the delistings: fails exactly ['obj_before'], reward 0.94  [got ['obj_before'] 0.94]
+   ok   matrix_sku_count off by one: fails exactly ['obj_sku_count'], reward 0.97  [got ['obj_sku_count'] 0.97]
+   ok   body split swapped: fails exactly ['obj_body_split'], reward 0.96  [got ['obj_body_split'] 0.96]
+   ok   ru count off by one, share its own floor (2.1.1: not gated): fails exactly ['obj_ru_count'], reward 0.96  [got ['obj_ru_count'] 0.96]
+   ok   ru 35 with share 13, its own floor (2.1.1 audit example): fails exactly ['obj_ru_count'], reward 0.96  [got ['obj_ru_count'] 0.96]
+   ok   ru 35 with share 14 (not its own floor): fails exactly ['obj_ru_count', 'obj_ru_share_pct'], reward 0.79  [got ['obj_ru_count', 'obj_ru_share_pct'] 0.79]
+   ok   total disagrees with own subcategories, share its own floor (2.1.1: not gated): fails exactly ['obj_after_total'], reward 0.96  [got ['obj_after_total'] 0.96]
+   ok   junk subcategories, consistent total, share the own floor: earns the share only (2.1.1 residual): fails exactly ['obj_after_by_subcategory', 'obj_after_total'], reward 0.91  [got ['obj_after_by_subcategory', 'obj_after_total'] 0.91]
+   ok   junk subcategories with a consistent total and share earn no coverage: fails exactly ['obj_after_by_subcategory', 'obj_after_total', 'obj_ru_share_pct'], reward 0.74  [got ['obj_after_by_subcategory', 'obj_after_total', 'obj_ru_share_pct'] 0.74]
+   ok   a count as a string: scores 0.0  [0.0 ['cover_matrix_check.json.design_count: expected integer, got str']]
+   ok   share as 12.5 (non-integer): scores 0.0  [0.0 ['cover_matrix_check.json.slide1.ru_share_after_pct: expected integer, got float']]
+   ok   designs as one comma-joined string: scores 0.0  [0.0 ['cover_matrix_check.json.designs: expected array, got str']]
+   ok   designs with an exact duplicate: scores 0.0  [0.0 ['cover_matrix_check.json.designs: repeated array entries (compared the way answers are compared)']]
+   ok   designs with a case-only duplicate: scores 0.0  [0.0 ['cover_matrix_check.json.designs: repeated array entries (compared the way answers are compared)']]
+   ok   a subcategory key missing: scores 0.0  [0.0 ['cover_matrix_check.json.slide1.active_skus_after_by_subcategory.accessories: required field missing']]
+   ok   a size band missing: scores 0.0  [0.0 ['cover_matrix_check.json.skus_by_size.XL: required field missing']]
+   ok   an extra cluster key: scores 0.0  [0.0 ['cover_matrix_check.json.skus_by_colour_cluster.other: undeclared field']]
+   ok   an extra undeclared top-level field: scores 0.0  [0.0 ['cover_matrix_check.json.note: undeclared field']]
+   ok   negative count: scores 0.0  [0.0 ['cover_matrix_check.json.skus_by_body.hard: number outside the published bounds']]
+   ok   share above 100: scores 0.0  [0.0 ['cover_matrix_check.json.slide1.ru_share_after_pct: number outside the published bounds']]
+   ok   Markdown fences around the JSON: scores 0.0  [0.0 ['cover_matrix_check.json: invalid JSON: Expecting value: line 1 column 1 (char 0)']]
+   ok   NaN in a number field: scores 0.0  [0.0 ['cover_matrix_check.json: invalid JSON: nonfinite JSON value: NaN']]
+   ok   non-UTF-8 bytes: scores 0.0  [0.0 ["cover_matrix_check.json: 'utf-8' codec can't decode byte 0xff in position 1641: invalid start byte"]]
+   ok   deep JSON (5000 nested arrays): scores 0.0  [0.0 ['cover_matrix_check.json: invalid JSON: nested deeper than 64 levels']]
+   ok   duplicate keys: scores 0.0  [0.0 ['cover_matrix_check.json: invalid JSON: duplicate JSON key: design_count']]
+   ok   huge integer (5000 digits): scores 0.0  [0.0 ['cover_matrix_check.json: invalid JSON: Exceeds the limit (4300 digits) for integer string conversion: value has 5000 digits; use sys.set_int_max_str_digits() to increase the limit']]
+   ok   reference plus a forged reward.json in deliverables: scores 0.0  [0.0 ['reward.json: undeclared deliverable or symlink (file)']]
+   ok   reference plus a FIFO in deliverables: scores 0.0  [0.0 ['pipe: undeclared deliverable or symlink (special file)']]
+   ok   fixture tamper (colour table edited in place, answer re-derived from the tampered file): scores 0.0  [0.0 ['g_fixture_intact', 'obj_colour_clusters']]
+   ok   reference on the untampered copy still scores 1.0  [1.0]
+   ok   reference plus a symlink in deliverables: scores 0.0  [sport_link.md: undeclared deliverable or symlink (symlink)"
+  ],
+  "zeroed_by": "output contract error: passport_link.md: undeclared deliverable or symlink (symlink)",
+  "earned_before_zeroing": 100
+}]
+4. BENIGN VARIANTS (must keep 1.0)
+   ok   keys reordered, compact separators: scores 1.0  [1.0 {'failed': [], 'contract': []}]
+   ok   pretty-printed with extra whitespace: scores 1.0  [1.0 {'failed': [], 'contract': []}]
+   ok   nested keys reordered: scores 1.0  [1.0 {'failed': [], 'contract': []}]
+   ok   designs in reverse order: scores 1.0  [1.0 {'failed': [], 'contract': []}]
+   ok   designs in upper case with doubled spaces: scores 1.0  [1.0 {'failed': [], 'contract': []}]
+   ok   ASCII-escaped JSON: scores 1.0  [1.0 {'failed': [], 'contract': []}]
+   ok   a count spelled as 24.0 (an equivalent JSON number): scores 1.0  [1.0 {'failed': [], 'contract': []}]
+5. COUNTERFACTUALS (settling fact changed in a scratch copy: answer flips, grader follows)
+   ok   P1: derived answer flips; old answer fails obj_after_by_subcategory; new answer scores 1.0  [changed=True old_failed=['obj_after_by_subcategory'] new=1.0 []]
+        flip: {"slide1": [{"active_skus_before": 236, "active_skus_after_by_subcategory": {"hard_suitcases": 44, "soft_suitcases": 47, "travel_bags": 46, "backpacks": 44, "luggage_scales": 40, "accessories": 43}, "active_skus_after": 264, "ru_skus_after": 34, "ru_share_after_pct": 12}, {"active_skus_before": 236, "active_skus_after_by_subcategory": {"hard_suitcases": 44, "soft_suitcases": 47, "travel_bags": 46, "backpacks": 44, "luggage_scales": 41, "accessories": 43}, "active_skus_after": 265, "ru_skus_after": 34, "ru_share_after_pct": 12}]}
+   ok   P2: derived answer flips; old answer fails obj_ru_share_pct; new answer scores 1.0  [changed=True old_failed=['obj_ru_share_pct'] new=1.0 []]
+        flip: {"slide1": [{"active_skus_before": 236, "active_skus_after_by_subcategory": {"hard_suitcases": 44, "soft_suitcases": 47, "travel_bags": 46, "backpacks": 44, "luggage_scales": 40, "accessories": 43}, "active_skus_after": 264, "ru_skus_after": 34, "ru_share_after_pct": 12}, {"active_skus_before": 236, "active_skus_after_by_subcategory": {"hard_suitcases": 44, "soft_suitcases": 47, "travel_bags": 46, "backpacks": 44, "luggage_scales": 40, "accessories": 43}, "active_skus_after": 264, "ru_skus_after": 34, "ru_share_after_pct": 13}]}
+   ok   P5: derived answer flips; old answer fails obj_designs; new answer scores 1.0  [changed=True old_failed=['obj_designs'] new=1.0 []]
+        flip: {"designs": [24, 24]}
+   ok   P5-flip: derived answer flips; old answer fails obj_designs; new answer scores 1.0  [changed=True old_failed=['obj_designs'] new=1.0 []]
+        flip: {"designs": [24, 25], "design_count": [24, 25]}
+   ok   P6: derived answer flips; old answer fails obj_size_bands; new answer scores 1.0  [changed=True old_failed=['obj_size_bands'] new=1.0 []]
+        flip: {"skus_by_size": [{"S": 12, "M": 23, "L": 19, "XL": 6}, {"S": 13, "M": 23, "L": 19, "XL": 5}]}
+   ok   design convention: derived answer flips; old answer fails obj_designs; new answer scores 1.0  [changed=True old_failed=['obj_designs'] new=1.0 []]
+        flip: {"designs": [24, 28], "design_count": [24, 28]}
+   ok   P7: derived answer flips; old answer fails obj_price_segments; new answer scores 1.0  [changed=True old_failed=['obj_price_segments'] new=1.0 []]
+        flip: {"skus_by_price_segment": [{"base": 8, "mid": 36, "top": 16}, {"base": 4, "mid": 40, "top": 16}]}
+   ok   P7-flip (the letter comes from the other supplier): derived answer flips; old answer fails obj_price_segments; new answer scores 1.0  [changed=True old_failed=['obj_price_segments'] new=1.0 []]
+        flip: {"skus_by_price_segment": [{"base": 8, "mid": 36, "top": 16}, {"base": 32, "mid": 13, "top": 15}]}
+5b. ANCHOR ABLATION (solve.py on scratch copies)
+   ok   P1: store letter's remark deleted -> default answer (scales 46)  [{"active_skus_before": 236, "active_skus_after_by_subcategory": {"hard_suitcases": 44, "soft_suitcases": 47, "travel_bags": 46, "backpacks": 44, "luggage_scales": 46, "accessories": 43}, "active_skus_after": 270, "ru_skus_after": 34, "ru_share_after_pct": 12}]
+   ok   P1: flipped anchor (Turkish instead of Indian) -> the Turkish scales leave instead  [{"active_skus_before": 236, "active_skus_after_by_subcategory": {"hard_suitcases": 44, "soft_suitcases": 47, "travel_bags": 46, "backpacks": 44, "luggage_scales": 37, "accessories": 43}, "active_skus_after": 261, "ru_skus_after": 34, "ru_share_after_pct": 13}]
+   ok   P5: licensing row of the postal drawing deleted -> default answer ('Ретро-марки' kept, 25 designs)  [{"active_skus_before": 236, "active_skus_after_by_subcategory": {"hard_suitcases": 44, "soft_suitcases": 47, "travel_bags": 46, "backpacks": 44, "luggage_scales": 40, "accessories": 43}, "active_skus_after": 264, "ru_skus_after": 34, "ru_share_after_pct": 12}]
+   ok   P5: letter's reason clause deleted -> the printed article governs (default, 25 designs)  [{"active_skus_before": 236, "active_skus_after_by_subcategory": {"hard_suitcases": 44, "soft_suitcases": 47, "travel_bags": 46, "backpacks": 44, "luggage_scales": 40, "accessories": 43}, "active_skus_after": 264, "ru_skus_after": 34, "ru_share_after_pct": 12}]
+   ok   P5: 'Огни побережья' row deleted -> the postal row alone still settles it (24 designs, no 'Ретро-марки')  [{"active_skus_before": 236, "active_skus_after_by_subcategory": {"hard_suitcases": 44, "soft_suitcases": 47, "travel_bags": 46, "backpacks": 44, "luggage_scales": 40, "accessories": 43}, "active_skus_after": 264, "ru_skus_after": 34, "ru_share_after_pct": 12}]
+   ok   P6: passport segment examples deleted -> the minutes alone settle it (upper end: S 12, XL 6)  [{"active_skus_before": 236, "active_skus_after_by_subcategory": {"hard_suitcases": 44, "soft_suitcases": 47, "travel_bags": 46, "backpacks": 44, "luggage_scales": 40, "accessories": 43}, "active_skus_after": 264, "ru_skus_after": 34, "ru_share_after_pct": 12}]
+   ok   P6: minutes' example deleted as well -> nothing decides, solve.py refuses  [solve.py refused]
+   ok   P7: Багажный щит's VAT sentence deleted -> nothing shows VAT inside any figure, default answer (base 4 / mid 32 / top 24)  [{"active_skus_before": 236, "active_skus_after_by_subcategory": {"hard_suitcases": 44, "soft_suitcases": 47, "travel_bags": 46, "backpacks": 44, "luggage_scales": 40, "accessories": 43}, "active_skus_after": 264, "ru_skus_after": 34, "ru_share_after_pct": 12}]
+   ok   P7: minutes' payment item deleted -> the matrix figure may already be net, default answer (solve.py needs both remarks)  [{"active_skus_before": 236, "active_skus_after_by_subcategory": {"hard_suitcases": 44, "soft_suitcases": 47, "travel_bags": 46, "backpacks": 44, "luggage_scales": 40, "accessories": 43}, "active_skus_after": 264, "ru_skus_after": 34, "ru_share_after_pct": 12}]
+   ok   P7: flipped anchor (the invoice adds VAT on top of the matrix prices) -> the matrix figure is net, default answer  [{"active_skus_before": 236, "active_skus_after_by_subcategory": {"hard_suitcases": 44, "soft_suitcases": 47, "travel_bags": 46, "backpacks": 44, "luggage_scales": 40, "accessories": 43}, "active_skus_after": 264, "ru_skus_after": 34, "ru_share_after_pct": 12}]
+   ok   P2: the guide's worked example deleted -> the sample's figure fits both conventions, solve.py refuses  [solve.py refused]
+   ok   P5: the deck's 'жаль конверты' note deleted -> the licensing rows still settle it (24 designs, no 'Ретро-марки')  [{"active_skus_before": 236, "active_skus_after_by_subcategory": {"hard_suitcases": 44, "soft_suitcases": 47, "travel_bags": 46, "backpacks": 44, "luggage_scales": 40, "accessories": 43}, "active_skus_after": 264, "ru_skus_after": 34, "ru_share_after_pct": 12}]
+   ok   P6: minutes' example flipped to M -> the worked figures disagree, solve.py refuses  [solve.py refused]
+6. LEAK GREP (no reference value in the instruction)
+   ok   no reference value or trap word in the instruction  [hits=[]]
+7. BYTE-IDENTICAL REBUILD
+   ok   rebuild from authoring scripts is byte-identical  [differ=[] extra=[]]
+8. HYGIENE
+   ok   no __pycache__ in the task tree  [[]]
+   ok   no verification/ folder in the tree
+   ok   tests/ and solution/ excluded from the agent image
+
+VALIDATION: PASS

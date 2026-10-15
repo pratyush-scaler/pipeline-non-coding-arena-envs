@@ -1,0 +1,26 @@
+# Scoring, documented exactly as the grader computes it.
+# Single step: the reward is earned points / 100 (weighted mean of passed objectives).
+# No check is gated: obj_ru_share_pct is graded against the solver's own ru_skus_after and active_skus_after.
+# A violated guardrail (g_fixture_intact) or an output-contract error sets the reward to 0.
+
+[[reward]]
+name = "01-task"
+step = "01-task"
+aggregation = "weighted_mean"
+points = 100
+task_share = 1.0
+weights = { execution = 28, inference = 72 }
+
+[shares]
+"obj_after_by_subcategory" = { step = "01-task", points = 5, task_share = 0.05 }
+"obj_ru_share_pct" = { step = "01-task", points = 17, task_share = 0.17 }
+"obj_designs" = { step = "01-task", points = 21, task_share = 0.21 }
+"obj_size_bands" = { step = "01-task", points = 5, task_share = 0.05 }
+"obj_price_segments" = { step = "01-task", points = 24, task_share = 0.24 }
+"obj_sku_count" = { step = "01-task", points = 3, task_share = 0.03 }
+"obj_design_count" = { step = "01-task", points = 3, task_share = 0.03 }
+"obj_body_split" = { step = "01-task", points = 4, task_share = 0.04 }
+"obj_colour_clusters" = { step = "01-task", points = 4, task_share = 0.04 }
+"obj_before" = { step = "01-task", points = 6, task_share = 0.06 }
+"obj_after_total" = { step = "01-task", points = 4, task_share = 0.04 }
+"obj_ru_count" = { step = "01-task", points = 4, task_share = 0.04 }

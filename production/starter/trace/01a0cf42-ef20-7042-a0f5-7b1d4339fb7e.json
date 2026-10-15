@@ -1,0 +1,80 @@
+{
+ "schema": "trace-traps/1",
+ "session_id": "01a0cf42-ef20-7042-a0f5-7b1d4339fb7e",
+ "language": "en",
+ "categories": [
+  "document_creation"
+ ],
+ "n_turns": 18,
+ "n_user_turns": 9,
+ "undone_text_records_skipped": 0,
+ "pipeline_corrections": 2,
+ "pipeline_corrections_strong": true,
+ "mode": "deterministic",
+ "signals": [
+  {
+   "turn": 2,
+   "user_turn": 2,
+   "role": "user",
+   "category": "rule_shield",
+   "subkind": null,
+   "strength": 0.4,
+   "strong": false,
+   "mapped_ids": [
+    "T9"
+   ],
+   "mapping_source": "library",
+   "cues": [
+    "scope_pushback"
+   ],
+   "refs": [],
+   "outcome_label": false,
+   "paraphrase": "User says a rule or provision being applied does not cover this case."
+  },
+  {
+   "turn": 8,
+   "user_turn": 5,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.4,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "outcome_only"
+   ],
+   "refs": [],
+   "outcome_label": true,
+   "paraphrase": "Arena outcome label marks a user steer or complaint here; no lexical cue matched."
+  },
+  {
+   "turn": 14,
+   "user_turn": 8,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.4,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "outcome_only"
+   ],
+   "refs": [],
+   "outcome_label": true,
+   "paraphrase": "Arena outcome label marks a user steer or complaint here; no lexical cue matched."
+  }
+ ],
+ "trap_rich": {
+  "score": 0.15,
+  "strong_signals": 0,
+  "events": 0,
+  "independent_strong": 0,
+  "mid_session_premise_change": false,
+  "event_categories": [],
+  "weak_signals": 3,
+  "knowledge_work_fit": true
+ },
+ "proposed_ids": []
+}

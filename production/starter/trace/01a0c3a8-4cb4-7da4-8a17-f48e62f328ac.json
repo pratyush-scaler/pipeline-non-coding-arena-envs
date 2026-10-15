@@ -1,0 +1,67 @@
+{
+ "schema": "trace-traps/1",
+ "session_id": "01a0c3a8-4cb4-7da4-8a17-f48e62f328ac",
+ "language": "fr",
+ "categories": [
+  "education_tutoring",
+  "research_lookup"
+ ],
+ "n_turns": 36,
+ "n_user_turns": 18,
+ "undone_text_records_skipped": 0,
+ "pipeline_corrections": 1,
+ "pipeline_corrections_strong": false,
+ "mode": "deterministic",
+ "signals": [
+  {
+   "turn": 6,
+   "user_turn": 4,
+   "role": "user",
+   "category": "requirement_change",
+   "subkind": null,
+   "strength": 0.4,
+   "strong": false,
+   "mapped_ids": [
+    "T8",
+    "L1",
+    "L8"
+   ],
+   "mapping_source": "library",
+   "cues": [
+    "respecify",
+    "value"
+   ],
+   "refs": [],
+   "outcome_label": false,
+   "paraphrase": "User changes a requirement after work began and gives a figure; earlier output may now be stale."
+  },
+  {
+   "turn": 26,
+   "user_turn": 14,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.4,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "outcome_only"
+   ],
+   "refs": [],
+   "outcome_label": true,
+   "paraphrase": "Arena outcome label marks a user steer or complaint here; no lexical cue matched."
+  }
+ ],
+ "trap_rich": {
+  "score": 0.1,
+  "strong_signals": 0,
+  "events": 0,
+  "independent_strong": 0,
+  "mid_session_premise_change": false,
+  "event_categories": [],
+  "weak_signals": 2,
+  "knowledge_work_fit": true
+ },
+ "proposed_ids": []
+}

@@ -1,0 +1,101 @@
+{
+ "schema": "traplib/1",
+ "source": "trace",
+ "generated": "2026-10-15T20:00+05:30",
+ "modes": [
+  {
+   "id": "R1",
+   "aliases": [],
+   "name": "item already ordered earlier in the thread",
+   "family": "possession_state",
+   "status": "trace-derived",
+   "aimed_at": "fable",
+   "clock": false,
+   "summary": "FIXTURE (R1): synthetic test mode; not a measurement. The default reading of item already ordered earlier in the thread is wrong because the files settle it another way.",
+   "loopholes": [
+    "L-record"
+   ],
+   "recipe": {
+    "record": "a structured record gives the default",
+    "anchors": "two by-the-way anchors from other parties",
+    "withheld": "no sentence gives the record priority",
+    "dials": [
+     "one anchor per notch"
+    ],
+    "conservation": "grade both sides",
+    "shields": "scope any tempting rule away"
+   },
+   "proof_obligations": [
+    "uniqueness",
+    "anchor ablation",
+    "executed counterfactual"
+   ],
+   "hazards": [],
+   "kills": [
+    "a stated rule"
+   ],
+   "trace_signals": [
+    "the user corrects a record filed under the wrong owner"
+   ],
+   "domains": [
+    "engineering"
+   ],
+   "example": "fixture example with no graded value",
+   "evidence": {
+    "traces": [
+     {
+      "session": "seed-alpha",
+      "signal": "the user points out the part was bought last week"
+     }
+    ]
+   }
+  },
+  {
+   "id": "R2",
+   "aliases": [],
+   "name": "rate card superseded mid-thread",
+   "family": "authority_selection",
+   "status": "trace-derived",
+   "aimed_at": "astra",
+   "clock": false,
+   "summary": "FIXTURE (R2): synthetic test mode; not a measurement. The default reading of rate card superseded mid-thread is wrong because the files settle it another way.",
+   "loopholes": [
+    "L-record"
+   ],
+   "recipe": {
+    "record": "a structured record gives the default",
+    "anchors": "two by-the-way anchors from other parties",
+    "withheld": "no sentence gives the record priority",
+    "dials": [
+     "one anchor per notch"
+    ],
+    "conservation": "grade both sides",
+    "shields": "scope any tempting rule away"
+   },
+   "proof_obligations": [
+    "uniqueness",
+    "anchor ablation",
+    "executed counterfactual"
+   ],
+   "hazards": [],
+   "kills": [
+    "a stated rule"
+   ],
+   "trace_signals": [
+    "the user corrects a record filed under the wrong owner"
+   ],
+   "domains": [
+    "hospitality"
+   ],
+   "example": "fixture example with no graded value",
+   "evidence": {
+    "traces": [
+     {
+      "session": "seed-beta",
+      "signal": "the user sends a newer price list mid-task"
+     }
+    ]
+   }
+  }
+ ]
+}

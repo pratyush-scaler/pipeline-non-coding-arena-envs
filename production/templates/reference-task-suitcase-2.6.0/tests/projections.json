@@ -1,0 +1,56 @@
+{
+ "projections": [
+  {
+   "as": "matrix.jsonl",
+   "file": "subcategory_covers/matritsa_chekhly_zapusk.csv",
+   "parser": "csv_table"
+  },
+  {
+   "as": "colours.jsonl",
+   "file": "subcategory_covers/pasport_subkategorii_chekhly.md",
+   "parser": "markdown_tables"
+  },
+  {
+   "as": "matrix_cluster.jsonl",
+   "op": "join",
+   "left": "matrix.jsonl",
+   "right": "colours.jsonl",
+   "on": "Цвет фона",
+   "fields": {
+    "article": "left.Артикул",
+    "collection": "left.Коллекция",
+    "cluster": "right.Кластер"
+   }
+  },
+  {
+   "as": "hr.jsonl",
+   "file": "hr_and_guides/kartochka_stazhera.md",
+   "parser": "labelled_lines"
+  },
+  {
+   "as": "log.jsonl",
+   "file": "category_assortment/zhurnal_izmeneniy_assortimenta_2026-10-09.csv",
+   "parser": "csv_table"
+  },
+  {
+   "as": "sample_tags.jsonl",
+   "file": "hr_and_guides/obrazets_zashchity_2025.md",
+   "parser": "markdown_tables"
+  },
+  {
+   "as": "export_first.jsonl",
+   "file": "category_assortment/aktivnyy_assortiment_2026-07-15.csv",
+   "parser": "csv_table"
+  },
+  {
+   "as": "export_last.jsonl",
+   "file": "category_assortment/aktivnyy_assortiment_2026-10-09.csv",
+   "parser": "csv_table"
+  },
+  {
+   "as": "licences.jsonl",
+   "file": "licensing/litsenzii_na_risunki_2026-10-01.md",
+   "parser": "markdown_tables"
+  }
+ ]
+}

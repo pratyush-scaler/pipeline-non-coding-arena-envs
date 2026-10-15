@@ -1,0 +1,88 @@
+{
+  "schema": "arena-pipeline/tool-schema/1",
+  "harness": {
+    "framework": "harbor",
+    "framework_version": "0.22.0",
+    "calibration": [
+      {
+        "model": "claude-fable-5-1",
+        "agent": "claude-code",
+        "version": "2.1.283",
+        "reasoning_effort": "high",
+        "tools": "built-in tool set of the pinned CLI (its own input schemas)",
+        "agent_phase_network": {
+          "mode": "allowlist",
+          "hosts": [
+            "api.anthropic.com"
+          ]
+        }
+      },
+      {
+        "model": "gpt-6-astra",
+        "agent": "codex",
+        "version": "0.157.1",
+        "reasoning_effort": "high",
+        "tools": "built-in tool set of the pinned CLI (its own input schemas)",
+        "agent_phase_network": {
+          "mode": "allowlist",
+          "hosts": [
+            "api.openai.com"
+          ]
+        }
+      }
+    ],
+    "substitutes_by_provider": {
+      "anthropic": "claude-code",
+      "openai": "codex"
+    }
+  },
+  "tools": [
+    {
+      "model": "claude-fable-5-1",
+      "agent": "claude-code",
+      "version": "2.1.283",
+      "reasoning_effort": "high",
+      "tools": "built-in tool set of the pinned CLI (its own input schemas)",
+      "agent_phase_network": {
+        "mode": "allowlist",
+        "hosts": [
+          "api.anthropic.com"
+        ]
+      }
+    },
+    {
+      "model": "gpt-6-astra",
+      "agent": "codex",
+      "version": "0.157.1",
+      "reasoning_effort": "high",
+      "tools": "built-in tool set of the pinned CLI (its own input schemas)",
+      "agent_phase_network": {
+        "mode": "allowlist",
+        "hosts": [
+          "api.openai.com"
+        ]
+      }
+    }
+  ],
+  "workspace": {
+    "user": "agent",
+    "network": "none",
+    "agent_phase_network": "model API host only (see tools)",
+    "read_only": [
+      "/app/environment/files"
+    ],
+    "writable": [
+      "/app/deliverables"
+    ],
+    "outputs": [
+      {
+        "step": "01-task",
+        "path": "/app/deliverables/riepilogo.json"
+      },
+      {
+        "step": "02-revision",
+        "path": "/app/deliverables/riepilogo_rivisto.json"
+      }
+    ]
+  }
+}

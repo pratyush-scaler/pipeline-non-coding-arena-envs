@@ -1,0 +1,33 @@
+{
+ "schema": "traplib/1",
+ "source": "trace",
+ "generated": "2026-10-15T20:08+05:30",
+ "note": "No R-mode qualifies, so modes is empty. tools/trace_traps.py scanned the 281 unused non-coding sessions of the Oct-13 dump. unscreened_noncode.json is empty, and all 283 non-coding sessions of accepted_500_traces are already in used_session_ids.json. Every correction pattern that recurs in 3 or more sessions is already covered by a T or L mode, rests on a stated instruction (dead: stated rules never bite), or recurs only in image-editing sessions. research/TRACE-signal-yield.md gives the candidates and why each was rejected. The 'considered' key is documentation only; traplib.py reads schema, source, generated and modes.",
+ "considered": [
+  {"pattern": "scope bleed: the assistant edits or adds beyond the authorised scope, and the user says it was not asked for",
+   "traces": [
+    {"session": "01a0d2f8-8f02-7fd0-b621-c504edc618d5", "signal": "User authorised spelling fixes only; the assistant reworded sentences and added explanations, then conceded."},
+    {"session": "01a0cf14-9c95-7fb3-b41a-9a53b90654ac", "signal": "Kitchen render gained an appliance the user never asked for; the reference photo showed another type."},
+    {"session": "01a0c3d6-a781-7f48-9d95-454fcf6b055f", "signal": "Garment views: only the front view was right; other views altered a detail outside the requested change."}],
+   "verdict": "rejected: 3 sessions in total, 2 of them image edits. The authorisation is a stated instruction (dead), and the over-application mechanism is already T9 (rule-scope shield) and L12 (a by-design irregularity 'fixed')."},
+  {"pattern": "a reference or official source supplied by the user overrides the assistant's figure or default",
+   "traces": [
+    {"session": "01a0c864-15a1-7dfb-a1af-5553ccc03d1c", "signal": "User points to the officially published iteration figure, which differs from the one the assistant used."},
+    {"session": "01a0d14c-e98c-734c-b0a7-9f29f6765baf", "signal": "User supplies the governing policy text, with an older and a newer name by year, before the answer."},
+    {"session": "01a0ce67-844d-7752-bce3-29fca34b4376", "signal": "User says two reference files contradict the prompt, and names which reference governs one item."}],
+   "verdict": "rejected: covered by T6 (which source or edition governs, by date) and L2/L9. TRAP-CATALOG-B7 s6 also lists context-versus-memory conflicts as solved by current models."},
+  {"pattern": "the user corrects a figure the assistant computed from a count or split",
+   "traces": [
+    {"session": "01a0ce21-883e-73ce-98e7-a54f52c1949d", "signal": "User says a timed video splits into fewer fixed-length scenes than the assistant counted."},
+    {"session": "01a0d279-650b-7601-8425-359840f7667f", "signal": "User says the rounding of percentage splits applied to a daily volume is wrong and supplies figures."},
+    {"session": "01a0d2ff-2718-711e-89a5-3d8b84664ee7", "signal": "User questions whether a lift used one weight or a pair, which halves the computed load."}],
+   "verdict": "rejected: covered by T2 (convention from worked figures) and T3 (quantity basis, per piece versus per pair)."},
+  {"pattern": "the user corrects their own earlier premise, or forwards a later fact, mid-session",
+   "traces": [
+    {"session": "01a0cd09-b46a-7e5b-8cfd-8d1f616d3a9a", "signal": "User retracts their own earlier justification for an equipment purchase and restates the real basis."},
+    {"session": "01a0d00f-9856-74bb-8239-5fdab9e8049d", "signal": "User finds evidence that a model the assistant ruled unavailable is sold locally; the assistant reverses."},
+    {"session": "01a0c376-7cab-7ac2-b5ed-2f7cfc26b516", "signal": "User relays new information about the learner's prior knowledge after the lesson plan was built."}],
+   "verdict": "rejected: covered by L9 (the request presupposes a fact the records refute), L1 (later restatement) and T8 (changed premise, filler only)."}
+ ],
+ "modes": []
+}

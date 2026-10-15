@@ -1,0 +1,1743 @@
+{
+ "schema": "arena/lever-evidence/1",
+ "generated": "2026-10-02 17:16 IST",
+ "harness": "Fable 5.1 in Claude Code; GPT-6 Astra in Codex; effort high; no limits; 5 episodes per model",
+ "labs": {
+  "L01": {
+   "levers": [
+    "lexical_proxy",
+    "unflagged_document"
+   ],
+   "shape": "single",
+   "mechanism": "240 free-text notes judged semantically; keyword proxies over- and under-select",
+   "per_model": {
+    "openai/gpt-6-astra": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L01-astra"
+     ]
+    },
+    "anthropic/claude-fable-5-1": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L01-fable"
+     ]
+    }
+   }
+  },
+  "L02": {
+   "levers": [
+    "rounding_tie_betrayal"
+   ],
+   "shape": "single",
+   "mechanism": "per-line VAT half-up on binary ties (2.625 -> 2.63)",
+   "per_model": {
+    "openai/gpt-6-astra": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L02-astra"
+     ]
+    },
+    "anthropic/claude-fable-5-1": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L02-fable"
+     ]
+    }
+   }
+  },
+  "L03": {
+   "levers": [
+    "trigger_inferred"
+   ],
+   "shape": "single",
+   "mechanism": "trigger fact established across two documents, never labelled",
+   "per_model": {
+    "openai/gpt-6-astra": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L03-astra-q0"
+     ]
+    },
+    "anthropic/claude-fable-5-1": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L03-fable-q0"
+     ]
+    }
+   }
+  },
+  "L04": {
+   "levers": [
+    "salient_decoy_two_rules"
+   ],
+   "shape": "single",
+   "mechanism": "salient purpose-labelled decoy that loses once a rule in a second document applies",
+   "per_model": {
+    "openai/gpt-6-astra": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L04-astra"
+     ]
+    },
+    "anthropic/claude-fable-5-1": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L04-fable-q1"
+     ]
+    }
+   }
+  },
+  "L05": {
+   "levers": [
+    "convention_reach"
+   ],
+   "shape": "single",
+   "mechanism": "empty cell means 'all' per a header note (null wildcard)",
+   "per_model": {
+    "openai/gpt-6-astra": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L05-astra-q0"
+     ]
+    },
+    "anthropic/claude-fable-5-1": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L05-fable-q0"
+     ]
+    }
+   }
+  },
+  "L06": {
+   "levers": [
+    "rules_stack_not_first_match"
+   ],
+   "shape": "single",
+   "mechanism": "fee rules stack; first match is wrong",
+   "per_model": {
+    "openai/gpt-6-astra": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L06-astra-q0"
+     ]
+    },
+    "anthropic/claude-fable-5-1": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L06-fable-q0"
+     ]
+    }
+   }
+  },
+  "L07": {
+   "levers": [
+    "surface_variant_identity",
+    "near_twin_negative"
+   ],
+   "shape": "single",
+   "mechanism": "one entity under several surface forms; near-twin kept separate",
+   "per_model": {
+    "openai/gpt-6-astra": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L07-astra-q0"
+     ]
+    },
+    "anthropic/claude-fable-5-1": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L07-fable-q1"
+     ]
+    }
+   }
+  },
+  "L09": {
+   "levers": [
+    "change_set_counterfactual"
+   ],
+   "shape": "single",
+   "mechanism": "affected = answer changes, not 'has matching rows'",
+   "per_model": {
+    "openai/gpt-6-astra": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L09-astra"
+     ]
+    },
+    "anthropic/claude-fable-5-1": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L09-fable-q0"
+     ]
+    }
+   }
+  },
+  "L10": {
+   "levers": [
+    "execution_order_dependency"
+   ],
+   "shape": "single",
+   "mechanism": "order of application set in another document",
+   "per_model": {
+    "openai/gpt-6-astra": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L10-astra"
+     ]
+    },
+    "anthropic/claude-fable-5-1": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L10-fable"
+     ]
+    }
+   }
+  },
+  "L11": {
+   "levers": [
+    "rounding_stage"
+   ],
+   "shape": "single",
+   "mechanism": "round each line before summing",
+   "per_model": {
+    "openai/gpt-6-astra": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L11-astra-q1"
+     ]
+    },
+    "anthropic/claude-fable-5-1": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L11-fable"
+     ]
+    }
+   }
+  },
+  "L12": {
+   "levers": [
+    "fill_the_gap"
+   ],
+   "shape": "single",
+   "mechanism": "carrier pricing method inferred from historical invoices",
+   "per_model": {
+    "openai/gpt-6-astra": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L12-astra-q0"
+     ]
+    },
+    "anthropic/claude-fable-5-1": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L12-fable"
+     ]
+    }
+   }
+  },
+  "L13": {
+   "levers": [
+    "fill_the_gap",
+    "revision_scope"
+   ],
+   "shape": "single",
+   "mechanism": "unstated rate change inferred from paid statements",
+   "per_model": {
+    "openai/gpt-6-astra": {
+     "valid": 10,
+     "passes": 10,
+     "runs": [
+      "L13-astra",
+      "L13-astra-q2"
+     ]
+    },
+    "anthropic/claude-fable-5-1": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L13-fable-q0"
+     ]
+    }
+   }
+  },
+  "L14": {
+   "levers": [
+    "fill_the_gap"
+   ],
+   "shape": "single",
+   "mechanism": "marginal vs flat tiers inferred from 18 statements",
+   "per_model": {
+    "openai/gpt-6-astra": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L14-astra-q1"
+     ]
+    },
+    "anthropic/claude-fable-5-1": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L14-fable"
+     ]
+    }
+   }
+  },
+  "L15": {
+   "levers": [
+    "unflagged_document",
+    "lexical_proxy"
+   ],
+   "shape": "incidental",
+   "mechanism": "23 give-backs in varied memo wording inside a 1,400-line ledger",
+   "per_model": {
+    "openai/gpt-6-astra": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L15-astra-q1"
+     ]
+    },
+    "anthropic/claude-fable-5-1": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L15-fable-q0"
+     ]
+    }
+   }
+  },
+  "L16": {
+   "levers": [
+    "surface_variant_identity",
+    "near_twin_negative"
+   ],
+   "shape": "incidental",
+   "mechanism": "unlisted spacing variants and a near-twin inside a rebate run",
+   "per_model": {
+    "openai/gpt-6-astra": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L16-astra-q2"
+     ]
+    },
+    "anthropic/claude-fable-5-1": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L16-fable-q0"
+     ]
+    }
+   }
+  },
+  "L17": {
+   "levers": [
+    "execution_order_dependency"
+   ],
+   "shape": "single",
+   "mechanism": "allocation in true UTC order across office time zones",
+   "per_model": {
+    "openai/gpt-6-astra": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L17-astra-q0"
+     ]
+    },
+    "anthropic/claude-fable-5-1": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L17-fable-q0"
+     ]
+    }
+   }
+  },
+  "L18": {
+   "levers": [
+    "lexical_proxy",
+    "nested_exception"
+   ],
+   "shape": "scale",
+   "mechanism": "60 composite warranty judgments, all must be right",
+   "per_model": {
+    "openai/gpt-6-astra": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L18-astra-q2"
+     ]
+    },
+    "anthropic/claude-fable-5-1": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L18-fable-q2"
+     ]
+    }
+   }
+  },
+  "L19": {
+   "levers": [
+    "stacked"
+   ],
+   "shape": "stacked",
+   "mechanism": "12 independent silent traps in one commission run",
+   "per_model": {
+    "openai/gpt-6-astra": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L19-astra-q0"
+     ]
+    },
+    "anthropic/claude-fable-5-1": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L19-fable-q0"
+     ]
+    }
+   }
+  },
+  "L20": {
+   "levers": [
+    "masking_pair"
+   ],
+   "shape": "combined",
+   "mechanism": "conspicuous problem plus silent interacting fact on one item (Fable 0/5 was an AMBIGUITY: policy 3.2 card-statement reading, identical across episodes -- not a bite)",
+   "per_model": {
+    "openai/gpt-6-astra": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L20-astra-q0"
+     ]
+    },
+    "anthropic/claude-fable-5-1": {
+     "valid": 5,
+     "passes": 0,
+     "runs": [
+      "L20-fable-q0"
+     ]
+    }
+   }
+  },
+  "L21": {
+   "levers": [
+    "cascade_premise"
+   ],
+   "shape": "combined",
+   "mechanism": "identity -> qualifying volume -> revised threshold -> cap order -> cut-off",
+   "per_model": {
+    "openai/gpt-6-astra": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L21-astra-q0"
+     ]
+    },
+    "anthropic/claude-fable-5-1": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L21-fable-q0"
+     ]
+    }
+   }
+  },
+  "L22": {
+   "levers": [
+    "control_total_blind"
+   ],
+   "shape": "combined",
+   "mechanism": "reallocations invisible to the control total, plus an offsetting pair",
+   "per_model": {
+    "openai/gpt-6-astra": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L22-astra-q0"
+     ]
+    },
+    "anthropic/claude-fable-5-1": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L22-fable-q3"
+     ]
+    }
+   }
+  },
+  "L23": {
+   "levers": [
+    "cross_step_premise"
+   ],
+   "shape": "combined",
+   "mechanism": "step-2 correction cascades; near-twin re-decided in a fresh session",
+   "per_model": {
+    "openai/gpt-6-astra": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L23-astra-q1"
+     ]
+    },
+    "anthropic/claude-fable-5-1": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L23-fable-q0"
+     ]
+    }
+   }
+  },
+  "L24": {
+   "levers": [
+    "withhold_vs_resolve",
+    "fill_the_gap"
+   ],
+   "shape": "combined",
+   "mechanism": "opposite abstention traps on one population",
+   "per_model": {
+    "openai/gpt-6-astra": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L24-astra-q0"
+     ]
+    },
+    "anthropic/claude-fable-5-1": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L24-fable-q0"
+     ]
+    }
+   }
+  },
+  "L25": {
+   "levers": [
+    "implicit_constraint_plan"
+   ],
+   "shape": "combined",
+   "mechanism": "unique optimum under 8-12 constraints scattered across genres",
+   "per_model": {
+    "openai/gpt-6-astra": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L25-astra-q0"
+     ]
+    },
+    "anthropic/claude-fable-5-1": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L25-fable-q0"
+     ]
+    }
+   }
+  },
+  "L26": {
+   "levers": [
+    "multi_lever_item"
+   ],
+   "shape": "combined",
+   "mechanism": "3-4 levers on every graded item",
+   "per_model": {
+    "openai/gpt-6-astra": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L26-astra-q0"
+     ]
+    },
+    "anthropic/claude-fable-5-1": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L26-fable-q0"
+     ]
+    }
+   }
+  },
+  "L27": {
+   "levers": [
+    "deep_in_long_document",
+    "cascade_premise"
+   ],
+   "shape": "combined",
+   "mechanism": "decisive rules mid-manual in non-matching vocabulary, cascading",
+   "per_model": {
+    "openai/gpt-6-astra": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L27-astra-q0"
+     ]
+    },
+    "anthropic/claude-fable-5-1": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L27-fable-q0"
+     ]
+    }
+   }
+  },
+  "L28": {
+   "levers": [
+    "lexical_proxy",
+    "unflagged_document"
+   ],
+   "shape": "scale",
+   "mechanism": "360 remediation cases, 1.66 MB, beyond one context",
+   "per_model": {
+    "openai/gpt-6-astra": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L28-astra-q0"
+     ]
+    },
+    "anthropic/claude-fable-5-1": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L28-fable-q0"
+     ]
+    }
+   }
+  },
+  "L29": {
+   "levers": [
+    "surface_variant_identity",
+    "revision_scope",
+    "counting_unit_boundary"
+   ],
+   "shape": "stacked",
+   "mechanism": "six historically measured near-misses in one two-step task",
+   "per_model": {
+    "openai/gpt-6-astra": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L29-astra-q0"
+     ]
+    },
+    "anthropic/claude-fable-5-1": {
+     "valid": 5,
+     "passes": 5,
+     "runs": [
+      "L29-fable-q0"
+     ]
+    }
+   }
+  }
+ },
+ "levers": {
+  "lexical_proxy": {
+   "labs": [
+    {
+     "lab": "L01",
+     "shape": "single",
+     "mechanism": "240 free-text notes judged semantically; keyword proxies over- and under-select",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L01-astra"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L01-fable"
+       ]
+      }
+     },
+     "verdict": "dead"
+    },
+    {
+     "lab": "L15",
+     "shape": "incidental",
+     "mechanism": "23 give-backs in varied memo wording inside a 1,400-line ledger",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L15-astra-q1"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L15-fable-q0"
+       ]
+      }
+     },
+     "verdict": "dead"
+    },
+    {
+     "lab": "L18",
+     "shape": "scale",
+     "mechanism": "60 composite warranty judgments, all must be right",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L18-astra-q2"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L18-fable-q2"
+       ]
+      }
+     },
+     "verdict": "dead"
+    },
+    {
+     "lab": "L28",
+     "shape": "scale",
+     "mechanism": "360 remediation cases, 1.66 MB, beyond one context",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L28-astra-q0"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L28-fable-q0"
+       ]
+      }
+     },
+     "verdict": "dead"
+    }
+   ],
+   "best": "dead"
+  },
+  "unflagged_document": {
+   "labs": [
+    {
+     "lab": "L01",
+     "shape": "single",
+     "mechanism": "240 free-text notes judged semantically; keyword proxies over- and under-select",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L01-astra"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L01-fable"
+       ]
+      }
+     },
+     "verdict": "dead"
+    },
+    {
+     "lab": "L15",
+     "shape": "incidental",
+     "mechanism": "23 give-backs in varied memo wording inside a 1,400-line ledger",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L15-astra-q1"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L15-fable-q0"
+       ]
+      }
+     },
+     "verdict": "dead"
+    },
+    {
+     "lab": "L28",
+     "shape": "scale",
+     "mechanism": "360 remediation cases, 1.66 MB, beyond one context",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L28-astra-q0"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L28-fable-q0"
+       ]
+      }
+     },
+     "verdict": "dead"
+    }
+   ],
+   "best": "dead"
+  },
+  "rounding_tie_betrayal": {
+   "labs": [
+    {
+     "lab": "L02",
+     "shape": "single",
+     "mechanism": "per-line VAT half-up on binary ties (2.625 -> 2.63)",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L02-astra"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L02-fable"
+       ]
+      }
+     },
+     "verdict": "dead"
+    }
+   ],
+   "best": "dead"
+  },
+  "trigger_inferred": {
+   "labs": [
+    {
+     "lab": "L03",
+     "shape": "single",
+     "mechanism": "trigger fact established across two documents, never labelled",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L03-astra-q0"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L03-fable-q0"
+       ]
+      }
+     },
+     "verdict": "dead"
+    }
+   ],
+   "best": "dead"
+  },
+  "salient_decoy_two_rules": {
+   "labs": [
+    {
+     "lab": "L04",
+     "shape": "single",
+     "mechanism": "salient purpose-labelled decoy that loses once a rule in a second document applies",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L04-astra"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L04-fable-q1"
+       ]
+      }
+     },
+     "verdict": "dead"
+    }
+   ],
+   "best": "dead"
+  },
+  "convention_reach": {
+   "labs": [
+    {
+     "lab": "L05",
+     "shape": "single",
+     "mechanism": "empty cell means 'all' per a header note (null wildcard)",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L05-astra-q0"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L05-fable-q0"
+       ]
+      }
+     },
+     "verdict": "dead"
+    }
+   ],
+   "best": "dead"
+  },
+  "rules_stack_not_first_match": {
+   "labs": [
+    {
+     "lab": "L06",
+     "shape": "single",
+     "mechanism": "fee rules stack; first match is wrong",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L06-astra-q0"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L06-fable-q0"
+       ]
+      }
+     },
+     "verdict": "dead"
+    }
+   ],
+   "best": "dead"
+  },
+  "surface_variant_identity": {
+   "labs": [
+    {
+     "lab": "L07",
+     "shape": "single",
+     "mechanism": "one entity under several surface forms; near-twin kept separate",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L07-astra-q0"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L07-fable-q1"
+       ]
+      }
+     },
+     "verdict": "dead"
+    },
+    {
+     "lab": "L16",
+     "shape": "incidental",
+     "mechanism": "unlisted spacing variants and a near-twin inside a rebate run",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L16-astra-q2"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L16-fable-q0"
+       ]
+      }
+     },
+     "verdict": "dead"
+    },
+    {
+     "lab": "L29",
+     "shape": "stacked",
+     "mechanism": "six historically measured near-misses in one two-step task",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L29-astra-q0"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L29-fable-q0"
+       ]
+      }
+     },
+     "verdict": "dead"
+    }
+   ],
+   "best": "dead"
+  },
+  "near_twin_negative": {
+   "labs": [
+    {
+     "lab": "L07",
+     "shape": "single",
+     "mechanism": "one entity under several surface forms; near-twin kept separate",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L07-astra-q0"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L07-fable-q1"
+       ]
+      }
+     },
+     "verdict": "dead"
+    },
+    {
+     "lab": "L16",
+     "shape": "incidental",
+     "mechanism": "unlisted spacing variants and a near-twin inside a rebate run",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L16-astra-q2"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L16-fable-q0"
+       ]
+      }
+     },
+     "verdict": "dead"
+    }
+   ],
+   "best": "dead"
+  },
+  "change_set_counterfactual": {
+   "labs": [
+    {
+     "lab": "L09",
+     "shape": "single",
+     "mechanism": "affected = answer changes, not 'has matching rows'",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L09-astra"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L09-fable-q0"
+       ]
+      }
+     },
+     "verdict": "dead"
+    }
+   ],
+   "best": "dead"
+  },
+  "execution_order_dependency": {
+   "labs": [
+    {
+     "lab": "L10",
+     "shape": "single",
+     "mechanism": "order of application set in another document",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L10-astra"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L10-fable"
+       ]
+      }
+     },
+     "verdict": "dead"
+    },
+    {
+     "lab": "L17",
+     "shape": "single",
+     "mechanism": "allocation in true UTC order across office time zones",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L17-astra-q0"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L17-fable-q0"
+       ]
+      }
+     },
+     "verdict": "dead"
+    }
+   ],
+   "best": "dead"
+  },
+  "rounding_stage": {
+   "labs": [
+    {
+     "lab": "L11",
+     "shape": "single",
+     "mechanism": "round each line before summing",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L11-astra-q1"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L11-fable"
+       ]
+      }
+     },
+     "verdict": "dead"
+    }
+   ],
+   "best": "dead"
+  },
+  "fill_the_gap": {
+   "labs": [
+    {
+     "lab": "L12",
+     "shape": "single",
+     "mechanism": "carrier pricing method inferred from historical invoices",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L12-astra-q0"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L12-fable"
+       ]
+      }
+     },
+     "verdict": "dead"
+    },
+    {
+     "lab": "L13",
+     "shape": "single",
+     "mechanism": "unstated rate change inferred from paid statements",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 10,
+       "passes": 10,
+       "runs": [
+        "L13-astra",
+        "L13-astra-q2"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L13-fable-q0"
+       ]
+      }
+     },
+     "verdict": "dead"
+    },
+    {
+     "lab": "L14",
+     "shape": "single",
+     "mechanism": "marginal vs flat tiers inferred from 18 statements",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L14-astra-q1"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L14-fable"
+       ]
+      }
+     },
+     "verdict": "dead"
+    },
+    {
+     "lab": "L24",
+     "shape": "combined",
+     "mechanism": "opposite abstention traps on one population",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L24-astra-q0"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L24-fable-q0"
+       ]
+      }
+     },
+     "verdict": "dead"
+    }
+   ],
+   "best": "dead"
+  },
+  "revision_scope": {
+   "labs": [
+    {
+     "lab": "L13",
+     "shape": "single",
+     "mechanism": "unstated rate change inferred from paid statements",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 10,
+       "passes": 10,
+       "runs": [
+        "L13-astra",
+        "L13-astra-q2"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L13-fable-q0"
+       ]
+      }
+     },
+     "verdict": "dead"
+    },
+    {
+     "lab": "L29",
+     "shape": "stacked",
+     "mechanism": "six historically measured near-misses in one two-step task",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L29-astra-q0"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L29-fable-q0"
+       ]
+      }
+     },
+     "verdict": "dead"
+    }
+   ],
+   "best": "dead"
+  },
+  "nested_exception": {
+   "labs": [
+    {
+     "lab": "L18",
+     "shape": "scale",
+     "mechanism": "60 composite warranty judgments, all must be right",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L18-astra-q2"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L18-fable-q2"
+       ]
+      }
+     },
+     "verdict": "dead"
+    }
+   ],
+   "best": "dead"
+  },
+  "stacked": {
+   "labs": [
+    {
+     "lab": "L19",
+     "shape": "stacked",
+     "mechanism": "12 independent silent traps in one commission run",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L19-astra-q0"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L19-fable-q0"
+       ]
+      }
+     },
+     "verdict": "dead"
+    }
+   ],
+   "best": "dead"
+  },
+  "masking_pair": {
+   "labs": [
+    {
+     "lab": "L20",
+     "shape": "combined",
+     "mechanism": "conspicuous problem plus silent interacting fact on one item (Fable 0/5 was an AMBIGUITY: policy 3.2 card-statement reading, identical across episodes -- not a bite)",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L20-astra-q0"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 0,
+       "runs": [
+        "L20-fable-q0"
+       ]
+      }
+     },
+     "verdict": "bites-one"
+    }
+   ],
+   "best": "bites-one"
+  },
+  "cascade_premise": {
+   "labs": [
+    {
+     "lab": "L21",
+     "shape": "combined",
+     "mechanism": "identity -> qualifying volume -> revised threshold -> cap order -> cut-off",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L21-astra-q0"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L21-fable-q0"
+       ]
+      }
+     },
+     "verdict": "dead"
+    },
+    {
+     "lab": "L27",
+     "shape": "combined",
+     "mechanism": "decisive rules mid-manual in non-matching vocabulary, cascading",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L27-astra-q0"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L27-fable-q0"
+       ]
+      }
+     },
+     "verdict": "dead"
+    }
+   ],
+   "best": "dead"
+  },
+  "control_total_blind": {
+   "labs": [
+    {
+     "lab": "L22",
+     "shape": "combined",
+     "mechanism": "reallocations invisible to the control total, plus an offsetting pair",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L22-astra-q0"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L22-fable-q3"
+       ]
+      }
+     },
+     "verdict": "dead"
+    }
+   ],
+   "best": "dead"
+  },
+  "cross_step_premise": {
+   "labs": [
+    {
+     "lab": "L23",
+     "shape": "combined",
+     "mechanism": "step-2 correction cascades; near-twin re-decided in a fresh session",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L23-astra-q1"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L23-fable-q0"
+       ]
+      }
+     },
+     "verdict": "dead"
+    }
+   ],
+   "best": "dead"
+  },
+  "withhold_vs_resolve": {
+   "labs": [
+    {
+     "lab": "L24",
+     "shape": "combined",
+     "mechanism": "opposite abstention traps on one population",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L24-astra-q0"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L24-fable-q0"
+       ]
+      }
+     },
+     "verdict": "dead"
+    }
+   ],
+   "best": "dead"
+  },
+  "implicit_constraint_plan": {
+   "labs": [
+    {
+     "lab": "L25",
+     "shape": "combined",
+     "mechanism": "unique optimum under 8-12 constraints scattered across genres",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L25-astra-q0"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L25-fable-q0"
+       ]
+      }
+     },
+     "verdict": "dead"
+    }
+   ],
+   "best": "dead"
+  },
+  "multi_lever_item": {
+   "labs": [
+    {
+     "lab": "L26",
+     "shape": "combined",
+     "mechanism": "3-4 levers on every graded item",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L26-astra-q0"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L26-fable-q0"
+       ]
+      }
+     },
+     "verdict": "dead"
+    }
+   ],
+   "best": "dead"
+  },
+  "deep_in_long_document": {
+   "labs": [
+    {
+     "lab": "L27",
+     "shape": "combined",
+     "mechanism": "decisive rules mid-manual in non-matching vocabulary, cascading",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L27-astra-q0"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L27-fable-q0"
+       ]
+      }
+     },
+     "verdict": "dead"
+    }
+   ],
+   "best": "dead"
+  },
+  "counting_unit_boundary": {
+   "labs": [
+    {
+     "lab": "L29",
+     "shape": "stacked",
+     "mechanism": "six historically measured near-misses in one two-step task",
+     "per_model": {
+      "openai/gpt-6-astra": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L29-astra-q0"
+       ]
+      },
+      "anthropic/claude-fable-5-1": {
+       "valid": 5,
+       "passes": 5,
+       "runs": [
+        "L29-fable-q0"
+       ]
+      }
+     },
+     "verdict": "dead"
+    }
+   ],
+   "best": "dead"
+  }
+ },
+ "families": {
+  "repeated_wrong_figure": {
+   "status": "measured once",
+   "grade": "set of false statements",
+   "evidence": "a-040 Fable missed 22/26, Astra 0/24; replications failed (A1 self-consistent wrong figure: 18 tasks, Fable 0/215)"
+  },
+  "changed_premise": {
+   "status": "measured, mixed",
+   "grade": "set of items whose outcome changed + one recomputed value",
+   "evidence": "a-031 Fable missed 6/15, Astra 0/15; census 5/43. Bites only when the revision flips an item through an attribute the model does not re-read"
+  },
+  "later_exclusion_aggregate": {
+   "status": "measured, borderline",
+   "grade": "the qualifying set only",
+   "evidence": "a-013 Fable missed 15/15, Astra 0/15 (identical every run -- never reviewed for ambiguity)"
+  },
+  "version_in_force": {
+   "status": "hypothesis",
+   "grade": "per-item applicable-version set",
+   "evidence": "weak or dead internally; external evidence (OfficeQA Pro); an Arena example"
+  },
+  "near_twin_identity": {
+   "status": "measured",
+   "grade": "two separate checks",
+   "evidence": "Astra a-108 missed 5/15 unnamed vs 0/15 named; b2b 5/35; Fable a-043 3/10; ZWNJ variant Fable ~30%. Naming the variant kills it; a key in the data is required"
+  },
+  "governing_key": {
+   "status": "measured once, then failed",
+   "grade": "set-valued",
+   "evidence": "Astra solved 10/10 in batch 4; A15 filing-key join about 0/400 missed"
+  },
+  "house_number_convention": {
+   "status": "measured",
+   "grade": "one check per tie value (exact Fraction arithmetic)",
+   "evidence": "exact non-binary half on a band edge (a-037): Fable missed 3-4/10, Astra 3-5/10 -- the one stochastic both-model lever; rounding reach Astra 5/40. Dead: house day-count 0/90, A3 lossy rounding 0/50"
+  },
+  "caption_only_rule": {
+   "status": "measured, one lineage",
+   "grade": "its own check, 10 points or more",
+   "evidence": "higher-education 10x2: Fable missed 7/10, Astra 2/10"
+  },
+  "coverage_omission": {
+   "status": "measured weak, leans Fable",
+   "grade": "exact set of uncovered IDs",
+   "evidence": "models detect omissions 6-7x less often than inclusions (external)"
+  },
+  "scope_compliant_twins": {
+   "status": "hypothesis",
+   "grade": "a no-false-positive check",
+   "evidence": "unadjudicated over-inclusion signals 4/5, 5/10, 4/15"
+  },
+  "answerability": {
+   "status": "hypothesis",
+   "grade": "per-item enum",
+   "evidence": "lab L24 dead; external (DABstep)"
+  },
+  "composition_tie": {
+   "status": "hypothesis",
+   "grade": "per-bucket values",
+   "evidence": "lab L22 dead; external (APEX-Accounting <= 9.5%)"
+  },
+  "stacked_rules": {
+   "status": "hypothesis",
+   "grade": "the final allocation",
+   "evidence": "labs dead; external (tau2, DABstep)"
+  },
+  "clean_baseline": {
+   "status": "measured",
+   "grade": "change-register set",
+   "evidence": "a-031 Fable missed 3/10 and 3/5, Astra 0/15"
+  },
+  "trigger_event": {
+   "status": "measured, contested",
+   "grade": "per-item set, only with a defining sentence",
+   "evidence": "9 of 11 blind readers took the other reading without a defining sentence"
+  },
+  "timestamp_ordering": {
+   "status": "measured, CAPPED",
+   "grade": "per-item set",
+   "evidence": "every rate 0-100% depending on anchor salience (moderate in 8% of Fable / 13% of Astra finals); store/outage with casual wording Fable 53-100%, Astra 0-93%, dead when the window is stated precisely. 36 of 37 shipped tasks rested on it: at most one per task, about 10% of a batch"
+  },
+  "authority_delegation": {
+   "status": "discouraged as a decider",
+   "grade": "-",
+   "evidence": "Arena called these ambiguous; Astra solved every batch-4 instance; unauthorized-request authority Fable 1/90"
+  },
+  "inferred_exclusion": {
+   "status": "discouraged as a decider",
+   "grade": "-",
+   "evidence": "the second-reading shape: clarification took seven moderate bites to 0% (a-005, a-114, exam-prep, core-banking, trip, a-034, a-088)"
+  }
+ },
+ "families_source": "research/batch4/fb261013/TRAP-CATALOGUE-NOTE.md and HISTORY-NOTE.md (2026-10-13); miss rates are runs that MISSED the premise"
+}

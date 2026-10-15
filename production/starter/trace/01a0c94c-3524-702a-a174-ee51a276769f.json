@@ -1,0 +1,26 @@
+{
+ "schema": "trace-traps/1",
+ "session_id": "01a0c94c-3524-702a-a174-ee51a276769f",
+ "language": "fr",
+ "categories": [
+  "data_analysis"
+ ],
+ "n_turns": 25,
+ "n_user_turns": 11,
+ "undone_text_records_skipped": 0,
+ "pipeline_corrections": 1,
+ "pipeline_corrections_strong": false,
+ "mode": "deterministic",
+ "signals": [],
+ "trap_rich": {
+  "score": 0.0,
+  "strong_signals": 0,
+  "events": 0,
+  "independent_strong": 0,
+  "mid_session_premise_change": false,
+  "event_categories": [],
+  "weak_signals": 0,
+  "knowledge_work_fit": true
+ },
+ "proposed_ids": []
+}

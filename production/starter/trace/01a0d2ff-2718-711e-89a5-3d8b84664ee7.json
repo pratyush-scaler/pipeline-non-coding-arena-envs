@@ -1,0 +1,531 @@
+{
+ "schema": "trace-traps/1",
+ "session_id": "01a0d2ff-2718-711e-89a5-3d8b84664ee7",
+ "language": "fr",
+ "categories": [
+  "data_analysis"
+ ],
+ "n_turns": 144,
+ "n_user_turns": 70,
+ "undone_text_records_skipped": 2,
+ "pipeline_corrections": 9,
+ "pipeline_corrections_strong": true,
+ "mode": "deterministic",
+ "signals": [
+  {
+   "turn": 22,
+   "user_turn": 11,
+   "role": "assistant",
+   "category": "assistant_error_caught",
+   "subkind": null,
+   "strength": 0.5,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "concession"
+   ],
+   "refs": [
+    21
+   ],
+   "outcome_label": false,
+   "paraphrase": "Assistant concedes an error right after the user's turn."
+  },
+  {
+   "turn": 29,
+   "user_turn": 14,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.55,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "outcome_only"
+   ],
+   "refs": [],
+   "outcome_label": true,
+   "paraphrase": "Arena outcome label marks a user steer or complaint here; no lexical cue matched."
+  },
+  {
+   "turn": 30,
+   "user_turn": 14,
+   "role": "assistant",
+   "category": "assistant_error_caught",
+   "subkind": null,
+   "strength": 0.6,
+   "strong": true,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "concession"
+   ],
+   "refs": [
+    29
+   ],
+   "outcome_label": false,
+   "paraphrase": "Assistant concedes an error right after the user's turn."
+  },
+  {
+   "turn": 49,
+   "user_turn": 23,
+   "role": "assistant",
+   "category": "assistant_error_caught",
+   "subkind": null,
+   "strength": 0.5,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "concession"
+   ],
+   "refs": [
+    48
+   ],
+   "outcome_label": false,
+   "paraphrase": "Assistant concedes an error right after the user's turn."
+  },
+  {
+   "turn": 59,
+   "user_turn": 28,
+   "role": "assistant",
+   "category": "assistant_error_caught",
+   "subkind": null,
+   "strength": 0.5,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "concession"
+   ],
+   "refs": [
+    58
+   ],
+   "outcome_label": false,
+   "paraphrase": "Assistant concedes an error right after the user's turn."
+  },
+  {
+   "turn": 70,
+   "user_turn": 34,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.4,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "outcome_only"
+   ],
+   "refs": [],
+   "outcome_label": true,
+   "paraphrase": "Arena outcome label marks a user steer or complaint here; no lexical cue matched."
+  },
+  {
+   "turn": 70,
+   "user_turn": 34,
+   "role": "user",
+   "category": "document_conflict",
+   "subkind": null,
+   "strength": 0.6,
+   "strong": true,
+   "mapped_ids": [
+    "T6",
+    "L9",
+    "T3"
+   ],
+   "mapping_source": "library",
+   "cues": [
+    "conflict"
+   ],
+   "refs": [],
+   "outcome_label": true,
+   "paraphrase": "User points to a source document that disagrees with the assistant's output."
+  },
+  {
+   "turn": 74,
+   "user_turn": 36,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.4,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "outcome_only"
+   ],
+   "refs": [],
+   "outcome_label": true,
+   "paraphrase": "Arena outcome label marks a user steer or complaint here; no lexical cue matched."
+  },
+  {
+   "turn": 76,
+   "user_turn": 37,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.35,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "outcome_only"
+   ],
+   "refs": [],
+   "outcome_label": true,
+   "paraphrase": "Arena outcome label marks a user steer or complaint here; no lexical cue matched."
+  },
+  {
+   "turn": 77,
+   "user_turn": 37,
+   "role": "assistant",
+   "category": "assistant_error_caught",
+   "subkind": null,
+   "strength": 0.5,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "concession"
+   ],
+   "refs": [
+    76
+   ],
+   "outcome_label": false,
+   "paraphrase": "Assistant concedes an error right after the user's turn."
+  },
+  {
+   "turn": 97,
+   "user_turn": 47,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.4,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "outcome_only"
+   ],
+   "refs": [],
+   "outcome_label": true,
+   "paraphrase": "Arena outcome label marks a user steer or complaint here; no lexical cue matched."
+  },
+  {
+   "turn": 116,
+   "user_turn": 56,
+   "role": "assistant",
+   "category": "assistant_error_caught",
+   "subkind": null,
+   "strength": 0.5,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "concession"
+   ],
+   "refs": [
+    115
+   ],
+   "outcome_label": false,
+   "paraphrase": "Assistant concedes an error right after the user's turn."
+  },
+  {
+   "turn": 121,
+   "user_turn": 58,
+   "role": "assistant",
+   "category": "assistant_error_caught",
+   "subkind": null,
+   "strength": 0.5,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "concession"
+   ],
+   "refs": [
+    120
+   ],
+   "outcome_label": false,
+   "paraphrase": "Assistant concedes an error right after the user's turn."
+  },
+  {
+   "turn": 122,
+   "user_turn": 59,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.8,
+   "strong": true,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "concede",
+    "correction"
+   ],
+   "refs": [],
+   "outcome_label": false,
+   "paraphrase": "User says the assistant's previous output was wrong and gives a figure; the assistant then concedes."
+  },
+  {
+   "turn": 123,
+   "user_turn": 59,
+   "role": "assistant",
+   "category": "assistant_error_caught",
+   "subkind": null,
+   "strength": 0.7,
+   "strong": true,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "concession"
+   ],
+   "refs": [
+    122
+   ],
+   "outcome_label": false,
+   "paraphrase": "Assistant concedes an error right after the user's turn corrected it."
+  },
+  {
+   "turn": 126,
+   "user_turn": 61,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.95,
+   "strong": true,
+   "mapped_ids": [
+    "T1",
+    "T5",
+    "T10"
+   ],
+   "mapping_source": "library",
+   "cues": [
+    "concede",
+    "correction",
+    "outcome"
+   ],
+   "refs": [],
+   "outcome_label": true,
+   "paraphrase": "User says a figure or record in the previous output was wrong and gives a figure; the assistant then concedes."
+  },
+  {
+   "turn": 127,
+   "user_turn": 61,
+   "role": "assistant",
+   "category": "assistant_error_caught",
+   "subkind": null,
+   "strength": 0.8,
+   "strong": true,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "concession"
+   ],
+   "refs": [
+    126
+   ],
+   "outcome_label": false,
+   "paraphrase": "Assistant concedes an error right after the user's turn corrected it."
+  },
+  {
+   "turn": 128,
+   "user_turn": 62,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.95,
+   "strong": true,
+   "mapped_ids": [
+    "T1",
+    "T5",
+    "T10"
+   ],
+   "mapping_source": "library",
+   "cues": [
+    "concede",
+    "correction",
+    "outcome"
+   ],
+   "refs": [],
+   "outcome_label": true,
+   "paraphrase": "User says a figure or record in the previous output was wrong and gives a figure; the assistant then concedes."
+  },
+  {
+   "turn": 129,
+   "user_turn": 62,
+   "role": "assistant",
+   "category": "assistant_error_caught",
+   "subkind": null,
+   "strength": 0.8,
+   "strong": true,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "concession"
+   ],
+   "refs": [
+    128
+   ],
+   "outcome_label": false,
+   "paraphrase": "Assistant concedes an error right after the user's turn corrected it."
+  },
+  {
+   "turn": 130,
+   "user_turn": 63,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.4,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "outcome_only"
+   ],
+   "refs": [],
+   "outcome_label": true,
+   "paraphrase": "Arena outcome label marks a user steer or complaint here; no lexical cue matched."
+  },
+  {
+   "turn": 133,
+   "user_turn": 64,
+   "role": "assistant",
+   "category": "assistant_error_caught",
+   "subkind": null,
+   "strength": 0.5,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "concession"
+   ],
+   "refs": [
+    132
+   ],
+   "outcome_label": false,
+   "paraphrase": "Assistant concedes an error right after the user's turn."
+  },
+  {
+   "turn": 134,
+   "user_turn": 65,
+   "role": "user",
+   "category": "requirement_change",
+   "subkind": null,
+   "strength": 0.5,
+   "strong": false,
+   "mapped_ids": [
+    "T8",
+    "L1",
+    "L8"
+   ],
+   "mapping_source": "library",
+   "cues": [
+    "respecify",
+    "value"
+   ],
+   "refs": [],
+   "outcome_label": false,
+   "paraphrase": "User changes a requirement after work began and gives a figure; earlier output may now be stale."
+  },
+  {
+   "turn": 136,
+   "user_turn": 66,
+   "role": "user",
+   "category": "requirement_change",
+   "subkind": null,
+   "strength": 0.5,
+   "strong": false,
+   "mapped_ids": [
+    "T8",
+    "L1",
+    "L8"
+   ],
+   "mapping_source": "library",
+   "cues": [
+    "respecify",
+    "value"
+   ],
+   "refs": [],
+   "outcome_label": false,
+   "paraphrase": "User changes a requirement after work began and gives a figure; earlier output may now be stale."
+  },
+  {
+   "turn": 137,
+   "user_turn": 66,
+   "role": "assistant",
+   "category": "assistant_error_caught",
+   "subkind": null,
+   "strength": 0.5,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "concession"
+   ],
+   "refs": [
+    136
+   ],
+   "outcome_label": false,
+   "paraphrase": "Assistant concedes an error right after the user's turn."
+  },
+  {
+   "turn": 144,
+   "user_turn": 70,
+   "role": "user",
+   "category": "user_correction",
+   "subkind": null,
+   "strength": 0.4,
+   "strong": false,
+   "mapped_ids": [],
+   "mapping_source": "none",
+   "cues": [
+    "outcome_only"
+   ],
+   "refs": [],
+   "outcome_label": true,
+   "paraphrase": "Arena outcome label marks a user steer or complaint here; no lexical cue matched."
+  }
+ ],
+ "trap_rich": {
+  "score": 4.0,
+  "strong_signals": 4,
+  "events": 3,
+  "independent_strong": 3,
+  "mid_session_premise_change": false,
+  "event_categories": [
+   "document_conflict",
+   "user_correction"
+  ],
+  "weak_signals": 8,
+  "knowledge_work_fit": true
+ },
+ "proposed_ids": [
+  {
+   "id": "T1",
+   "weight": 1.9
+  },
+  {
+   "id": "T5",
+   "weight": 0.95
+  },
+  {
+   "id": "T10",
+   "weight": 0.633
+  },
+  {
+   "id": "T6",
+   "weight": 0.6
+  },
+  {
+   "id": "L9",
+   "weight": 0.3
+  },
+  {
+   "id": "T3",
+   "weight": 0.2
+  }
+ ]
+}
