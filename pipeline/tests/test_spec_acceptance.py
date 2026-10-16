@@ -800,8 +800,8 @@ class TheBuildNeverScreensDifficulty(unittest.TestCase):
         for call in ("screen.run", "run_many(", "campaign(", "_calibrate_model", "native_runner"):
             self.assertNotIn(call, body, f"a single task's build reaches a solver via {call}")
 
-    def test_the_screen_width_is_five_per_model_and_the_record_is_ten(self):
-        self.assertEqual(policy.SCREEN_EPISODES_PER_MODEL, 5)
+    def test_the_screen_width_is_three_per_model_and_the_record_is_ten(self):
+        self.assertEqual(policy.SCREEN_EPISODES_PER_MODEL, 3)  # user, 2026-10-16
         self.assertEqual(policy.SPEC_EPISODES_PER_MODEL, 10)
         self.assertEqual(policy.CALIBRATION_TARGET_PASS_AT_1, 0.5)
 
@@ -1408,7 +1408,7 @@ class QualificationRequiresAShippableScreen(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             bundle = _screen_bundle(Path(tmp))
             with unittest.mock.patch("pipeline.release._preflight") as preflight, \
-                    self.assertRaisesRegex(ValueError, "no clean screen"):
+                    self.assertRaisesRegex(ValueError, "does not admit"):
                 release._qualify(bundle, list(policy.resolve_calibration_models()),
                                  "gpt-6-astra", "gpt-6-astra", Path(tmp) / "native")
             preflight.assert_not_called()
@@ -1417,11 +1417,27 @@ class QualificationRequiresAShippableScreen(unittest.TestCase):
         from pipeline import release
         with tempfile.TemporaryDirectory() as tmp:
             bundle = _screen_bundle(Path(tmp))
-            with unittest.mock.patch("pipeline.screen.shippable_problems", return_value=[]), \
+            with unittest.mock.patch("pipeline.screen._verified",
+                                     return_value=([], {"meets_target": True})), \
                     self.assertRaisesRegex(ValueError, "identified author"):
                 # Past the screen gate, the next refusal is the author check.
                 release._qualify(bundle, list(policy.resolve_calibration_models()),
                                  "gpt-6-astra", "gpt-6-astra", Path(tmp) / "native")
+
+    def test_a_clean_screen_that_missed_the_target_buys_no_calibration_of_record(self):
+        # User, 2026-10-16: the 10 x 2 runs only on a screen that met the target.
+        from pipeline import release, screen
+        fresh = {"meets_target": False, "per_model": {"m": {"pass_at_1": 1.0}}}
+        with tempfile.TemporaryDirectory() as tmp:
+            bundle = _screen_bundle(Path(tmp))
+            with unittest.mock.patch("pipeline.screen._verified", return_value=([], fresh)), \
+                    unittest.mock.patch("pipeline.release._preflight") as preflight:
+                with self.assertRaisesRegex(ValueError, "did not meet the target"):
+                    release._qualify(bundle, list(policy.resolve_calibration_models()),
+                                     "gpt-6-astra", "gpt-6-astra", Path(tmp) / "native")
+                preflight.assert_not_called()
+                with unittest.mock.patch.object(policy, "QUALIFY_REQUIRES_SCREEN_TARGET", False):
+                    self.assertEqual(screen.qualify_problems(bundle), [])
 
     def test_an_unusable_calibration_of_record_does_not_skip_the_screen_gate(self):
         # Review finding: an index naming both models used to count as
@@ -1440,7 +1456,7 @@ class QualificationRequiresAShippableScreen(unittest.TestCase):
             with unittest.mock.patch("pipeline.release.calibration_measurement",
                                      side_effect=lambda b, i, path, n: (["need >= 10 valid"], short[path])):
                 self.assertFalse(release._calibrated(bundle, models, 10))
-                with self.assertRaisesRegex(ValueError, "no clean screen"):
+                with self.assertRaisesRegex(ValueError, "does not admit"):
                     release._qualify(bundle, models, "gpt-6-astra", "gpt-6-astra", Path(tmp) / "n")
             with unittest.mock.patch("pipeline.release.calibration_measurement",
                                      side_effect=lambda b, i, path, n: ([], short[path])):
@@ -1612,7 +1628,9 @@ class TheScreenReportsWhatArenaAsked(unittest.TestCase):
         self.assertIn("claude-fable-5-1 p@1", text)
         self.assertIn("gpt-6-astra p@4", text)
         self.assertIn("a-001-screened", text)
-        self.assertEqual(doc["measurement"]["episodes_per_model"], 5)
+        self.assertEqual(doc["measurement"]["episodes_per_model"], 5)  # the width these records ran at
+        self.assertEqual(screen.report([])["measurement"]["episodes_per_model"],
+                         policy.SCREEN_EPISODES_PER_MODEL)
         self.assertEqual(doc["measurement"]["effort"], "high")
 
 
@@ -1840,7 +1858,7 @@ class EveryPolicyConstantIsRead(unittest.TestCase):
         self.assertIn("calibrate_batch(report, rows", source)
         self.assertIn("screen.run_many(", source)
         # The shippable verdict actually gates the calibration of record.
-        self.assertIn("shippable_problems(bundle, models)", (root / "release.py").read_text())
+        self.assertIn("qualify_problems(bundle, models)", (root / "release.py").read_text())
         # Every hardening round ends in a screen.
         self.assertIn("screen.run(revision", (root / "harden.py").read_text())
 

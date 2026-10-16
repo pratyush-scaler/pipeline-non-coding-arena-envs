@@ -27,10 +27,12 @@ export CLAUDE_SCRATCH="$(mktemp -d)"; SEED=<session id>; SLUG=<slug>; T="envs-b6
 2. Author (agent): `python3 -I production/tools/b6ctl.py prompt author "$T"`. Wait for its hand-back.
 3. Check: `python3 -I production/tools/b6ctl.py author-check "$T"` must print READY. If not, paste the list into
    the author's session.
-4. Pilot 5 x 2: `env -u ANTHROPIC_AUTH_TOKEN python3 -I production/tools/b6ctl.py run "$T" pilot` (launch, wait,
-   voids re-run once, gate, census; one VERDICT line). Near miss or easy: tune (agent) with
+4. Pilot 3 x 2: `env -u ANTHROPIC_AUTH_TOKEN python3 -I production/tools/b6ctl.py run "$T" pilot` (launch, wait,
+   voids re-run once, gate, census; one VERDICT line). Only PILOT HARD (pass@1 <= 0.5 on both, i.e. at most 1 of 3
+   runs full per model, clean oracle/nop, clean census) earns a final; `run`/`launch` refuse a final otherwise
+   (user, 2026-10-16: cut benchmark cost). Near miss (2/3) or easy: tune (agent) with
    `python3 -I production/tools/b6ctl.py prompt tune "$T"` (it carries the measurements), then back to step 3.
-5. Final 10 x 2: `env -u ANTHROPIC_AUTH_TOKEN python3 -I production/tools/b6ctl.py run "$T" final`.
+5. Final 10 x 2 (only after PILOT HARD): `env -u ANTHROPIC_AUTH_TOKEN python3 -I production/tools/b6ctl.py run "$T" final`.
 6. Blind reader (agent, a FRESH session that never saw the authoring): `python3 -I production/tools/b6ctl.py prompt blind "$T" --out "$CLAUDE_SCRATCH"`.
    A multi-step task prints one prompt per step: one fresh session per step, in order. Then run the `blind-grade`
    command it printed.

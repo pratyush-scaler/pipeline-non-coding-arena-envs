@@ -7,8 +7,8 @@
                    semantic review. >= policy.MIN_OBJECTIVES graded checks per
                    task, weights summing to policy.WEIGHT_TOTAL in every task
        -- barrier: the whole requested batch is authored and graded --
-    4  calibrate   a SCREEN of every validated task: 5 episodes x 2 models ->
-                   pass@1, pass@4, mean reward, attribution, hardening outlook.
+    4  calibrate   a SCREEN of every validated task: 3 episodes x 2 models ->
+                   pass@1, mean reward, attribution, hardening outlook.
                    The automatic pipeline STOPS here.
     5  harden      MANUAL ONLY -- never reached by any automatic path. At most
                    3 attempts per task; every round ends in another 5 x 2

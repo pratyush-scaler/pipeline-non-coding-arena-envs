@@ -1,14 +1,15 @@
-"""Phase 4 -- the calibration screen: five episodes on each of two models.
+"""Phase 4 -- the calibration screen: policy.SCREEN_EPISODES_PER_MODEL (3) episodes on each of two models.
 
 The pipeline is select -> author -> grade -> calibrate, and it stops there.
 This module is the calibrate phase. It runs once the WHOLE requested batch has
 been authored and graded -- never per task, and never inside the design loop --
 and it runs again, by hand, after every hardening round. What it produces is a
-table: pass@1, pass@4 and mean reward per task per model, the failure
+table: pass@1 (pass@4 only when a screen has >= 4 episodes) and mean reward per task per model, the failure
 attribution behind every zero, and a hardening outlook per task.
 
-    screen                 5 episodes x 2 models   every new batch; every hardening round
-    calibration of record  10 episodes x 2 models  `arena qualify`, only once shippable
+    screen                 3 episodes x 2 models   every new batch; every hardening round
+    calibration of record  10 episodes x 2 models  `arena qualify`, only once shippable AND the
+                                                   screen met the target (QUALIFY_REQUIRES_SCREEN_TARGET)
 
 It replaced two things. The one-episode presolve, which ran after every draft
 on one model and sent "too easy" back into the design loop; and the in-build
@@ -84,21 +85,50 @@ def shippable_problems(bundle: Path, models: list[str] | None = None) -> list[st
     the caller's), never the receipt's own: a receipt claiming one episode or
     one model proves nothing. No screen of this version is a refusal, not a pass.
     """
+    return _verified(bundle, models)[0]
+
+
+def _verified(bundle: Path, models: list[str] | None) -> tuple[list[str], dict | None]:
+    """(shippable problems, the screen re-derived from its campaigns or None)."""
     record = current(bundle)
     if record is None:
         return [f"no calibration screen of this task version ({RECEIPT}); run "
                 f"`arena screen {bundle}` -- {policy.SCREEN_EPISODES_PER_MODEL} episodes "
-                "per model -- first"]
+                "per model -- first"], None
     models = list(models or policy.resolve_calibration_models())
     episodes = max(int(record.get("episodes_per_model") or 0), policy.SCREEN_EPISODES_PER_MODEL)
     try:
         fresh = summarize(bundle, record.get("index") or {}, episodes, models)
     except Exception as exc:                         # noqa: BLE001 -- unreadable is not shippable
-        return [f"the screen receipt could not be re-verified: {type(exc).__name__}: {exc}"]
+        return [f"the screen receipt could not be re-verified: {type(exc).__name__}: {exc}"], None
     problems = fresh["shippable_problems"]
     if problems and record.get("remedy"):
         problems = [record["remedy"], *problems]
-    return problems
+    return problems, fresh
+
+
+def qualify_problems(bundle: Path, models: list[str] | None = None) -> list[str]:
+    """Why the ten-episode calibration of record may not be LAUNCHED. [] = launch.
+
+    Every validity problem of `shippable_problems`, and -- under
+    policy.QUALIFY_REQUIRES_SCREEN_TARGET (user, 2026-10-16: "Only if the pilot
+    calibration meets the criteria then only run the full calibration") -- a
+    screen that did not meet the target: pass@1 <= CALIBRATION_TARGET_PASS_AT_1 on
+    BOTH models, re-derived from the screen's own campaigns, never read from the
+    stored verdict. A cost gate on the campaign, not a release gate.
+    """
+    problems, fresh = _verified(bundle, models)
+    if problems or not policy.QUALIFY_REQUIRES_SCREEN_TARGET:
+        return problems
+    if not (fresh or {}).get("meets_target"):
+        rates = ", ".join(f"{m} {(row or {}).get('pass_at_1')}" for m, row in
+                          ((fresh or {}).get("per_model") or {}).items()) or "not measured"
+        return [f"the screen of this version did not meet the target (pass@1 <= "
+                f"{policy.CALIBRATION_TARGET_PASS_AT_1} on both models; measured {rates}), so "
+                f"the {policy.SPEC_EPISODES_PER_MODEL}-episode calibration of record is not "
+                "bought (policy.QUALIFY_REQUIRES_SCREEN_TARGET): harden it into a new version "
+                "and screen that"]
+    return []
 
 
 def _short_only(row: dict) -> bool:
@@ -170,8 +200,10 @@ def run(bundle: Path, *, native_root: Path, models: list[str] | None = None,
         reused: dict[str, str] = {}
         short: dict[str, list[str]] = {}      # verified, short of episodes: top up
         discarded: dict[str, list[str]] = {}  # short, relaunched by the operator
-        if prior and prior.get("episodes_per_model") == episodes:
-            # Results are not re-run. A model this version was already screened
+        if prior and int(prior.get("episodes_per_model") or 0) >= episodes:
+            # Results are not re-run. A prior screen at least this wide (e.g. a
+            # five-episode screen from before the 3 x 2 width, user 2026-10-16)
+            # covers this one. A model this version was already screened
             # on keeps its campaign, whatever it SCORED -- but only if its
             # evidence verified. A campaign whose evidence is gone or changed
             # is replaced; one short of valid episodes is topped up.
@@ -767,7 +799,11 @@ def report(records: list[dict], not_screened: list[dict] | None = None) -> dict:
         "schema": "arena-pipeline/screen-report/1",
         "created_at": time.time(),
         "measurement": {"models": [primary, secondary],
-                        "episodes_per_model": policy.SCREEN_EPISODES_PER_MODEL,
+                        # the width the screened records were actually run at (older trees hold
+                        # five-episode screens); the policy width when none says
+                        "episodes_per_model": min((int(r["episodes_per_model"]) for r in records
+                                                   if r.get("episodes_per_model")),
+                                                  default=policy.SCREEN_EPISODES_PER_MODEL),
                         "effort": policy.SPEC_CALIBRATION_EFFORT,
                         "no_limits": policy.SPEC_NO_LIMITS,
                         "agent": "; ".join(
@@ -840,10 +876,15 @@ def markdown(doc: dict) -> str:
         lines += [f"- {r.get('slug')}: {r.get('status')} at {r.get('stage_reached')} -- "
                   f"{(r.get('error') or '; '.join(r.get('blockers') or []))[:200]}"
                   for r in doc["not_screened"]]
+    width = int((doc.get("measurement") or {}).get("episodes_per_model") or policy.SCREEN_EPISODES_PER_MODEL)
+    gate = ("only a task that measured cleanly AND met the target on both models may go to the "
+            "calibration of record (policy.QUALIFY_REQUIRES_SCREEN_TARGET)"
+            if policy.QUALIFY_REQUIRES_SCREEN_TARGET else
+            "every task that measured cleanly may go to the calibration of record")
     lines += ["", "The outlook is a heuristic over this screen, not a measurement, and is "
-              "not yet validated against hardening outcomes. Five episodes put pass@1 on a "
-              "0.2 grid; the calibration of record is ten. The target is strict but blocks "
-              "nothing: every task that measured cleanly may go to the calibration of record."]
+              f"not yet validated against hardening outcomes. {width} episodes put pass@1 on a "
+              f"{1 / width:.2f} grid; the calibration of record is "
+              f"{policy.SPEC_EPISODES_PER_MODEL}. The target never blocks release; {gate}."]
     return "\n".join(lines) + "\n"
 
 

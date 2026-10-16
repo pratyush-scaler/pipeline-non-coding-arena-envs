@@ -65,15 +65,16 @@ What changed against v1 (all in this tree; v1 lives in arena-envs-tasks-large-du
             difficulty judgments are `difficulty_advisories` (user 2026-09-26),
             shown in the screen report and fed to hardening
    -- barrier: the whole requested batch is built --
-4 calibrate screen: 5 episodes x 2 models per task -> pass@1, pass@4, mean
+4 calibrate screen: 3 episodes x 2 models per task (user 2026-10-16) -> pass@1, mean
             reward, attribution, hardening outlook. THE PIPELINE STOPS HERE
 5 harden    MANUAL ONLY -- nothing automatic may call it. At most 3 redesign
             attempts per task, ever (attempt 1 = the full extremely-hard
-            redesign; 2-3 repair or tighten). Every valid revision gets a 5 x 2
+            redesign; 2-3 repair or tighten). Every valid revision gets a 3 x 2
             screen; stops on target met / budget spent / measured no progress /
-            repeated finding, never on an unclean screen. Any task whose screen measured cleanly (valid episodes,
-            attributable failures, no unresolved reward hacking) may take the
-            10 x 2 calibration of record (`arena qualify`)
+            repeated finding, never on an unclean screen. Only a task whose screen measured cleanly (valid
+            episodes, attributable failures, no unresolved reward hacking) AND met the target (pass@1 <= 0.5
+            on both models; policy.QUALIFY_REQUIRES_SCREEN_TARGET, user 2026-10-16) may take the
+            10 x 2 calibration of record (`arena qualify`); a missed screen is hardened, never qualified
 
 pass@1 < 0.5 on both models is the STRICT TARGET and never a blocker
 (`policy.DIFFICULTY_GATES_RELEASE = False`, user 2026-09-25): authoring aims at

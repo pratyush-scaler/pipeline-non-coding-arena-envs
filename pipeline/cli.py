@@ -702,8 +702,9 @@ def build_parser():
     r = sub.add_parser("release", help="verify all release evidence for this exact task version")
     r.add_argument("bundle")
     r.set_defaults(fn=cmd_release)
-    q = sub.add_parser("qualify", help="the calibration of record (10 x 2) -- needs a clean 5 x 2 "
-                                       "screen of this version; pass@1 never blocks it")
+    q = sub.add_parser("qualify", help="the calibration of record (10 x 2) -- needs a clean 3 x 2 "
+                                       "screen of this version that met the target (pass@1 <= 0.5 on "
+                                       "both models; policy.QUALIFY_REQUIRES_SCREEN_TARGET)")
     q.add_argument("bundle")
     from .policy import resolve_calibration_models
     _primary, _secondary = resolve_calibration_models()

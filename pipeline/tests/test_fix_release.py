@@ -91,7 +91,7 @@ class Qualification(unittest.TestCase):
         self.addCleanup(temp.cleanup)
         # The calibration of record is gated on a shippable screen; that gate
         # has its own tests (test_spec_acceptance). These test qualification.
-        screened = patch("pipeline.screen.shippable_problems", return_value=[])
+        screened = patch("pipeline.screen.qualify_problems", return_value=[])
         screened.start()
         self.addCleanup(screened.stop)
         # Placeholder models stand for the two calibration models; each runs

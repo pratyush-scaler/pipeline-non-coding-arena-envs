@@ -104,7 +104,7 @@ class SpreadMetrics(unittest.TestCase):
         self.assertIsNone(bare["premise_fail_rates"])
 
     def test_too_few_runs_is_not_assessable(self):
-        sig = signal.measure({FABLE: conjunctive_runs([[], [0], [1]]),
+        sig = signal.measure({FABLE: conjunctive_runs([[], [0]]),  # below the 3-episode screen floor
                               ASTRA: conjunctive_runs([[2], [], [0], [1], [3]])}, weights=WEIGHTS)
         self.assertFalse(sig["assessable"])
         self.assertIsNone(sig["shape"])

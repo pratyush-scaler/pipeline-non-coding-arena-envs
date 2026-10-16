@@ -43,9 +43,12 @@ design lessons are in `briefs/AUTHOR-BRIEF-B8.md` §1 and `traps/TRAP-LIBRARY.md
    Symptom: parallel launch processes wiped each other's code on the pool; 21 episodes were void (2026-09-28).
    Fix: one controller process per pool. Go wider by raising its concurrency, not by adding processes.
 
-8. **A 5-run pilot is noise.**
-   Symptom: the same task text measured 2/5 on one pilot and 5/5 on the next.
-   Fix: pilots only triage. Decide on a fresh 10 x 2 final.
+8. **A pilot is noise; a final on an easy pilot is waste.**
+   Symptom: the same task text measured 2/5 on one pilot and 5/5 on the next; and finals were bought on pilots that
+   never met the bar.
+   Fix: the pilot is 3 x 2 and only triages (user, 2026-10-16). Only a pilot that meets the bar (pass@1 <= 0.5 on
+   both, clean controls, clean census) earns the fresh 10 x 2 final, which decides; `b6ctl` and `measure.py` refuse
+   any other final. Never pool pilot runs into the final.
 
 ## Designing traps
 
