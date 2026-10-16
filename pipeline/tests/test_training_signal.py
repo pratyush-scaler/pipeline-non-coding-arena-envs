@@ -478,11 +478,23 @@ class ScreenAndHardeningWiring(unittest.TestCase):
         self.assertFalse(gated["shippable"])
         self.assertTrue(any("training-signal shape FLAT" in p for p in gated["shippable_problems"]))
 
-    def test_target_met_needs_the_signal(self):
+    def test_target_met_is_arenas_bar_and_the_signal_is_reported_only(self):
+        # User, 2026-10-16: hardening stops at pass@1 <= 0.5 on both models.
         from pipeline import harden
-        record = {"measurement_complete": True, "shippable": True}
         steps_ok = {m: [] for m in policy.resolve_calibration_models()}
-        with patch("pipeline.harden.steps_too_easy", return_value=steps_ok):
+        with patch("pipeline.harden.steps_too_easy", return_value=steps_ok), \
+                patch("pipeline.harden._signal_verdict", return_value={"target_met": False, "shape": "FLAT"}):
+            self.assertTrue(harden._target_met({"measurement_complete": True, "shippable": True,
+                                                "meets_target": True}))
+            self.assertFalse(harden._target_met({"measurement_complete": True, "shippable": True,
+                                                 "meets_target": False}))
+
+    def test_target_met_needs_the_signal_when_the_flag_is_on(self):
+        from pipeline import harden
+        record = {"measurement_complete": True, "shippable": True, "meets_target": True}
+        steps_ok = {m: [] for m in policy.resolve_calibration_models()}
+        with patch("pipeline.harden.steps_too_easy", return_value=steps_ok), \
+                patch.object(policy, "HARDEN_TARGET_REQUIRES_SIGNAL", True):
             with patch("pipeline.harden._signal_verdict", return_value={"target_met": False, "shape": "FLAT"}):
                 self.assertFalse(harden._target_met(record))
             with patch("pipeline.harden._signal_verdict", return_value=None):

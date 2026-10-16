@@ -128,12 +128,12 @@ the targeted model), `NO_FULL_PASS`, `PRIMARY_NOT_HARD`
 | **blocks** (validity) | a premise map that misstates the grader: a check id that is not a declared objective, one check claimed by two premises (a compound criterion), an unknown family, a resolving quote absent from the instruction and the fixture | `author/premises.problems` via `author/validate` -- "premise map: ..." findings |
 | advises | ≥ `MIN_INDEPENDENT_PREMISES` (4) premises in a single-step task; ≥ `MIN_PREMISES_PER_STEP_MULTI_TURN` (2) per step and ≥ `MIN_PREMISES_MULTI_TURN_TOTAL` (5) overall in a multi-turn task; no premise > `MAX_PREMISE_SHARE` (0.25) of a step; designed free share ≤ `MAX_FREE_SHARE` (0.35); one premise per family; ≤ `MAX_TIMESTAMP_PREMISES_PER_TASK` (1) timestamp premise; `DISCOURAGED_DECIDER_FAMILIES`; a missing map | "premise shape: ..." findings (`pipeline.advisory`) |
 | advises (batch) | no family decisive in > `MAX_FAMILY_HEAVIEST_SHARE` (0.20) of tasks or present in > `MAX_FAMILY_PRESENCE_SHARE` (0.35); ≥ `MIN_BATCH_FAMILIES` (6) families; timestamp ordering in ≤ `MAX_TIMESTAMP_TASK_SHARE` (0.10) of tasks | `signal.batch_family_quotas`, every batch screen report |
-| **target** | pass@1 ≤ `EXTREME_PASS_AT_1_MAX` on both models and every step, and spread ok (not `FLAT`, `SORTING` or `CONSTANT_PREMISE`) | `signal.measure` `target_met`; the only way a hardening lineage ends target-met (`harden._target_met`) |
+| **target** | pass@1 ≤ `EXTREME_PASS_AT_1_MAX` on both models and every step, and spread ok (not `FLAT`, `SORTING` or `CONSTANT_PREMISE`) | `signal.measure` `target_met`; reported by every screen and recorded per hardening round; ends a lineage only while `HARDEN_TARGET_REQUIRES_SIGNAL` is True (off since 2026-10-16: hardening stops at pass@1 ≤ 0.5 on both models) |
 
 Nothing here rejects or holds a task (`SIGNAL_GATES_RELEASE = False`), exactly
-like pass@1 (`DIFFICULTY_GATES_RELEASE`). Arena's general target -- pass@1 < 0.5
-on both models -- is unchanged, still `meets_target` in every screen, and still
-what the batch report scores; the band and the spread are what authoring and
+like pass@1 (`DIFFICULTY_GATES_RELEASE`). Arena's general target -- pass@1 ≤ 0.5
+on both models -- is unchanged, still `meets_target` in every screen, what the batch report
+scores, what admits a task to the 10 x 2 (`QUALIFY_REQUIRES_SCREEN_TARGET`) and, since 2026-10-16, what ends hardening; the band and the spread are what authoring and
 hardening aim at. Why the map blocks: the screen's per-premise rates, the cover
 sheet's trap families and the hardening brief all read it, so a map that lies
 corrupts every number built on it, and an unquotable premise is an inference
@@ -405,7 +405,7 @@ task (user, 2026-09-25).
 | Attempt 1 | the full brief, told it is the one attempt that must make the task extremely hard; nothing held back |
 | Later attempts | REPAIR an invalid revision (fix the cited findings only), or TIGHTEN a valid, screened one still short of the target -- the brief carries its training-signal shape and what that shape needs (add an independent premise, re-tune a constant one, split linked checks); never push one premise toward 0/10 |
 | After each valid revision | a 3 x 2 screen and a comparison with the version it revised |
-| Ends when | a screen meets the target -- every step ≤ `STEP_PASS_RATE_MAX`, any bound lineage goal, AND the training-signal target (pass@1 ≤ `EXTREME_PASS_AT_1_MAX` on both models and every step, no `FLAT`, `SORTING` or `CONSTANT_PREMISE`; re-derived from the screen's campaign reports, an unreadable signal never meets it); the budget is spent; a validity finding repeats or the finding set does not shrink; a screened revision moved pass@1 on neither model **measured on both sides** and cleared no training-signal flag (a parent with no measurement is "not comparable" and ends nothing); the designer rejects the source |
+| Ends when | a screen meets the target -- every step ≤ `STEP_PASS_RATE_MAX`, any bound lineage goal, AND pass@1 ≤ `CALIBRATION_TARGET_PASS_AT_1` (0.5) on both models (`meets_target`; user 2026-10-16 -- the training-signal target, pass@1 ≤ `EXTREME_PASS_AT_1_MAX` with no `FLAT`, `SORTING` or `CONSTANT_PREMISE`, is required only while `HARDEN_TARGET_REQUIRES_SIGNAL` is True); the budget is spent; a validity finding repeats or the finding set does not shrink; a screened revision moved pass@1 on neither model **measured on both sides** and cleared no training-signal flag (a parent with no measurement is "not comparable" and ends nothing); the designer rejects the source |
 | Never ends on | a screen that did not measure cleanly (voids, unattributable failures, an unresolved hack flag) -- the lineage stays open on that revision |
 | Resuming | `arena harden <vN> --apply`, or `arena harden <original> --apply`, which continues from the latest valid revision whose screen measured cleanly (and refuses while that revision is unmeasured) instead of restarting the redesign |
 | A stalled design | its unfinished draft is kept (`verification/hardening-draft.json`) and the next REPAIR continues from it |

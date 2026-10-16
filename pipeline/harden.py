@@ -52,11 +52,13 @@ The lineage stops -- and `arena harden` then refuses it -- when a screen meets
 the target, when the budget is spent, when a validity finding repeats or the
 finding set fails to shrink, when a screened revision made no progress (pass@1
 fell on neither model and no training-signal flag cleared), or when the designer
-rejects the source. The target (user, 2026-10-13; Arena 261013, spec 10_12) is a
-band with a gradient: every step at or under policy.STEP_PASS_RATE_MAX, pass@1 at
-or under policy.EXTREME_PASS_AT_1_MAX on both models and every step, reward
-spread on every model and step, no model sorting and no constant premise
-(`_target_met`). Solver answers
+rejects the source. The target (user, 2026-10-16) is Arena's bar: the screen
+meets pass@1 <= policy.CALIBRATION_TARGET_PASS_AT_1 (0.5) on both models with
+every step at or under policy.STEP_PASS_RATE_MAX (`_target_met`). The
+2026-10-13 band with a gradient (pass@1 <= policy.EXTREME_PASS_AT_1_MAX, reward
+spread, no model sorting, no constant premise) is still measured, reported and
+shown to the designer, and decides the stop only while
+policy.HARDEN_TARGET_REQUIRES_SIGNAL is True. Solver answers
 and per-episode rewards are never fed back; per-check pass rates are, as they
 always were.
 
@@ -1724,13 +1726,19 @@ def _target_met(record: dict, maximum_pass_at_1: float | None = None) -> bool:
     easy = steps_too_easy(record)
     if easy is None or any(easy.values()):
         return False
-    # User, 2026-10-13 (Arena 261013, spec 10_12): the band AND the gradient.
+    # User, 2026-10-13 (Arena 261013, spec 10_12): the band AND the gradient --
+    # required only while policy.HARDEN_TARGET_REQUIRES_SIGNAL (off 2026-10-16).
     # pass@1 at or below policy.EXTREME_PASS_AT_1_MAX on both models and every
     # step, with reward spread on every model and step, no model sorting and no
     # constant premise (`pipeline.training_signal`). A task pushed to 0/10 through one
     # premise nobody resolves is CONSTANT_PREMISE, not target-met.
-    verdict = _signal_verdict(record)
-    if not isinstance(verdict, dict) or verdict.get("target_met") is not True:
+    if policy.HARDEN_TARGET_REQUIRES_SIGNAL:
+        verdict = _signal_verdict(record)
+        if not isinstance(verdict, dict) or verdict.get("target_met") is not True:
+            return False
+    elif record.get("meets_target") is not True:
+        # User, 2026-10-16: Arena's bar, pass@1 <= 0.5 on both models (the
+        # screen's own verdict); the extreme band and spread are reported only.
         return False
     if maximum_pass_at_1 is None:
         return record.get("measurement_complete") is True and record.get("shippable") is True

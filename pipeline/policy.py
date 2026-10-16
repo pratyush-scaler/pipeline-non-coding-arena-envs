@@ -792,12 +792,24 @@ MIN_LEVER_MECHANISMS = 5
 #            `signal.batch_family_quotas`) -- design targets, shown to the
 #            designer and printed by every screen
 #   targets  the extreme pass@1 band and the spread metrics (`signal.measure`):
-#            reported by every screen, and the ONLY thing that ends a hardening
-#            lineage as target-met (`harden._target_met`). Never a release gate.
+#            reported by every screen. They end a hardening lineage as target-met
+#            only while HARDEN_TARGET_REQUIRES_SIGNAL is True (off since
+#            2026-10-16). Never a release gate.
 
 #: Whether any spread or diversity metric can reject or hold a task. Like
 #: DIFFICULTY_GATES_RELEASE: named so the absence is greppable.
 SIGNAL_GATES_RELEASE = False
+
+#: User, 2026-10-16: hardening stops at Arena's bar. A lineage ends as target-met
+#: when its screen meets CALIBRATION_TARGET_PASS_AT_1 (pass@1 <= 0.5) on BOTH
+#: models with every step at or under STEP_PASS_RATE_MAX -- re-derived from the
+#: screen's campaigns. The EXTREME band and the spread metrics below stay
+#: reported by every screen and recorded in the hardening ledger, but no longer
+#: decide when hardening stops: on a 3-episode screen (SCREEN_EPISODES_PER_MODEL)
+#: <= 0.3 means 0/3 and three distinct scores means every run differs, so
+#: lineages spent every attempt after meeting the bar. True restores the
+#: 2026-10-13 rule (extreme band and spread required).
+HARDEN_TARGET_REQUIRES_SIGNAL = False
 
 #: User, 2026-10-13: EXTREMELY hard. Hardening's band: full-success rate at or
 #: below this on BOTH models, on the task and on every step. Arena's general
