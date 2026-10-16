@@ -107,6 +107,45 @@ def cmd_keys(args) -> int:
     return 0 if not missing else 1
 
 
+def _with_dump(text: str, root: Path) -> str:
+    """workspace.toml with `[workspace] dump` set to `root` and every other line kept.
+
+    `arena dump --set` used to overwrite the whole file with the [workspace]
+    section alone, which silently dropped [coder] -- the pools, the template and
+    the shared workspace -- so the next `arena coder prepare` was refused
+    (2026-10-16). Only the dump line changes now; a result that does not parse,
+    or does not name `root`, is refused rather than written.
+    """
+    import re
+    import tomllib
+    line = f'dump = {json.dumps(str(root))}'
+    out: list[str] = []
+    in_workspace = seen_workspace = done = False
+    for raw in text.splitlines():
+        stripped = raw.strip()
+        if stripped.startswith("["):
+            if in_workspace and not done:
+                out.append(line)
+                done = True
+            in_workspace = stripped == "[workspace]"
+            seen_workspace = seen_workspace or in_workspace
+        elif in_workspace and not done and re.match(r"dump\s*=", stripped):
+            out.append(line)
+            done = True
+            continue
+        out.append(raw)
+    if in_workspace and not done:
+        out.append(line)
+        done = True
+    if not seen_workspace:
+        out = ["[workspace]", line, "", *out]
+    result = "\n".join(out).rstrip("\n") + "\n"
+    parsed = tomllib.loads(result)
+    if parsed.get("workspace", {}).get("dump") != str(root):
+        raise ValueError(f"workspace.toml would not name {root} as the dump")
+    return result
+
+
 def cmd_dump(args) -> int:
     """Show or set the trace dump this workspace works on."""
     from .config import dump_root
@@ -116,7 +155,8 @@ def cmd_dump(args) -> int:
         if not (root / "sessions").is_dir():
             print(f"{root} has no sessions/ directory -- that is not a trace dump.")
             return 2
-        WORKSPACE.write_text(f'[workspace]\ndump = "{root}"\n')
+        current = WORKSPACE.read_text() if WORKSPACE.is_file() else ""
+        WORKSPACE.write_text(_with_dump(current, root))
         count = len([d for d in (root / "sessions").iterdir() if d.is_dir()])
         print(f"workspace dump set to {root}  ({count} sessions)")
         return 0
