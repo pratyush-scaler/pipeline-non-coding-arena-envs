@@ -234,7 +234,7 @@ SPEC_EPISODES_PER_MODEL = 10
 #: re-measure after every manual hardening round. The SPEC_EPISODES_PER_MODEL
 #: campaign runs only on a task whose current screen measured cleanly (valid
 #: episodes, attributable failures, no unresolved reward hacking) -- never
-#: conditioned on its pass@1. Five episodes is enough to report pass@1, pass@4 (k <= n) and mean
+#: conditioned on its pass@1 (superseded 2026-10-16: QUALIFY_REQUIRES_SCREEN_TARGET). A screen reports pass@1, pass@k for k <= n, and mean
 #: reward per model; it is not a precise estimate, and the report says so.
 #:
 #: This replaced the one-episode presolve screen, which ran after every draft on

@@ -1628,7 +1628,9 @@ class TheScreenReportsWhatArenaAsked(unittest.TestCase):
         self.assertIn("claude-fable-5-1 p@1", text)
         self.assertIn("gpt-6-astra p@4", text)
         self.assertIn("a-001-screened", text)
-        self.assertEqual(doc["measurement"]["episodes_per_model"], policy.SCREEN_EPISODES_PER_MODEL)
+        self.assertEqual(doc["measurement"]["episodes_per_model"], 5)  # the width these records ran at
+        self.assertEqual(screen.report([])["measurement"]["episodes_per_model"],
+                         policy.SCREEN_EPISODES_PER_MODEL)
         self.assertEqual(doc["measurement"]["effort"], "high")
 
 

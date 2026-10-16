@@ -1,14 +1,15 @@
-"""Phase 4 -- the calibration screen: five episodes on each of two models.
+"""Phase 4 -- the calibration screen: policy.SCREEN_EPISODES_PER_MODEL (3) episodes on each of two models.
 
 The pipeline is select -> author -> grade -> calibrate, and it stops there.
 This module is the calibrate phase. It runs once the WHOLE requested batch has
 been authored and graded -- never per task, and never inside the design loop --
 and it runs again, by hand, after every hardening round. What it produces is a
-table: pass@1, pass@4 and mean reward per task per model, the failure
+table: pass@1 (pass@4 only when a screen has >= 4 episodes) and mean reward per task per model, the failure
 attribution behind every zero, and a hardening outlook per task.
 
-    screen                 5 episodes x 2 models   every new batch; every hardening round
-    calibration of record  10 episodes x 2 models  `arena qualify`, only once shippable
+    screen                 3 episodes x 2 models   every new batch; every hardening round
+    calibration of record  10 episodes x 2 models  `arena qualify`, only once shippable AND the
+                                                   screen met the target (QUALIFY_REQUIRES_SCREEN_TARGET)
 
 It replaced two things. The one-episode presolve, which ran after every draft
 on one model and sent "too easy" back into the design loop; and the in-build
@@ -798,7 +799,11 @@ def report(records: list[dict], not_screened: list[dict] | None = None) -> dict:
         "schema": "arena-pipeline/screen-report/1",
         "created_at": time.time(),
         "measurement": {"models": [primary, secondary],
-                        "episodes_per_model": policy.SCREEN_EPISODES_PER_MODEL,
+                        # the width the screened records were actually run at (older trees hold
+                        # five-episode screens); the policy width when none says
+                        "episodes_per_model": min((int(r["episodes_per_model"]) for r in records
+                                                   if r.get("episodes_per_model")),
+                                                  default=policy.SCREEN_EPISODES_PER_MODEL),
                         "effort": policy.SPEC_CALIBRATION_EFFORT,
                         "no_limits": policy.SPEC_NO_LIMITS,
                         "agent": "; ".join(
@@ -871,10 +876,15 @@ def markdown(doc: dict) -> str:
         lines += [f"- {r.get('slug')}: {r.get('status')} at {r.get('stage_reached')} -- "
                   f"{(r.get('error') or '; '.join(r.get('blockers') or []))[:200]}"
                   for r in doc["not_screened"]]
+    width = int((doc.get("measurement") or {}).get("episodes_per_model") or policy.SCREEN_EPISODES_PER_MODEL)
+    gate = ("only a task that measured cleanly AND met the target on both models may go to the "
+            "calibration of record (policy.QUALIFY_REQUIRES_SCREEN_TARGET)"
+            if policy.QUALIFY_REQUIRES_SCREEN_TARGET else
+            "every task that measured cleanly may go to the calibration of record")
     lines += ["", "The outlook is a heuristic over this screen, not a measurement, and is "
-              "not yet validated against hardening outcomes. Five episodes put pass@1 on a "
-              "0.2 grid; the calibration of record is ten. The target is strict but blocks "
-              "nothing: every task that measured cleanly may go to the calibration of record."]
+              f"not yet validated against hardening outcomes. {width} episodes put pass@1 on a "
+              f"{1 / width:.2f} grid; the calibration of record is "
+              f"{policy.SPEC_EPISODES_PER_MODEL}. The target never blocks release; {gate}."]
     return "\n".join(lines) + "\n"
 
 
