@@ -12,8 +12,9 @@
                                                            listing every failing item with its fix; exit 0 only if READY
     python3 -I b6ctl.py preflight [--model fable|astra|both]   GET /v1/models with each key in keys.env; prints NAME CODE
     python3 -I b6ctl.py launch <task-dir> pilot|final [ws] [--no-preflight] [--dry-run]
-                                                           measure.py launch (pilot = 5x2 + oracle/nop, final = 10x2);
-                                                           refuses unless both keys answer 200
+                                                           measure.py launch (pilot = 3x2 + oracle/nop, final = 10x2);
+                                                           refuses unless both keys answer 200; a final is refused
+                                                           unless the pilot is PILOT HARD with a clean census
     python3 -I b6ctl.py rerun-void <task-dir> pilot|final fable|astra [--no-preflight] [--dry-run]
                                                            measure.py launch --rerun-void, after that model's preflight
     python3 -I b6ctl.py wait <task-dir> pilot|final [--model fable|astra|both] [--every S] [--max S]
@@ -505,6 +506,12 @@ def _measure(argv: list[str], models, no_preflight: bool, dry_run: bool) -> int:
 
 
 def launch(task: Path, stage: str, ws: str | None, no_preflight: bool = False, dry_run: bool = False) -> int:
+    if stage == "final":
+        ok, why = final_gate(task)
+        if not ok:
+            print(f"REFUSED: final for {task.name} {version(task)}: {why}; the 10 x 2 final runs only after a pilot of "
+                  f"the same version that meets the criteria")
+            return 3
     argv = ["launch", str(task), "--stage", stage] + (["--ws", ws] if ws else [])
     return _measure(argv, MODELS, no_preflight, dry_run)
 
@@ -775,7 +782,8 @@ def blind_grade(task: Path, ws: Path) -> int:
 # --------------------------------------------------------------------------- run: launch, wait, voids once, gate, census
 
 FULL = 0.9999
-NEED = {"pilot": 5, "final": 10}  # valid runs per model
+NEED = {"pilot": 3, "final": 10}  # valid runs per model (pilot 3 x 2: user, 2026-10-16)
+NEAR_PILOT = 0.7                  # a pilot one run over the bar (2/3) is "near": tune, never a final
 RUN_EVERY = 180                   # seconds between status passes while `run` waits
 CENSUS = TOOLS / "census_answers.py"
 ME = f"python3 -I {shlex.quote(str(TOOLS / 'b6ctl.py'))}"
@@ -811,9 +819,27 @@ def stage_verdict(e: dict) -> tuple[str, str]:
             return "controls fail", (f"{figs}; oracle {(o.get('mean_reward') or 0):.2f}, "
                                      f"nop {(n.get('mean_reward') or 0):.2f}")
         return "PILOT HARD", figs
-    if stage == "pilot" and pf <= 0.6 and pa <= 0.6:
+    if stage == "pilot" and pf <= NEAR_PILOT and pa <= NEAR_PILOT:
         return "near", figs
     return "easy", figs
+
+
+def final_gate(task: Path) -> tuple[bool, str]:
+    """The 10 x 2 final is bought only on a pilot that meets the criteria (user, 2026-10-16): the latest pilot of this
+    version is PILOT HARD (both models pass@1 <= 0.5 on their valid runs, clean oracle/nop controls) and its answer
+    census is clean. measure.py enforces the pass@1 and controls part again on the exact digest."""
+    e = campaign(task, "pilot")
+    if e is None:
+        return False, "no pilot of this version"
+    verdict, figs = stage_verdict(e)
+    if verdict != "PILOT HARD":
+        return False, f"pilot is {verdict} ({figs})"
+    c = _read_rec("census", task, "-pilot.json")
+    if not c:
+        return False, f"pilot is PILOT HARD ({figs}) but its census has not run"
+    if c.get("error") or c.get("defects"):
+        return False, f"pilot is PILOT HARD ({figs}) but {_census_text(c)}"
+    return True, f"pilot PILOT HARD ({figs}); {_census_text(c)}"
 
 
 def next_after(verdict: str, task: Path, stage: str) -> tuple[str | None, list[str]]:
@@ -926,10 +952,13 @@ def run_stage(task: Path, stage: str, ws: str | None, max_min: float) -> int:
     print(f"== run {name} {ver} {stage}", flush=True)
     e = campaign(task, stage)
     if e is None:
-        if stage == "final" and campaign(task, "pilot") is None:
-            print(f"REFUSED: {name} {ver} has no pilot; the final runs only after a pilot of the same version\n"
-                  f"NEXT    {MEP} run {T} pilot")
-            return 2
+        if stage == "final":
+            ok, why = final_gate(task)
+            if not ok:
+                nxt = f"{MEP} run {T} pilot" if campaign(task, "pilot") is None else f"{ME} next {T}"
+                print(f"REFUSED: {name} {ver} final: {why}. The 10 x 2 final runs only after a pilot of the same "
+                      f"version that meets the criteria\nNEXT    {nxt}")
+                return 2
         print("== launch (key preflight first)", flush=True)
         rc = launch(task, stage, ws)
         if rc:
@@ -980,8 +1009,8 @@ def run_stage(task: Path, stage: str, ws: str | None, max_min: float) -> int:
 
 STOPS = {  # README-FLOW's STOP decisions, per stage (printed after "STOP")
     "author-check": "unless READY: the author fixes every listed item (each comes with its fix)",
-    "pilot": "unless PILOT HARD with a clean census: near -> harden (new version, back to author-check); "
-             "easy -> tune or retire",
+    "pilot": "unless PILOT HARD (3 x 2: pass@1 <= 0.5 on both, clean controls) with a clean census, no final is "
+             "launched: near (2/3) -> harden (new version, back to author-check); easy -> tune or retire",
     "final": "unless FINAL HARD (pass@1 <= 0.5 on both) with a mix and a clean census; anything else is a human call",
     "blind": "unless the reader reaches the reference, or the audit shows each miss to be the reader's",
     "audit": "SHIP or SHIP-WITH-DISCLOSURE goes to packaging; WITHHOLD goes back to the author",

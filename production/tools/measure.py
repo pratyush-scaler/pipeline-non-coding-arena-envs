@@ -5,9 +5,10 @@
     .venv/bin/python production/tools/measure.py table             # print the table from the ledger only
 
 `launch` freezes nothing by itself: it records the task's version and identity and refuses to measure the same
-version twice. Per launch it starts, on one pool, an oracle and a nop control (1 rollout each) and a fresh
-10-rollout campaign for each calibration model (Fable 5.1 in Claude Code, GPT-6 Astra in Codex, high effort,
-no limits, --legacy-diagnostic task semantics). Campaigns are never mixed: a revised task is a new version and
+version twice. A pilot starts, on one pool, an oracle and a nop control (1 rollout each) and a 3-rollout campaign
+for each calibration model (Fable 5.1 in Claude Code, GPT-6 Astra in Codex, high effort, no limits,
+--legacy-diagnostic task semantics); a final starts a fresh 10-rollout campaign per model, and is refused unless
+the latest pilot of the same digest meets the bar (`pilot_meets`: pass@1 <= 0.5 on both, clean controls). Campaigns are never mixed: a revised task is a new version and
 a new campaign. `status` reads each finished campaign's report.json on the pool, classifies voids, computes
 pass@1 = full-success trials / valid trials, pulls the output directory back, and writes the ledger
 (paths.LEDGER: production/state/ledger.json unless ARENA_LEDGER/ARENA_STATE say otherwise).
@@ -38,6 +39,37 @@ POOLS = paths.POOLS  # $ARENA_POOLS: your own Coder workspaces (tools/paths.py)
 MODELS = {"fable": "anthropic/claude-fable-5-1", "astra": "openai/gpt-6-astra"}
 OUT = paths.ARTIFACTS
 FULL = 0.9999
+# Rollouts per calibration model (user, 2026-10-16: the pilot is 3 x 2, and the 10 x 2 final runs only when the
+# pilot meets the bar). BAR is Arena's: task pass@1 <= 0.5 on BOTH models.
+PILOT_RUNS = 3
+FINAL_RUNS = 10
+BAR = 0.5
+
+
+def runs_for(stage: str) -> int:
+    return PILOT_RUNS if stage == "pilot" else FINAL_RUNS
+
+
+def pilot_meets(e: dict) -> tuple[bool, str]:
+    """Does this pilot entry clear the bar for a final? Both models done with >= PILOT_RUNS valid runs and
+    pass@1 <= BAR, and both controls finished clean (oracle full reward, nop below 0.5). Anything unfinished,
+    void or missing is NOT met: a final is never bought on a pilot that could not be read."""
+    runs = e.get("runs") or {}
+    why = []
+    for m in MODELS:
+        r = runs.get(m) or {}
+        if r.get("state") != "done":
+            why.append(f"{m} {r.get('state', 'missing')}")
+        elif (r.get("valid") or 0) < PILOT_RUNS:
+            why.append(f"{m} {r.get('valid') or 0}/{PILOT_RUNS} valid runs")
+        elif r.get("pass_at_1") is None or r["pass_at_1"] > BAR:
+            why.append(f"{m} pass@1 {r.get('pass_at_1')} > {BAR}")
+    o, n = runs.get("oracle") or {}, runs.get("nop") or {}
+    if o.get("state") != "done" or n.get("state") != "done":
+        why.append(f"controls not done (oracle {o.get('state', 'missing')}, nop {n.get('state', 'missing')})")
+    elif not ((o.get("mean_reward") or 0) >= FULL and (n.get("mean_reward") or 0) < 0.5):
+        why.append(f"controls fail (oracle {(o.get('mean_reward') or 0):.2f}, nop {(n.get('mean_reward') or 0):.2f})")
+    return (not why), "; ".join(why) or "pilot meets the bar"
 
 
 def load() -> dict:
@@ -119,7 +151,7 @@ def cmd_launch(args) -> int:
         push(e["ws"], task)
         old_run = e["runs"][m]
         out = OUT / f"{task.name}-{version}-{args.stage}-{m}-rerun{int(time.time())}"
-        n = args.rollouts or (5 if args.stage == "pilot" else 10)
+        n = args.rollouts or runs_for(args.stage)
         argv = ["benchmark", str(task), "--legacy-diagnostic", "-o", str(out), "--agent", "harness", "-m", MODELS[m],
                 "-r", str(n), "-j", str(n), "--effort", "high"]
         rec = coder_run.launch(e["ws"], argv, sync=False, staged=False)
@@ -131,10 +163,15 @@ def cmd_launch(args) -> int:
     for e in ledger["entries"]:
         if e["task"] == str(task) and e.get("stage", "final") == args.stage and (e["version"] == version or e["digest"] == digest):
             raise SystemExit(f"{task.name} {version} already has a {args.stage} campaign (entry {e['id']}); bump the version first")
-    if args.stage == "final":
+    if args.stage == "final" and not args.force_final:
         pilots = [e for e in ledger["entries"] if e["task"] == str(task) and e.get("stage") == "pilot" and e["digest"] == digest]
-        if not pilots and not args.force_final:
-            raise SystemExit("no pilot of this exact version: run the 5 x 2 pilot first (user, 2026-10-09)")
+        if not pilots:
+            raise SystemExit(f"no pilot of this exact version: run the {PILOT_RUNS} x 2 pilot first (user, 2026-10-09)")
+        met, why = pilot_meets(max(pilots, key=lambda p: p.get("launched_at", 0)))
+        if not met:
+            raise SystemExit(f"the pilot of this version does not meet the bar ({why}); the {FINAL_RUNS} x 2 final runs "
+                             f"only after a pilot that does (user, 2026-10-16). Run `measure.py status` if it is still "
+                             f"open; otherwise tune into a new version and pilot that")
     if not args.ws and not POOLS:
         raise SystemExit("no pool: pass --ws <your Coder workspace> or set ARENA_POOLS=<ws>[,<ws>...] (your own pools; "
                          "a pool another checkout uses refuses your campaigns)")
@@ -143,7 +180,7 @@ def cmd_launch(args) -> int:
     tag = f"{task.name}-{version}-{args.stage}"
     entry = {"id": f"{tag}@{int(time.time())}", "task": str(task), "name": task.name, "version": version, "stage": args.stage,
              "digest": digest, "ws": ws, "launched_at": time.time(), "runs": {}}
-    rollouts = args.rollouts or (5 if args.stage == "pilot" else 10)
+    rollouts = args.rollouts or runs_for(args.stage)
     with_controls = args.stage == "pilot" and not args.no_controls
     plan = [("oracle", "oracle", 1), ("nop", "nop", 1)] if with_controls else []
     plan += [(short, model, rollouts) for short, model in MODELS.items()]
@@ -261,7 +298,7 @@ def print_table(ledger: dict) -> None:
             pf, pa = f.get("pass_at_1"), a.get("pass_at_1")
             o, n = e["runs"].get("oracle", {}), e["runs"].get("nop", {})
             controls_ok = (o.get("mean_reward") or 0) >= FULL and (n.get("mean_reward") or 0) < 0.5 if o else None
-            need = 5 if e.get("stage") == "pilot" else 10
+            need = runs_for(e.get("stage", "final"))
             if f.get("valid", 0) < need or a.get("valid", 0) < need:
                 verdict = "TOP-UP voids"
             elif pf is not None and pa is not None and pf <= 0.5 and pa <= 0.5:
@@ -269,8 +306,8 @@ def print_table(ledger: dict) -> None:
                     verdict = "PILOT HARD -> readers+audit, then final" if controls_ok is not False else "controls fail"
                 else:
                     verdict = "FINAL HARD -> package"
-            elif pf is not None and pa is not None and pf <= 0.6 and pa <= 0.6 and e.get("stage") == "pilot":
-                verdict = "near (3/5) -> harden"
+            elif pf is not None and pa is not None and pf <= 0.7 and pa <= 0.7 and e.get("stage") == "pilot":
+                verdict = "near (2/3) -> harden"
             else:
                 verdict = "easy"
         print(f"{e['name'][:52]:52} {e['version']:7} {e.get('stage', 'final')[:6]:6} {e['ws']:13} {cell('oracle'):7} {cell('nop'):6} "
@@ -284,9 +321,11 @@ def main() -> int:
     la.add_argument("task")
     la.add_argument("--ws")
     la.add_argument("--stage", choices=["pilot", "final"], default="pilot",
-                    help="pilot = 5 x 2 + oracle/nop (default); final = fresh 10 x 2, only after a pilot of the same version")
+                    help=f"pilot = {PILOT_RUNS} x 2 + oracle/nop (default); final = fresh {FINAL_RUNS} x 2, only after a "
+                         "pilot of the same version that meets the bar (both pass@1 <= 0.5, clean controls)")
     la.add_argument("-r", "--rollouts", type=int, default=0)
-    la.add_argument("--force-final", action="store_true", help="allow a final without a recorded pilot")
+    la.add_argument("--force-final", action="store_true",
+                    help="HUMAN override only (b6ctl never passes it): launch a final without a pilot that meets the bar")
     la.add_argument("--no-controls", action="store_true")
     la.add_argument("--rerun-void", metavar="MODEL", choices=["fable", "astra"],
                     help="re-run ONLY this model of an existing campaign whose run is void-auth (infra loss is re-run; results are not)")

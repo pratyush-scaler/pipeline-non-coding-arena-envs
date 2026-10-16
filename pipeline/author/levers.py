@@ -544,8 +544,37 @@ FRAGILITY BUDGET (check_draft audits it, advisory):
 #: failures ever measured in this harness. Plain string: no f-string braces.
 MEASURED_BITES_PROMPT = """
 ================================================================================
-V3 DOCTRINE: MEASURED BITES (2026-10-05). READ THIS FIRST. Where the V2.x
-doctrine further down conflicts with this block, this block wins.
+B9 MEASURED (2026-10-16, 3 x 2 pilots of 13 hand-built non-coding tasks; 12 were
+EASY on Fable, clean censuses). READ THIS BEFORE EVERYTHING BELOW; it wins.
+================================================================================
+DEAD -- every one of these was solved by both models in every run:
+- An anchor that shares ANY token with a cell of the record it settles (a name,
+  weekday, date, route or unit word): the model joins on it (30/30 solved).
+  Grep every anchor against every column, not only the key.
+- A single worked figure printed with its inputs: the model executes it as an
+  assert (0/18 misses). A scoped rule ("For the X, ...") or a closed list used
+  as a shield: the model quotes the scope back (0/12).
+- A premise answerable from another premise's anchors (a bypass), a sentence
+  that states a line's nature or class, a blank unit on the record.
+- Both models print the whole folder in 1-3 commands and VOICE every conflict
+  they see: hiding, burying, volume and decoys buy nothing.
+WHAT BIT (build here; pilot-first, n=3 per premise):
+- FABLE, column not row: a structured column whose convention (running total,
+  cumulative, per-set) is witnessed on exactly ONE row by routine anchors; the
+  graded error sits on OTHER rows no anchor counts. Fable repairs the witnessed
+  row locally ("a copying slip") and keeps the rest (5/6 misses). Every
+  alternative reading must contradict a quoted line, or it is ambiguity.
+- FABLE, exemplar against a citable default: the governing document carries a
+  sentence that reads as the default's rationale without stating it ("whole
+  bags; nobody opens a bag" -> round up) and its OWN worked figure that only the
+  true convention fits; Fable overrules the figure with the sentence (3/3).
+- ASTRA, line transposition (T12) settled by first-hand descriptions while every
+  total still ties: missed 2/3 or 3/3 on four tasks; Fable reversed it 15/15.
+- Never grade a downstream figure the files witness directly against the
+  solver's own upstream: it failed correct answers (maize P4).
+================================================================================
+V3 DOCTRINE: MEASURED BITES (2026-10-05). Where the V2.x doctrine further down
+conflicts with this block, this block wins.
 ================================================================================
 WHAT V2 MEASURED:
 - About 24 dense v2 tasks scored pass@1 1.00/1.00, and so did lever labs L01-L29.

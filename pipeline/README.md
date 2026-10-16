@@ -91,7 +91,7 @@ runtime, recovery procedure and verification limits. Historical gate/calibration
 results below describe development drafts; they are not release certificates.
 
 The default production path is **inspect source → build the complete environment
-→ automated checks and independent semantic review → five-episode native
+→ automated checks and independent semantic review → three-episode native
 screens on both models**. `build` stops after the screen; the ten-episode
 calibration of record (`qualify`) and publication are separate commands.
 Authors do not wait for preliminary plan approval. Validity findings may receive

@@ -40,7 +40,7 @@ class StrictHardeningGoalTests(unittest.TestCase):
     def test_exact_models_effort_and_valid_episode_counts_are_required(self):
         original = self.screen(0.2)
         model = policy.resolve_calibration_models()[0]
-        for field, value in (("effort", "low"), ("episodes_valid", 4), ("episodes_valid", True),
+        for field, value in (("effort", "low"), ("episodes_valid", policy.SCREEN_EPISODES_PER_MODEL - 1), ("episodes_valid", True),
                              ("episodes_valid", float("nan")), ("pass_at_1", None), ("pass_at_1", True)):
             record = deepcopy(original)
             record["per_model"][model][field] = value

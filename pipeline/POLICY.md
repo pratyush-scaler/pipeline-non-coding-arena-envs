@@ -21,11 +21,12 @@ pilot removed; difficulty is authored in and measured once per batch.
 3  grade       validity only: gates, probes, controls, naming,     mixed
                tasks-check, semantic review. Never a difficulty check
    -- barrier: the whole requested batch is authored and graded --
-4  calibrate   SCREEN: 5 episodes x 2 models per task -> pass@1,   native
-               pass@4, mean reward, attribution, hardening outlook
+4  calibrate   SCREEN: 3 episodes x 2 models per task -> pass@1,   native
+               mean reward, attribution, hardening outlook (user 2026-10-16)
    -- the automatic pipeline STOPS here --
-5  harden      MANUAL ONLY; every round ends in another 5 x 2 screen
-   record      10 x 2 calibration of record, after a clean screen  native, manual
+5  harden      MANUAL ONLY; every round ends in another 3 x 2 screen
+   record      10 x 2 calibration of record, ONLY after a clean screen that met the target
+               (pass@1 <= 0.5 on both; QUALIFY_REQUIRES_SCREEN_TARGET)  native, manual
 ```
 
 Authoring is told, at the top of both its system prompt and its opening
@@ -53,7 +54,7 @@ together.
 | static gates, probes, controls | ~$0 | grader defects, leaks, weight drift, dead checks |
 | semantic review | ~$3 | incorrect graders, unsupported answers, unenforced rules, incoherent controls, hidden rules, ambiguity, privacy, duplication. **Never difficulty**: "too easy / recipe-driven / too little judgment" is a `difficulty_advisory` (user, 2026-09-26) -- recorded, shown in the screen report, read by hardening; the screen measures it |
 | `harbor tasks-check` | ~$1 | malformed packages |
-| **screen (5 x 2)** | **~$20** | **measured difficulty, attribution, hardening outlook -- reported, never a rejection** |
+| **screen (3 x 2)** | **~$20** | **measured difficulty, attribution, hardening outlook -- reported, never a rejection** |
 | calibration of record (10 x 2) | ~$39 | what ships; needs a clean screen, never a pass@1 |
 
 ### The screen and the calibration of record
@@ -403,7 +404,7 @@ task (user, 2026-09-25).
 | What counts | every designer call that returns a revision -- validity repairs included. A call that returned nothing (transport, provider) spends nothing |
 | Attempt 1 | the full brief, told it is the one attempt that must make the task extremely hard; nothing held back |
 | Later attempts | REPAIR an invalid revision (fix the cited findings only), or TIGHTEN a valid, screened one still short of the target -- the brief carries its training-signal shape and what that shape needs (add an independent premise, re-tune a constant one, split linked checks); never push one premise toward 0/10 |
-| After each valid revision | a 5 x 2 screen and a comparison with the version it revised |
+| After each valid revision | a 3 x 2 screen and a comparison with the version it revised |
 | Ends when | a screen meets the target -- every step ≤ `STEP_PASS_RATE_MAX`, any bound lineage goal, AND the training-signal target (pass@1 ≤ `EXTREME_PASS_AT_1_MAX` on both models and every step, no `FLAT`, `SORTING` or `CONSTANT_PREMISE`; re-derived from the screen's campaign reports, an unreadable signal never meets it); the budget is spent; a validity finding repeats or the finding set does not shrink; a screened revision moved pass@1 on neither model **measured on both sides** and cleared no training-signal flag (a parent with no measurement is "not comparable" and ends nothing); the designer rejects the source |
 | Never ends on | a screen that did not measure cleanly (voids, unattributable failures, an unresolved hack flag) -- the lineage stays open on that revision |
 | Resuming | `arena harden <vN> --apply`, or `arena harden <original> --apply`, which continues from the latest valid revision whose screen measured cleanly (and refuses while that revision is unmeasured) instead of restarting the redesign |
@@ -485,7 +486,7 @@ works perfectly.
 ./arena release <bundle>             # the only acceptance decision
 ./arena deliver envs-fresh -o batch  # file into F-level folders, a_f<n>_ names
 ./arena deliverable batch --sessions all-sessions.json    # the batch report
-./arena harden <bundle> [--apply]    # MANUAL -- each round ends in a 5 x 2 screen
+./arena harden <bundle> [--apply]    # MANUAL -- each round ends in a 3 x 2 screen
 ```
 
 ### Two trees

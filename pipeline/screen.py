@@ -84,21 +84,50 @@ def shippable_problems(bundle: Path, models: list[str] | None = None) -> list[st
     the caller's), never the receipt's own: a receipt claiming one episode or
     one model proves nothing. No screen of this version is a refusal, not a pass.
     """
+    return _verified(bundle, models)[0]
+
+
+def _verified(bundle: Path, models: list[str] | None) -> tuple[list[str], dict | None]:
+    """(shippable problems, the screen re-derived from its campaigns or None)."""
     record = current(bundle)
     if record is None:
         return [f"no calibration screen of this task version ({RECEIPT}); run "
                 f"`arena screen {bundle}` -- {policy.SCREEN_EPISODES_PER_MODEL} episodes "
-                "per model -- first"]
+                "per model -- first"], None
     models = list(models or policy.resolve_calibration_models())
     episodes = max(int(record.get("episodes_per_model") or 0), policy.SCREEN_EPISODES_PER_MODEL)
     try:
         fresh = summarize(bundle, record.get("index") or {}, episodes, models)
     except Exception as exc:                         # noqa: BLE001 -- unreadable is not shippable
-        return [f"the screen receipt could not be re-verified: {type(exc).__name__}: {exc}"]
+        return [f"the screen receipt could not be re-verified: {type(exc).__name__}: {exc}"], None
     problems = fresh["shippable_problems"]
     if problems and record.get("remedy"):
         problems = [record["remedy"], *problems]
-    return problems
+    return problems, fresh
+
+
+def qualify_problems(bundle: Path, models: list[str] | None = None) -> list[str]:
+    """Why the ten-episode calibration of record may not be LAUNCHED. [] = launch.
+
+    Every validity problem of `shippable_problems`, and -- under
+    policy.QUALIFY_REQUIRES_SCREEN_TARGET (user, 2026-10-16: "Only if the pilot
+    calibration meets the criteria then only run the full calibration") -- a
+    screen that did not meet the target: pass@1 <= CALIBRATION_TARGET_PASS_AT_1 on
+    BOTH models, re-derived from the screen's own campaigns, never read from the
+    stored verdict. A cost gate on the campaign, not a release gate.
+    """
+    problems, fresh = _verified(bundle, models)
+    if problems or not policy.QUALIFY_REQUIRES_SCREEN_TARGET:
+        return problems
+    if not (fresh or {}).get("meets_target"):
+        rates = ", ".join(f"{m} {(row or {}).get('pass_at_1')}" for m, row in
+                          ((fresh or {}).get("per_model") or {}).items()) or "not measured"
+        return [f"the screen of this version did not meet the target (pass@1 <= "
+                f"{policy.CALIBRATION_TARGET_PASS_AT_1} on both models; measured {rates}), so "
+                f"the {policy.SPEC_EPISODES_PER_MODEL}-episode calibration of record is not "
+                "bought (policy.QUALIFY_REQUIRES_SCREEN_TARGET): harden it into a new version "
+                "and screen that"]
+    return []
 
 
 def _short_only(row: dict) -> bool:
@@ -170,8 +199,10 @@ def run(bundle: Path, *, native_root: Path, models: list[str] | None = None,
         reused: dict[str, str] = {}
         short: dict[str, list[str]] = {}      # verified, short of episodes: top up
         discarded: dict[str, list[str]] = {}  # short, relaunched by the operator
-        if prior and prior.get("episodes_per_model") == episodes:
-            # Results are not re-run. A model this version was already screened
+        if prior and int(prior.get("episodes_per_model") or 0) >= episodes:
+            # Results are not re-run. A prior screen at least this wide (e.g. a
+            # five-episode screen from before the 3 x 2 width, user 2026-10-16)
+            # covers this one. A model this version was already screened
             # on keeps its campaign, whatever it SCORED -- but only if its
             # evidence verified. A campaign whose evidence is gone or changed
             # is replaced; one short of valid episodes is topped up.

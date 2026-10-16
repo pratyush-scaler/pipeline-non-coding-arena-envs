@@ -28,7 +28,7 @@ within-model pass/fail mix, at least 3 distinct scores per model and reward SD a
 
 ## Decide (write the reasoning at the top of DIAL.md)
 
-- A premise missed 5/5 or 10/10 by a model, with no blind reader or audit that reached it: STOP. Hand back "needs a
+- A premise missed in every pilot (3/3) or final (10/10) run of a model, with no blind reader or audit that reached it: STOP. Hand back "needs a
   blind reader before any dial". An unaudited 100% miss is presumed unfair.
 - Pass@1 above 0.5 on a model: one notch harder on a decisive premise aimed at that model. For Fable, remove one
   by-the-way anchor (the measured dial is one anchor per notch). For Astra, change the KIND of evidence (a receipt

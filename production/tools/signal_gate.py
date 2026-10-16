@@ -8,7 +8,7 @@ map (authoring/traps.json). Reports, per model and step:
   full passes / valid, distinct step scores, step-reward SD, per-premise miss rate, observed free share,
 and across both models: pairwise phi between premise failures, constant premises, model sorting.
 
-Verdict (final = 10 runs/model; pilot = 5):
+Verdict (final = 10 runs/model; pilot = 3, user 2026-10-16):
   EXTREME   task pass@1 <= 0.30 on BOTH models (primary Fable <= 0.20 preferred)          -- required
   SPREAD    every model x step: >= 3 distinct scores (pilot: >= 2) and reward SD >= 0.08    -- required
             (an all-identical model x step gives a group-relative learner nothing)

@@ -39,7 +39,7 @@ class ParallelQualificationTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary, ExitStack() as stack:
             # Qualification behaviour under test; the screen gate is tested
             # in test_spec_acceptance.
-            stack.enter_context(patch("pipeline.screen.shippable_problems", return_value=[]))
+            stack.enter_context(patch("pipeline.screen.qualify_problems", return_value=[]))
             root = Path(temporary)
             bundle = synthetic_bundle(root)
             spec = json.loads((bundle / 'authoring/spec.json').read_text())

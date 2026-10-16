@@ -628,20 +628,23 @@ def _qualify(bundle: Path, models: list[str], review_model: str, blind_model: st
     if retired:
         raise ValueError("; ".join(retired))
     bundle = bundle.resolve()
-    # User, 2026-09-25: the ten-episode calibration of record follows a
-    # five-episode screen of this exact version that measured cleanly -- valid
-    # episodes, every failure attributable, no unresolved reward hacking. Its
-    # pass@1 is never a condition: the target is strict but blocks nothing
-    # (policy.DIFFICULTY_GATES_RELEASE). A task whose calibration of record
-    # already exists for this version starts no new ten-episode campaign, so it
-    # is not gated here; native controls, semantic review and the diagnostic
-    # blind solve still run when their retained receipts are missing or stale.
+    # User, 2026-09-25: the ten-episode calibration of record follows a screen
+    # (policy.SCREEN_EPISODES_PER_MODEL per model) of this exact version that
+    # measured cleanly -- valid episodes, every failure attributable, no
+    # unresolved reward hacking. User, 2026-10-16: and only when that screen MET
+    # the target (pass@1 <= 0.5 on both models; policy.QUALIFY_REQUIRES_SCREEN_TARGET)
+    # -- a cost gate on launching the campaign; release itself is still never
+    # conditioned on pass@1 (policy.DIFFICULTY_GATES_RELEASE). A task whose
+    # calibration of record already exists for this version starts no new
+    # ten-episode campaign, so it is not gated here; native controls, semantic
+    # review and the diagnostic blind solve still run when their retained
+    # receipts are missing or stale.
     if not _calibrated(bundle, models, n):
-        from .screen import shippable_problems
-        if refused := shippable_problems(bundle, models):
-            raise ValueError("the task has no clean screen of this version, so the "
-                             f"{policy.SPEC_EPISODES_PER_MODEL}-episode calibration of record "
-                             "will not start: " + "; ".join(refused[:6]))
+        from .screen import qualify_problems
+        if refused := qualify_problems(bundle, models):
+            raise ValueError("the screen of this version does not admit the "
+                             f"{policy.SPEC_EPISODES_PER_MODEL}-episode calibration of record, "
+                             "so it will not start: " + "; ".join(refused[:6]))
     producer = strict_json((bundle / "authoring/spec.json").read_text()).get("_producer", {}).get("model")
     if not producer or review_model == producer:
         raise ValueError("qualification requires an identified author and a different semantic review model")

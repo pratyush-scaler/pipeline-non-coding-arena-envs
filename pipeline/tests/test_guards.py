@@ -1837,7 +1837,8 @@ class HardeningAcceptance(unittest.TestCase):
     def test_too_few_valid_episodes_rejects(self):
         from pipeline.harden import acceptance
         before, after = self._base()
-        after["by_model"]["one"]["episodes_valid"] = 4
+        from pipeline.policy import SCREEN_EPISODES_PER_MODEL
+        after["by_model"]["one"]["episodes_valid"] = SCREEN_EPISODES_PER_MODEL - 1
         self.assertFalse(acceptance(before, after, True, True, [])["accept"])
 
     def test_a_broken_gate_chain_rejects(self):

@@ -430,9 +430,9 @@ class Prompt(Workspace):
         (self.task / "authoring/PLAN.md").write_text("lead T2, aim astra")
         notes = self.root / "n.md"
         notes.write_text("dial {VERSION} once")
-        self.entry("pilot", {"oracle": ORACLE, "nop": NOP, "fable": done(5, 1), "astra": done(5, 2)},
-                   void_history=[{"astra": {**voided(5), "out": str(self.cdir("pilot", "astra", 1))}}])
-        write_report(self.cdir("pilot", "astra", 1), voided(5), self.ident)
+        self.entry("pilot", {"oracle": ORACLE, "nop": NOP, "fable": done(3, 1), "astra": done(3, 1)},
+                   void_history=[{"astra": {**voided(3), "out": str(self.cdir("pilot", "astra", 1))}}])
+        write_report(self.cdir("pilot", "astra", 1), voided(3), self.ident)
         os.environ["CLAUDE_SCRATCH"] = str(self.root)
         rc, out, err = self.cli("prompt", "tune", self.task, "--notes", notes)
         self.assertEqual(rc, 0, out)
@@ -494,21 +494,21 @@ class Run(Workspace):
                          ("pilot", "astra"): astra}
 
     def test_pilot_hard(self):
-        self.pilot_ok([RUNNING, done(5, 1)], [done(5, 2)])
+        self.pilot_ok([RUNNING, done(3, 1)], [done(3, 1)])
         rc, out, _ = self.cli("run", self.task, "pilot")
         self.assertEqual(rc, 0, out)
         self.assertEqual(len(self.measured("launch")), 1)
         self.assertFalse(self.measured("rerun"))
         self.assertIn("ANTHROPIC_API_KEY 200", out)
-        self.assertRegex(out, rf"VERDICT {NAME} {VER} pilot: PILOT HARD \(fable 1/5 pass@1 0\.20, astra 2/5 pass@1 "
-                              r"0\.40\); signal gate \S+; census clean \(2 rows\)")
+        self.assertRegex(out, rf"VERDICT {NAME} {VER} pilot: PILOT HARD \(fable 1/3 pass@1 0\.33, astra 1/3 pass@1 "
+                              r"0\.33\); signal gate \S+; census clean \(2 rows\)")
         self.assertIn(f"NEXT    {b6ctl.MEP} run {self.task} final", out)
         self.assertTrue((paths.GATES / f"{NAME}-{VER}-pilot.json").is_file())
         self.assertEqual(b6ctl._read_rec("census", self.task, "-pilot.json")["defects"], [])
         self.assertEqual(self.stage_of()[0], "author-check")  # nothing recorded an author-check here
 
     def test_void_is_rerun_once_and_the_void_dir_leaves_the_gate(self):
-        self.pilot_ok([done(5, 1)], [voided(5), done(5, 0)])
+        self.pilot_ok([done(3, 1)], [voided(3), done(3, 0)])
         rc, out, _ = self.cli("run", self.task, "pilot")
         self.assertEqual(rc, 0, out)
         reruns = self.measured("rerun")
@@ -516,11 +516,11 @@ class Run(Workspace):
         self.assertIn("== re-run void astra (once)", out)
         self.assertIn(f"skipping {self.cdir('pilot', 'astra').name}: the ledger records it as void", out)
         g = json.loads((paths.GATES / f"{NAME}-{VER}-pilot.json").read_text())
-        self.assertEqual(g["models"]["astra"]["valid"], 5, "the void campaign's trials must not count")
+        self.assertEqual(g["models"]["astra"]["valid"], 3, "the void campaign's trials must not count")
         self.assertIn("PILOT HARD", out)
 
     def test_void_twice_is_left_to_a_human(self):
-        self.pilot_ok([done(5, 1)], [voided(5), voided(5)])
+        self.pilot_ok([done(3, 1)], [voided(3), voided(3)])
         rc, out, _ = self.cli("run", self.task, "pilot")
         self.assertEqual(rc, 3, out)
         self.assertEqual(len(self.measured("rerun")), 1)
@@ -529,7 +529,7 @@ class Run(Workspace):
 
     def test_a_void_already_rerun_and_a_failed_run_are_not_rerun(self):
         self.entry("pilot", {"oracle": ORACLE, "nop": NOP, "fable": {"state": "failed", "error": "no report.json"},
-                             "astra": voided(5)}, void_history=[{"astra": voided(5)}])
+                             "astra": voided(3)}, void_history=[{"astra": voided(3)}])
         rc, out, _ = self.cli("run", self.task, "pilot")
         self.assertEqual(rc, 3, out)
         self.assertFalse([c for c in self.calls if c[0] == "measure" and c[1] == "launch"], "nothing is launched")
@@ -538,21 +538,21 @@ class Run(Workspace):
         self.assertIn("is already in the ledger: resuming", out)
 
     def test_timeout_resumes(self):
-        self.pilot_ok([RUNNING] * 5, [RUNNING] * 5)
+        self.pilot_ok([RUNNING] * 3, [RUNNING] * 3)
         rc, out, _ = self.cli("run", self.task, "pilot", "arena-calib-3", "--max", "0")
         self.assertEqual(rc, 124, out)
         self.assertIn("--ws arena-calib-3", " ".join(self.measured("launch")[0]))
         self.assertIn(f"NEXT    {b6ctl.MEP} run {self.task} pilot   (resumes the wait)", out)
-        self.outcomes = {k: [done(5, 0)] if k[1] in ("fable", "astra") else [ORACLE if k[1] == "oracle" else NOP]
+        self.outcomes = {k: [done(3, 0)] if k[1] in ("fable", "astra") else [ORACLE if k[1] == "oracle" else NOP]
                          for k in self.outcomes}
         rc, out, _ = self.cli("run", self.task, "pilot")
         self.assertEqual(rc, 0, out)
         self.assertEqual(len(self.measured("launch")), 1, "the second run resumes; it never launches again")
 
     def test_easy_near_and_controls(self):
-        for fable, astra, verdict, rc_want, text in ((done(5, 4), done(5, 4), "easy", 1, "tune or retire"),
-                                                     (done(5, 3), done(5, 2), "near", 1, "harden"),
-                                                     (done(5, 1), done(5, 1), "controls fail", 1, "controls fail")):
+        for fable, astra, verdict, rc_want, text in ((done(3, 3), done(3, 3), "easy", 1, "tune or retire"),
+                                                     (done(3, 2), done(3, 1), "near", 1, "harden"),
+                                                     (done(3, 1), done(3, 1), "controls fail", 1, "controls fail")):
             with self.subTest(verdict=verdict):
                 self.save({"entries": []})
                 nop = {**NOP, "mean_reward": 0.9} if verdict == "controls fail" else NOP
@@ -572,7 +572,7 @@ class Run(Workspace):
             with self.subTest(word=word):
                 self.save({"entries": []})
                 self.census_rows(rows)
-                self.pilot_ok([done(5, 1)], [done(5, 2)])
+                self.pilot_ok([done(3, 1)], [done(3, 1)])
                 rc, out, _ = self.cli("run", self.task, "pilot")
                 self.assertEqual(rc, 1, out)
                 self.assertIn("PILOT HARD", out)
@@ -590,8 +590,37 @@ class Run(Workspace):
         self.assertIn("NOT LAUNCHED", out)
         self.assertFalse(self.calls, "nothing reached measure.py")
 
+    def clean_pilot_census(self):
+        b6ctl._write_rec("census", self.task, {"stage": "pilot", "rc": 0, "rows": 2, "defects": [], "dirs": [],
+                                               "log": "x"}, "-pilot.json")
+
+    def test_final_only_after_a_pilot_that_meets_the_criteria(self):
+        """user 2026-10-16: the 10 x 2 final is launched only when the 3 x 2 pilot meets the bar."""
+        for fable, astra, want in ((done(3, 2), done(3, 1), "pilot is near"),
+                                   (done(3, 3), done(3, 0), "pilot is easy"),
+                                   (done(3, 1), done(3, 1), "census has not run")):
+            with self.subTest(want=want):
+                self.save({"entries": []})
+                self.entry("pilot", {"oracle": ORACLE, "nop": NOP, "fable": fable, "astra": astra})
+                rc, out, _ = self.cli("run", self.task, "final")
+                self.assertEqual(rc, 2, out)
+                self.assertIn(want, out)
+                rc, out, _ = self.cli("launch", self.task, "final", "--no-preflight")
+                self.assertEqual(rc, 3, out)
+                self.assertIn("REFUSED: final", out)
+                self.assertFalse(self.measured("launch"), "no final reached measure.py")
+        self.save({"entries": []})
+        self.entry("pilot", {"oracle": ORACLE, "nop": NOP, "fable": done(3, 1), "astra": done(3, 0)})
+        b6ctl._write_rec("census", self.task, {"stage": "pilot", "rc": 0, "rows": 2, "defects": ["x"], "dirs": [],
+                                               "log": "x"}, "-pilot.json")
+        rc, out, _ = self.cli("run", self.task, "final")
+        self.assertEqual(rc, 2, out)
+        self.assertIn("census DEFECT", out)
+        self.assertFalse(self.measured("launch"))
+
     def test_final_hard_points_at_the_blind_reader(self):
-        self.entry("pilot", {"oracle": ORACLE, "nop": NOP, "fable": done(5, 1), "astra": done(5, 2)})
+        self.entry("pilot", {"oracle": ORACLE, "nop": NOP, "fable": done(3, 1), "astra": done(3, 1)})
+        self.clean_pilot_census()
         self.outcomes = {("final", "fable"): [done(10, 3)], ("final", "astra"): [done(10, 2)]}
         rc, out, _ = self.cli("run", self.task, "final")
         self.assertEqual(rc, 0, out)
@@ -625,18 +654,18 @@ class Next(Workspace):
         stage, out = self.stage_of()
         self.assertEqual(stage, "pilot")
         self.assertIn(f"NEXT    {MEP} run {T} pilot", out)
-        self.assertIn("STOP    unless PILOT HARD with a clean census", out)
-        self.entry("pilot", {"oracle": ORACLE, "nop": NOP, "fable": RUNNING, "astra": done(5, 1)})
+        self.assertIn("STOP    unless PILOT HARD (3 x 2: pass@1 <= 0.5 on both, clean controls) with a clean census", out)
+        self.entry("pilot", {"oracle": ORACLE, "nop": NOP, "fable": RUNNING, "astra": done(3, 1)})
         stage, out = self.stage_of()
         self.assertEqual(stage, "pilot")
         self.assertIn("resumes the wait", out)
         self.save({"entries": []})
-        self.entry("pilot", {"oracle": ORACLE, "nop": NOP, "fable": done(5, 1), "astra": voided(5)})
+        self.entry("pilot", {"oracle": ORACLE, "nop": NOP, "fable": done(3, 1), "astra": voided(3)})
         stage, out = self.stage_of()
         self.assertIn("-> VOID", out)
         self.assertIn("infrastructure loss", out)
         self.save({"entries": []})
-        self.entry("pilot", {"oracle": ORACLE, "nop": NOP, "fable": done(5, 1), "astra": done(5, 2)})
+        self.entry("pilot", {"oracle": ORACLE, "nop": NOP, "fable": done(3, 1), "astra": done(3, 1)})
         stage, out = self.stage_of()
         self.assertEqual(stage, "pilot")
         self.assertIn("gate + census on the finished campaign", out)
@@ -692,14 +721,14 @@ class Next(Workspace):
         self.assertIn("but the tree has changed since", out)
         shutil.rmtree(self.task)
         shutil.copytree(REF, self.task, ignore=shutil.ignore_patterns("__pycache__", ".DS_Store"))
-        self.entry("pilot", {"oracle": ORACLE, "nop": NOP, "fable": done(5, 3), "astra": done(5, 2)})
+        self.entry("pilot", {"oracle": ORACLE, "nop": NOP, "fable": done(3, 2), "astra": done(3, 1)})
         self.checks("pilot")
         stage, out = self.stage_of()
         self.assertEqual(stage, "pilot")
         self.assertIn("near: harden", out)
         self.assertIn(f"prompt tune {self.task}", out)
         self.save({"entries": []})
-        self.entry("pilot", {"oracle": ORACLE, "nop": NOP, "fable": done(5, 1), "astra": done(5, 2)})
+        self.entry("pilot", {"oracle": ORACLE, "nop": NOP, "fable": done(3, 1), "astra": done(3, 1)})
         self.checks("pilot", "    -pilot-fable d 01-task reward=1.0 diff_fields=['f.json.n: ref=1 got=2']\n")
         stage, out = self.stage_of()
         self.assertEqual(stage, "pilot")
@@ -743,7 +772,7 @@ class Ship(Workspace):
         paths.GATES.mkdir(parents=True, exist_ok=True)
         (paths.GATES / f"{NAME}-{VER}-final.json").write_text(json.dumps(
             {"verdict": "IN_BAND", "models": {"fable": {"pass_at_1": 0.3}, "astra": {"pass_at_1": 0.1}}}))
-        self.entry("pilot", {"oracle": ORACLE, "nop": NOP, "fable": done(5, 1), "astra": done(5, 2)})
+        self.entry("pilot", {"oracle": ORACLE, "nop": NOP, "fable": done(3, 1), "astra": done(3, 1)})
         self.void0 = self.cdir("final", "astra")
         write_report(self.void0, done(10, 0), self.ident)  # a void-auth report can look valid; the ledger decides
         self.rerun = self.cdir("final", "astra", 1)

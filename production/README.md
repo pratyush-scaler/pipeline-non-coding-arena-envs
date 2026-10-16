@@ -51,7 +51,7 @@ python3 -I production/traps/traplib.py build    # library.json + TRAP-LIBRARY.md
 | 3 | plan the batch | `seeds.json` = `[{"seed", "domain", "trace_traps": "<.../sessions/<id>.json>"}]`; `python3 -I production/tools/plan_batch.py seeds.json --out production/state/plans/<batch>` | `PLAN OK` (exit 1 = a seed unplanned or a lead quota relaxed: change the seed list) |
 | 4 | author | one author per seed with `briefs/AUTHOR-BRIEF-B8.md` + `production/state/plans/<batch>/briefs/<seed>.md` | the author hands back READY |
 | 5 | author-check | `python3 -I production/tools/b6ctl.py author-check "$T"` | **READY** (every failing item comes with its fix) |
-| 6 | pilot 5 x 2 | `b6ctl.py launch "$T" pilot`, `wait "$T" pilot`, `gate "$T" pilot`, `tools/census_answers.py --deep "$T" <pilot dirs>` | PILOT HARD and a clean census; a trap missed 5/5 gets a blind reader before any dial |
+| 6 | pilot 3 x 2 | `b6ctl.py launch "$T" pilot`, `wait "$T" pilot`, `gate "$T" pilot`, `tools/census_answers.py --deep "$T" <pilot dirs>` | PILOT HARD (both pass@1 <= 0.5: at most 1 of 3 full per model; clean controls) and a clean census: only then a final (`b6ctl` refuses one otherwise; user 2026-10-16). A trap missed 3/3 gets a blind reader before any dial |
 | 7 | final 10 x 2 | `b6ctl.py launch "$T" final`, `wait`, `gate "$T" final`, census | FINAL HARD (pass@1 <= 0.5 both) with a mix and a clean census |
 | 8 | blind reader | `b6ctl.py blind-prep "$T" --out "$SCR"` -> one fresh Opus reader per step -> `b6ctl.py blind-grade "$T" <ws>` | the reader reaches the reference, or each miss is shown to be the reader's |
 | 9 | §14 audit | an independent auditor with `briefs/AUDIT-BRIEF-B6.md` (and `REAUDIT-BRIEF-B7.md` on a disputed verdict) | SHIP or SHIP-WITH-DISCLOSURE |

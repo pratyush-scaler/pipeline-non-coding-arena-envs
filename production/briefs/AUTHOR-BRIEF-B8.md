@@ -20,7 +20,9 @@ repo root. Python for everything you execute in a task: `python3.11 -I -B` (the 
 | trap spread | no clock trap as the primary failure; no family heaviest in more than ~20-25% of a batch (`plan_batch.py`, `batch_diversity.py`) |
 | validity | every failing premise GENUINE under the §14 audit; a blind reader reaches the reference |
 
-A miss rate from 5 runs is noise (the same text measured 2/5, then 5/5): pilots triage, finals decide. Treat any
+The pilot is 3 x 2 (user, 2026-10-16) and only triages: a miss rate from 3 or 5 runs is noise (the same text measured
+2/5, then 5/5). Only a pilot that meets the bar (pass@1 <= 0.5 on both, clean controls and census) earns the 10 x 2
+final, and the final decides. Author the hardest legitimate version first: a pilot that misses the bar costs a tune. Treat any
 unaudited 100% miss as ambiguity until a blind reader and the §14 audit say otherwise.
 
 ## 1. What decides trap design (measured: 1,129 premise units, 12,685 premise-runs; `research/`)

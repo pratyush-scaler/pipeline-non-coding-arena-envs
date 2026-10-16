@@ -224,7 +224,8 @@ BATCH_UNDER_SPEC_DIFFICULTY_MIN = 0.90
 #: This is a floor on *valid* episodes. Voids do not count toward it, which is
 #: the whole point of counting them separately. It is the calibration OF RECORD
 #: -- what ships -- and it runs once a screen of the version measured cleanly
-#: (never conditioned on pass@1: `DIFFICULTY_GATES_RELEASE`).
+#: AND met the target (user, 2026-10-16: QUALIFY_REQUIRES_SCREEN_TARGET; release
+#: itself is still never conditioned on pass@1: `DIFFICULTY_GATES_RELEASE`).
 SPEC_EPISODES_PER_MODEL = 10
 
 #: User, 2026-09-25: episodes per model in a calibration SCREEN. Two screens
@@ -238,7 +239,25 @@ SPEC_EPISODES_PER_MODEL = 10
 #:
 #: This replaced the one-episode presolve screen, which ran after every draft on
 #: one model and fed its verdict back into the design loop.
-SCREEN_EPISODES_PER_MODEL = 5
+#:
+#: User, 2026-10-16: "the pilot calibration to be 3 attempts per model instead of
+#: 5 attempts. Only if the pilot calibration meets the criteria then only run the
+#: full calibration" -- for that batch "and also moving forward". Three episodes
+#: per model: pass@1 moves in steps of 1/3, so the target (<= 0.5) is met by at
+#: most one full pass of three per model, and pass@4 is not reported for a screen
+#: (k > n; `metrics.pass_at_k` returns None). See QUALIFY_REQUIRES_SCREEN_TARGET.
+SCREEN_EPISODES_PER_MODEL = 3
+
+#: User, 2026-10-16 (same instruction): the SPEC_EPISODES_PER_MODEL calibration of
+#: record is bought only for a task version whose screen MET the target --
+#: pass@1 <= CALIBRATION_TARGET_PASS_AT_1 on BOTH calibration models -- on top of
+#: measuring cleanly (`screen.shippable_problems`). This is a COST gate on
+#: launching the ten-episode campaign (`screen.qualify_problems`, read by
+#: `release.qualify`), not a release gate: DIFFICULTY_GATES_RELEASE stays False,
+#: and a task whose calibration of record already exists is not re-gated. A task
+#: whose screen misses the target is hardened (a new version, a new screen) or
+#: reported as measured; it never gets a ten-episode campaign on a missed screen.
+QUALIFY_REQUIRES_SCREEN_TARGET = True
 
 #: Spec, "Task-Level checks": "Report pass@1, pass@4, and average reward per
 #: task." pass@k needs at least k episodes to mean anything.

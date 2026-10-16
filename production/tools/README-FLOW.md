@@ -33,7 +33,7 @@ SCR="${CLAUDE_SCRATCH:?set CLAUDE_SCRATCH}"  # parent dir for reader workspaces 
 3. `python3 -I "$B6" preflight`: prints `ANTHROPIC_API_KEY <code>` and `OPENAI_API_KEY <code>`.
    **STOP** on anything but 200: a human fixes `keys.env`. Never paste or print a key.
 
-## Pilot (5 x 2 + oracle/nop)
+## Pilot (3 x 2 + oracle/nop; user 2026-10-16)
 
 4. `python3 -I "$B6" launch "$T" pilot [<your pool>]`: the preflight runs again, and the launch is refused on a
    non-200 (`--no-preflight` overrides; `--dry-run` only prints the measure.py command).
@@ -44,20 +44,22 @@ SCR="${CLAUDE_SCRATCH:?set CLAUDE_SCRATCH}"  # parent dir for reader workspaces 
 7. `python3 -I "$B6" gate "$T" pilot`, then the verdict column of
    `"$R/.venv/bin/python" -B "$TOOLS/measure.py" table`.
    **STOP**:
-   - PILOT HARD: go to step 8 (census), then the final (step 9).
-   - near: harden. The author bumps the version and you return to step 0.
+   - PILOT HARD (pass@1 <= 0.5 on both = at most 1 of 3 full per model, clean controls): go to step 8 (census),
+     then the final (step 9). Nothing else earns a final: `launch`/`run` refuse it (`final_gate`), and so does
+     `measure.py` (`pilot_meets`) on the exact digest.
+   - near (2/3 on a model): harden. The author bumps the version and you return to step 0.
    - easy: tune or retire.
 8. `python3 -I "$TOOLS/census_answers.py" --deep "$T" "$A-pilot-fable" "$A-pilot-astra"`. Add any `-rerun<ts>`
    dirs by name. **STOP** if a full-reward run differs from the reference: that is a grader defect, and the task
    goes back to the author.
 
-## Final (fresh 10 x 2, same version)
+## Final (fresh 10 x 2, same version; only after PILOT HARD with a clean census)
 
 9. Run `python3 -I "$B6" launch "$T" final`, then `wait "$T" final` and, on a void, `rerun-void "$T" final <model>`.
 10. Run `gate "$T" final` and then census (step 8) on `"$A-final-fable" "$A-final-astra"`.
     **STOP**: FINAL HARD with a clean census goes to the blind reader and audit. Anything else is a human call.
 
-## Blind reader and audit (after the final; after the pilot too when a trap was missed 5/5)
+## Blind reader and audit (after the final; after the pilot too when a trap was missed 3/3)
 
 11. `python3 -I "$B6" blind-prep "$T" --out "$SCR"`. Paste the printed prompt into ONE Opus agent. For a
     multi-step task, use one fresh agent per step, in the printed order, on the same workspace.

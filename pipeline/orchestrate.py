@@ -955,9 +955,10 @@ def main(argv: list[str] | None = None) -> int:
         print(f"-> {report_path}")
         print("The pipeline stops here. pass@1 < 0.5 on both models is the strict "
               "target; it blocks nothing. Harden by hand (`arena harden <task> --apply`, "
-              f"at most {_policy.MAX_HARDENING_ATTEMPTS} attempts per task); any task whose "
-              f"screen measured cleanly may take the {_policy.SPEC_EPISODES_PER_MODEL}-episode "
-              "calibration of record (`arena qualify`).")
+              f"at most {_policy.MAX_HARDENING_ATTEMPTS} attempts per task); a task whose "
+              f"screen measured cleanly AND met the target on both models may take the "
+              f"{_policy.SPEC_EPISODES_PER_MODEL}-episode calibration of record (`arena qualify`; "
+              "policy.QUALIFY_REQUIRES_SCREEN_TARGET).")
     validated = report["status_counts"].get("validated", 0) == report["tasks"]
     screened_ok = screened is None or all(not r.get("error") for r in screened["rows"])
     return 0 if validated and screened_ok else 1
